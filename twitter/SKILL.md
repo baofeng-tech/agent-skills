@@ -359,7 +359,7 @@ python3 {baseDir}/scripts/twitter_client.py send-dm --cookies "<login_cookies>" 
 | API | Cost |
 |-----|------|
 | Twitter read query | ~$0.0004 |
-| Twitter post/like/retweet | ~$0.001 |
+| Twitter post/like/retweet | ~$0.003 |
 
 Every response includes `usage.cost` and `usage.credits_remaining`.
 
