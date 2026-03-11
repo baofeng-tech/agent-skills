@@ -202,7 +202,7 @@ python scripts/aisa_client.py llm chat --model claude-3-sonnet --messages '[{"ro
 | API | Cost |
 |-----|------|
 | Twitter query | ~$0.0004 |
-| Twitter post/like | ~$0.001 |
+| Twitter post/like | ~$0.003 |
 | Web search | ~$0.001 |
 | Scholar search | ~$0.002 |
 | News | ~$0.001 |
