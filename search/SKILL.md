@@ -248,5 +248,9 @@ Use `messages` because the AIsa Perplexity endpoints are presented as "Ask AI" e
 
 ## Full API Reference
 
-- [AIsa API docs](https://docs.aisa.one/reference/post_perplexity-sonar)
-- [AIsa homepage](https://aisa.one)
+See [API Reference](https://docs.aisa.one/reference/) for complete endpoint documentation.
+
+## Resources
+
+- [AIsa Verity](https://github.com/AIsa-team/verity) - Reference implementation of confidence-scored search agent
+- [AIsa Documentation](https://docs.aisa.one) - Complete API documentation
