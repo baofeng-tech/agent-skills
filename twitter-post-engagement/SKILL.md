@@ -2,7 +2,7 @@
 name: openclaw-twitter-oauth
 description: "Publish posts to X/Twitter through an OAuth-based authorization flow. If posting requires authorization, return an approval link so the user can grant access and continue posting."
 homepage: https://openclaw.ai
-metadata: {"openclaw":{"emoji":"\ud83d\udd10","requires":{"bins":["python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+metadata: {"openclaw":{"emoji":"🔐","requires":{"bins":["python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
 ---
 
 # OpenClaw Twitter OAuth
