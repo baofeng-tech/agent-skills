@@ -4,7 +4,7 @@ Twitter relay client for local OAuth authorization and tweet publishing.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
-    python twitter_oauth_client.py post --text "Hello" [--media-id <id> ...] [--in-reply-to-tweet-id <id>]
+    python twitter_oauth_client.py post --text "Hello" [--media-id <id> ...] [--quote_tweet_id <id>]
     python twitter_oauth_client.py status
 """
 
@@ -23,6 +23,8 @@ from typing import Any, Dict, Optional
 
 DEFAULT_TIMEOUT = 30
 DEFAULT_BASE_URL = "https://api.aisa.one/apis/v1"
+# DEFAULT_BASE_URL = "https://prebuccal-krysta-prelusorily.ngrok-free.dev"
+
 
 
 class RelayConfigError(ValueError):
@@ -172,12 +174,73 @@ def extract_tweet_id(result: Dict[str, Any]) -> Optional[str]:
     return str(tweet_id) if tweet_id else None
 
 
+def publish_chunks(
+    config: Dict[str, Any],
+    chunks: list[str],
+    media_ids: Optional[list[str]] = None,
+    initial_quote_tweet_id: Optional[str] = None,
+) -> Dict[str, Any]:
+    should_thread = len(chunks) > 1
+    previous_tweet_id = initial_quote_tweet_id
+    publish_results = []
+
+    for index, chunk in enumerate(chunks):
+        current_media_ids = media_ids if index == 0 and media_ids else None
+        result = post_single_tweet(
+            config,
+            content=chunk,
+            media_ids=current_media_ids,
+            quote_tweet_id=previous_tweet_id,
+        )
+        publish_results.append(
+            {
+                "index": index + 1,
+                "content": chunk,
+                "quote_tweet_id": previous_tweet_id,
+                "result": result,
+            }
+        )
+        if result.get("ok") is False or result.get("code") != 200:
+            return {
+                "ok": False,
+                "relay_base_url": config["base_url"],
+                "aisa_api_key": config["aisa_api_key"],
+                "is_thread": should_thread,
+                "total_chunks": len(chunks),
+                "failed_at_chunk": index + 1,
+                "results": publish_results,
+            }
+
+        latest_tweet_id = extract_tweet_id(result)
+        if not latest_tweet_id:
+            return {
+                "ok": False,
+                "relay_base_url": config["base_url"],
+                "aisa_api_key": config["aisa_api_key"],
+                "is_thread": should_thread,
+                "total_chunks": len(chunks),
+                "failed_at_chunk": index + 1,
+                "error": "Missing tweet_id in relay response.",
+                "results": publish_results,
+            }
+        previous_tweet_id = latest_tweet_id
+
+    return {
+        "ok": True,
+        "relay_base_url": config["base_url"],
+        "aisa_api_key": config["aisa_api_key"],
+        "is_thread": should_thread,
+        "total_chunks": len(chunks),
+        "results": publish_results,
+    }
+
+
 def post_single_tweet(
     config: Dict[str, Any],
     *,
     content: str,
     media_ids: Optional[list[str]] = None,
-    in_reply_to_tweet_id: Optional[str] = None,
+    quote_tweet_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     payload: Dict[str, Any] = {
         "aisa_api_key": config["aisa_api_key"],
@@ -185,8 +248,8 @@ def post_single_tweet(
     }
     if media_ids:
         payload["media_ids"] = media_ids
-    if in_reply_to_tweet_id:
-        payload["in_reply_to_tweet_id"] = in_reply_to_tweet_id
+    if quote_tweet_id:
+        payload["quote_tweet_id"] = quote_tweet_id
 
     return send_json_request(
         f"{config['base_url']}/twitter/post_twitter",
@@ -227,70 +290,21 @@ def command_authorize(args: argparse.Namespace) -> None:
 
 
 def command_post(args: argparse.Namespace) -> None:
+    """Split oversized content locally, then publish chunks through the relay."""
     config = load_config(args)
     chunks = split_text_for_twitter(args.text)
     if not chunks:
         print(json.dumps({"ok": False, "error": "Post content must not be empty."}, indent=2, ensure_ascii=False))
         sys.exit(1)
-
-    should_thread = len(chunks) > 1
-    previous_tweet_id = args.in_reply_to_tweet_id
-    publish_results = []
-
-    for index, chunk in enumerate(chunks):
-        media_ids = args.media_id if index == 0 else None
-        result = post_single_tweet(
-            config,
-            content=chunk,
-            media_ids=media_ids,
-            in_reply_to_tweet_id=previous_tweet_id,
-        )
-        publish_results.append(
-            {
-                "index": index + 1,
-                "content": chunk,
-                "in_reply_to_tweet_id": previous_tweet_id,
-                "result": result,
-            }
-        )
-        if result.get("ok") is False or result.get("code") != 200:
-            output = {
-                "ok": False,
-                "relay_base_url": config["base_url"],
-                "aisa_api_key": config["aisa_api_key"],
-                "is_thread": should_thread,
-                "total_chunks": len(chunks),
-                "failed_at_chunk": index + 1,
-                "results": publish_results,
-            }
-            print(json.dumps(output, indent=2, ensure_ascii=False))
-            sys.exit(1)
-
-        latest_tweet_id = extract_tweet_id(result)
-        if not latest_tweet_id:
-            output = {
-                "ok": False,
-                "relay_base_url": config["base_url"],
-                "aisa_api_key": config["aisa_api_key"],
-                "is_thread": should_thread,
-                "total_chunks": len(chunks),
-                "failed_at_chunk": index + 1,
-                "error": "Missing tweet_id in relay response.",
-                "results": publish_results,
-            }
-            print(json.dumps(output, indent=2, ensure_ascii=False))
-            sys.exit(1)
-        previous_tweet_id = latest_tweet_id
-
-    output = {
-        "ok": True,
-        "relay_base_url": config["base_url"],
-        "aisa_api_key": config["aisa_api_key"],
-        "is_thread": should_thread,
-        "total_chunks": len(chunks),
-        "results": publish_results,
-    }
+    output = publish_chunks(
+        config,
+        chunks,
+        media_ids=getattr(args, "media_id", None),
+        initial_quote_tweet_id=getattr(args, "quote_tweet_id", None),
+    )
     print(json.dumps(output, indent=2, ensure_ascii=False))
+    if not output["ok"]:
+        sys.exit(1)
 
 
 def command_status(args: argparse.Namespace) -> None:
@@ -330,8 +344,8 @@ def build_parser() -> argparse.ArgumentParser:
         help="Media ID to attach. Repeat the flag to send multiple media IDs.",
     )
     post.add_argument(
-        "--in-reply-to-tweet-id",
-        help="Optional parent tweet ID. Useful when replying or continuing an existing thread.",
+        "--quote_tweet_id",
+        help="Optional tweet ID to quote. When long content is split, later chunks quote the previously posted tweet.",
     )
     post.set_defaults(func=command_post)
 

@@ -49,8 +49,8 @@ python3 {baseDir}/scripts/twitter_oauth_client.py authorize --open-browser
 # Publish a post
 python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Hello from Twitter OAuth"
 
-# Reply to a specific tweet
-python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Reply content" --in-reply-to-tweet-id "1888888888888888888"
+# quote to a specific tweet
+python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Reply content" --quote_tweet_id "1888888888888888888"
 
 ```
 
@@ -75,10 +75,14 @@ Show the current local client configuration.
 Request an authorization link for the current user context.
 
 ### `post`
+Publish a post.
 
-Publish a post. If content exceeds 280 characters, the client automatically splits it and publishes a chained thread where each follow-up tweet replies to the previous tweet using `in_reply_to_tweet_id`.
-
-If the current user is not authorized yet, the caller should guide the user through authorization and retry posting afterward.
+#### Character Limit & Thread Splitting Rules:
+1. Maximum 280 characters per tweet (Chinese/full-width characters/Emojis count as 1 character each);
+2. If content exceeds 280 characters:
+   - The Python client automatically splits content into chunks before publishing;
+   - Follow-up chunks are published as a chained thread by quoting the previous tweet with `quote_tweet_id`;
+3. If any chunk fails to post, the entire thread publishing stops and returns an error.
 
 ## Agent Instructions
 
