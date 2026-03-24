@@ -49,8 +49,8 @@ python3 {baseDir}/scripts/twitter_oauth_client.py authorize --open-browser
 # Publish a post
 python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Hello from Twitter OAuth"
 
-# quote to a specific tweet
-python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Reply content" --quote_tweet_id "1888888888888888888"
+# Publish a reply only when the user explicitly asks to reply
+python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Hello from Twitter OAuth" --type reply
 
 ```
 
@@ -81,8 +81,7 @@ Publish a post.
 1. Maximum 280 characters per tweet (Chinese/full-width characters/Emojis count as 1 character each);
 2. If content exceeds 280 characters:
    - The Python client automatically splits content into chunks before publishing;
-   - Follow-up chunks are published as a chained thread by quoting the previous tweet with `quote_tweet_id`;
-3. If any chunk fails to post, the entire thread publishing stops and returns an error.
+3. If any chunk fails to post, the multi-chunk publishing process stops and returns an error.
 
 ## Agent Instructions
 
@@ -90,11 +89,16 @@ When the user asks to publish content to X/Twitter:
 
 1. Check whether `AISA_API_KEY` is configured.
 2. Try `post` first when the user intent is to publish content.
-3. If posting indicates that authorization is required, run `authorize` and return the approval link.
-4. Do not claim the post succeeded until the publish step actually succeeds.
+3. Default to `--type quote` for publishing. Only pass `--type reply` when the user explicitly says they want to reply.
+4. In this skill, `reply` only controls the `type` argument passed to the Python client. It does not require asking the user for a target tweet URL or tweet ID.
+5. If the user says things like `use reply mode to post: ...`, `使用reply方式发送推文：...`, or `reply发这条：...`, run the `post` command directly with `--type reply`.
+6. Do not ask follow-up questions about which tweet to reply to unless the user explicitly asks to target a specific tweet.
+7. If posting indicates that authorization is required, run `authorize` and return the approval link.
+8. Do not claim the post succeeded until the publish step actually succeeds.
 
 ## Guardrails
 
 - Do not ask the user for their Twitter password.
 - Do not use cookie-based login or proxy-based login unless the user explicitly asks for legacy behavior.
 - Do not claim authorization succeeded just because an authorization URL was generated.
+- Do not ask for a tweet link or tweet ID just because the user requested `reply`; use `--type reply` directly.

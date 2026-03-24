@@ -4,7 +4,7 @@ Twitter relay client for local OAuth authorization and tweet publishing.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
-    python twitter_oauth_client.py post --text "Hello" [--media-id <id> ...] [--quote_tweet_id <id>]
+    python twitter_oauth_client.py post --text "Hello" [--media-id <id> ...] [--type <quote|reply>]
     python twitter_oauth_client.py status
 """
 
@@ -22,8 +22,8 @@ from typing import Any, Dict, Optional
 
 
 DEFAULT_TIMEOUT = 30
-DEFAULT_BASE_URL = "https://api.aisa.one/apis/v1"
-# DEFAULT_BASE_URL = "https://prebuccal-krysta-prelusorily.ngrok-free.dev"
+# DEFAULT_BASE_URL = "https://api.aisa.one/apis/v1"
+DEFAULT_BASE_URL = "https://prebuccal-krysta-prelusorily.ngrok-free.dev"
 
 
 
@@ -47,10 +47,9 @@ def normalize_base_url(base_url: str) -> str:
 
 def load_config(args: argparse.Namespace) -> Dict[str, Any]:
     base_url = normalize_base_url(
-        getattr(args, "base_url", None) or get_env("TWITTER_RELAY_BASE_URL", DEFAULT_BASE_URL)
+        get_env("TWITTER_RELAY_BASE_URL", DEFAULT_BASE_URL)
     )
     aisa_api_key = getattr(args, "aisa_api_key", None) or get_env("AISA_API_KEY")
-    callback_url = getattr(args, "callback_url", None) or get_env("AISA_CALLBACK_URL")
     timeout = getattr(args, "timeout", None) or int(get_env("TWITTER_RELAY_TIMEOUT", str(DEFAULT_TIMEOUT)))
 
     if not aisa_api_key:
@@ -59,7 +58,6 @@ def load_config(args: argparse.Namespace) -> Dict[str, Any]:
     return {
         "base_url": base_url,
         "aisa_api_key": aisa_api_key,
-        "callback_url": callback_url,
         "timeout": timeout,
     }
 
@@ -179,6 +177,7 @@ def publish_chunks(
     chunks: list[str],
     media_ids: Optional[list[str]] = None,
     initial_quote_tweet_id: Optional[str] = None,
+    post_type: str = "quote",
 ) -> Dict[str, Any]:
     should_thread = len(chunks) > 1
     previous_tweet_id = initial_quote_tweet_id
@@ -191,6 +190,7 @@ def publish_chunks(
             content=chunk,
             media_ids=current_media_ids,
             quote_tweet_id=previous_tweet_id,
+            post_type=post_type,
         )
         publish_results.append(
             {
@@ -203,7 +203,6 @@ def publish_chunks(
         if result.get("ok") is False or result.get("code") != 200:
             return {
                 "ok": False,
-                "relay_base_url": config["base_url"],
                 "aisa_api_key": config["aisa_api_key"],
                 "is_thread": should_thread,
                 "total_chunks": len(chunks),
@@ -215,7 +214,6 @@ def publish_chunks(
         if not latest_tweet_id:
             return {
                 "ok": False,
-                "relay_base_url": config["base_url"],
                 "aisa_api_key": config["aisa_api_key"],
                 "is_thread": should_thread,
                 "total_chunks": len(chunks),
@@ -227,7 +225,6 @@ def publish_chunks(
 
     return {
         "ok": True,
-        "relay_base_url": config["base_url"],
         "aisa_api_key": config["aisa_api_key"],
         "is_thread": should_thread,
         "total_chunks": len(chunks),
@@ -241,10 +238,12 @@ def post_single_tweet(
     content: str,
     media_ids: Optional[list[str]] = None,
     quote_tweet_id: Optional[str] = None,
+    post_type: str = "quote",
 ) -> Dict[str, Any]:
     payload: Dict[str, Any] = {
         "aisa_api_key": config["aisa_api_key"],
         "content": content,
+        "type": post_type,
     }
     if media_ids:
         payload["media_ids"] = media_ids
@@ -274,9 +273,7 @@ def command_authorize(args: argparse.Namespace) -> None:
     auth_url = (result.get("data") or {}).get("auth_url")
     output = {
         "ok": result.get("code") == 200 and bool(auth_url),
-        "relay_base_url": config["base_url"],
         "aisa_api_key": config["aisa_api_key"],
-        "callback_url": config["callback_url"],
         "authorization_url": auth_url,
         "raw_response": result,
     }
@@ -300,7 +297,7 @@ def command_post(args: argparse.Namespace) -> None:
         config,
         chunks,
         media_ids=getattr(args, "media_id", None),
-        initial_quote_tweet_id=getattr(args, "quote_tweet_id", None),
+        post_type=args.type,
     )
     print(json.dumps(output, indent=2, ensure_ascii=False))
     if not output["ok"]:
@@ -313,7 +310,6 @@ def command_status(args: argparse.Namespace) -> None:
         "ok": True,
         "relay_base_url": config["base_url"],
         "aisa_api_key": config["aisa_api_key"],
-        "callback_url": config["callback_url"],
         "timeout": config["timeout"],
         "supported_commands": ["authorize", "post", "status"],
         "supported_endpoints": ["/twitter/auth_twitter", "/twitter/post_twitter"],
@@ -325,9 +321,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Twitter relay client for local OAuth and posting",
     )
-    parser.add_argument("--base-url", help="Override TWITTER_RELAY_BASE_URL")
     parser.add_argument("--aisa-api-key", help="Override AISA_API_KEY")
-    parser.add_argument("--callback-url", help="Override AISA_CALLBACK_URL")
     parser.add_argument("--timeout", type=int, help="Override TWITTER_RELAY_TIMEOUT")
 
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -344,8 +338,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Media ID to attach. Repeat the flag to send multiple media IDs.",
     )
     post.add_argument(
-        "--quote_tweet_id",
-        help="Optional tweet ID to quote. When long content is split, later chunks quote the previously posted tweet.",
+        "--type",
+        choices=["quote", "reply"],
+        default="quote",
+        help="Post type. Defaults to quote. Only use reply when the user explicitly asks for a reply.",
     )
     post.set_defaults(func=command_post)
 
