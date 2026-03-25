@@ -202,7 +202,7 @@ When the user asks to publish to X/Twitter:
 2. Prefer `post` when the user wants to publish; if the API indicates authorization is required, run `authorize` and return the `authorization_url` (or `data.auth_url` from the raw response).
 3. Default to `--type quote` for publishing. Only pass `--type reply` when the user explicitly says they want to use reply relationships for a threaded post.
 4. In this skill, `--type reply` does not mean replying to a target tweet. It only controls how multi-chunk content is threaded.
-5. If the user says things like `use reply mode to post: ...`, `使用reply方式发送推文：...`, or `reply发这条：...`, run the `post` command directly with `--type reply`.
+5. If the user says things like `use reply mode to post: ...`, or `reply：...`, run the `post` command directly with `--type reply`.
 6. If the user explicitly provides a target tweet ID, include `--in-reply-to-tweet-id <tweet_id>` to start the thread from that external tweet.
 7. Do not ask for a tweet link or tweet ID just because the user requested `reply`; only use `--in-reply-to-tweet-id` when the user explicitly wants to target a specific tweet.
 8. Do not ask for Twitter passwords or use cookie/proxy login flows.
