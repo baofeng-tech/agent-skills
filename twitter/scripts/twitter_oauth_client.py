@@ -4,7 +4,7 @@ Twitter relay client for local OAuth authorization and tweet publishing.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
-    python twitter_oauth_client.py post [--text "Hello"] [--media-id <id> ...] [--media-file <path> ...] [--type <quote|reply>] [--in-reply-to-tweet-id <id>]
+    python twitter_oauth_client.py post [--text "Hello"] [--media-id <id> ...] [--media-file <path> ...] [--type <quote|reply>] [--quote-tweet-url <url>] [--in-reply-to-tweet-id <id>]
     python twitter_oauth_client.py status
 """
 
@@ -267,6 +267,31 @@ def split_text_for_twitter(text: str, max_len: int = TWITTER_MAX_WEIGHT) -> list
     return chunks
 
 
+def extract_tweet_id_from_url(url: str) -> str:
+    parsed = urllib.parse.urlparse(url.strip())
+    if parsed.scheme not in {"http", "https"}:
+        raise RelayConfigError("Quote tweet URL must be a valid http(s) URL.")
+    if parsed.netloc.lower() not in {"twitter.com", "www.twitter.com", "x.com", "www.x.com"}:
+        raise RelayConfigError("Quote tweet URL must point to twitter.com or x.com.")
+
+    match = re.search(r"/status/(\d+)", parsed.path)
+    if not match:
+        raise RelayConfigError("Quote tweet URL must contain a valid /status/<tweet_id> path.")
+    return match.group(1)
+
+
+def append_quote_url_to_content(content: str, quote_url: str) -> str:
+    normalized_content = content.strip()
+    normalized_quote_url = quote_url.strip()
+    if not normalized_quote_url:
+        return normalized_content
+    if normalized_quote_url in normalized_content:
+        return normalized_content
+    if not normalized_content:
+        return normalized_quote_url
+    return f"{normalized_content}\n\n{normalized_quote_url}"
+
+
 def extract_tweet_id(result: Dict[str, Any]) -> Optional[str]:
     data = result.get("data") if isinstance(result, dict) else None
     if not isinstance(data, dict):
@@ -459,6 +484,8 @@ def command_post(args: argparse.Namespace) -> None:
     media_ids = getattr(args, "media_id", None) or []
     media_files = load_media_files(getattr(args, "media_file", None))
     normalized_text = (args.text or "").strip()
+    quote_tweet_url = (getattr(args, "quote_tweet_url", None) or "").strip()
+    initial_parent_tweet_id = None
 
     if not normalized_text and not media_ids and not media_files:
         print(
@@ -470,18 +497,32 @@ def command_post(args: argparse.Namespace) -> None:
         )
         sys.exit(1)
 
+    if args.type == "quote":
+        if args.in_reply_to_tweet_id:
+            raise RelayConfigError(
+                "Quote posts that reference another tweet must use --quote-tweet-url. "
+                "The published post will include that link in its content."
+            )
+        if quote_tweet_url:
+            initial_parent_tweet_id = extract_tweet_id_from_url(quote_tweet_url)
+            normalized_text = append_quote_url_to_content(normalized_text, quote_tweet_url)
+    else:
+        if quote_tweet_url:
+            raise RelayConfigError("--quote-tweet-url can only be used together with --type quote.")
+        initial_parent_tweet_id = args.in_reply_to_tweet_id
+
     chunks = split_text_for_twitter(normalized_text) if normalized_text else [""]
-    should_use_post_type = len(chunks) > 1 or bool(args.in_reply_to_tweet_id)
+    should_use_post_type = len(chunks) > 1 or bool(initial_parent_tweet_id)
     effective_post_type = None
     if should_use_post_type:
-        effective_post_type = "reply" if args.in_reply_to_tweet_id and args.type == "quote" else args.type
+        effective_post_type = args.type
     output = publish_chunks(
         config,
         chunks,
         media_ids=media_ids,
         media_files=media_files,
         post_type=effective_post_type,
-        initial_parent_tweet_id=args.in_reply_to_tweet_id,
+        initial_parent_tweet_id=initial_parent_tweet_id,
     )
     print(json.dumps(output, indent=2, ensure_ascii=False))
     if not output["ok"]:
@@ -535,12 +576,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--type",
         choices=["quote", "reply"],
         default="quote",
-        help="Relationship used to continue multi-chunk posts. Defaults to quote; use reply for reply-style threading.",
+        help="Relationship used to continue multi-chunk posts. Use quote to publish quote-style chains or reply for reply-style threading.",
+    )
+    post.add_argument(
+        "--quote-tweet-url",
+        help="Quoted tweet URL for quote-style posting. When provided, the URL is appended to the published content and used as the first quoted tweet.",
     )
 
     post.add_argument(
         "--in-reply-to-tweet-id",
-        help="Optional external parent tweet ID. When provided, the first chunk starts from that tweet before continuing the thread.",
+        help="Optional external parent tweet ID for reply-style posting. When provided with --type reply, the first chunk starts from that tweet before continuing the thread.",
     )
 
     post.set_defaults(func=command_post)

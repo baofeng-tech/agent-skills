@@ -1,13 +1,13 @@
 ---
-name: Twitter Command Center (Read/Search)
-description: "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. For posting workflows, follow SKILL_POST_TWITTER.md."
+name: Twitter Command Center (Search + Post)
+description: "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, or posting without sharing account passwords."
 homepage: https://openclaw.ai
-metadata: {"openclaw":{"emoji":"馃惁","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+metadata: {"openclaw":{"emoji":"🐦","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
 ---
 
-# OpenClaw Twitter 馃惁
+# OpenClaw Twitter 🐦
 
-**Twitter/X read and search capabilities for autonomous agents. Powered by AIsa.**
+**Twitter/X data access and automation for autonomous agents. Powered by AIsa.**
 
 One API key. Full Twitter intelligence.
 
@@ -37,7 +37,7 @@ One API key. Full Twitter intelligence.
 
 This file does not define publishing logic.
 
-If the user asks to send, publish, or reply on X/Twitter, handle that workflow with `./SKILL_POST_TWITTER.md`.
+If the user asks to send, publish, or reply, or quote on X/Twitter, handle that workflow with `./SKILL_POST_TWITTER.md`.
 
 ## Quick Start
 

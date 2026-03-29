@@ -73,8 +73,11 @@ python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Demo clip" --medi
 # Publish a threaded post using reply relationships between chunks
 python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Hello from Twitter OAuth" --type reply
 
+# Quote another tweet and include its link in the new post
+python3 {baseDir}/scripts/twitter_oauth_client.py post --text "My take on this:" --type quote --quote-tweet-url "https://x.com/example/status/1888888888888888888"
+
 # Start the thread from a specific external tweet
-python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Reply content" --in-reply-to-tweet-id "1888888888888888888"
+python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Reply content" --type reply --in-reply-to-tweet-id "1888888888888888888"
 ```
 
 ## Core Behavior
@@ -99,6 +102,7 @@ When the user drops image/video files into OpenClaw:
 6. If the user provides only one image, publish with only that single image. Do not duplicate it, infer extra images, or expand it into a multi-image post.
 7. If the user provides media without any text, send a media-only post request. Do not synthesize, inject, or infer caption text.
 8. For a normal single post with no threading context, do not send thread/relationship fields such as `type`.
+9. When the user explicitly wants to quote another tweet, require the original tweet URL, append that URL to the published content, and use it as the quoted target.
 
 ## Commands
 
@@ -137,10 +141,13 @@ When the user asks to publish content to X/Twitter:
 6. Default to `--type quote` for publishing. Only pass `--type reply` when the user explicitly says they want to use reply relationships for a threaded post.
 7. In this skill, `--type reply` does not mean replying to a target tweet. It only controls how multi-chunk content is threaded.
 8. If the user says things like `use reply mode to post: ...`, `post this in reply mode: ...`, or `reply-post this: ...`, run the `post` command directly with `--type reply`.
-9. If the user explicitly provides a target tweet ID, include `--in-reply-to-tweet-id <tweet_id>` to start the thread from that external tweet.
-10. Do not ask for a tweet link or tweet ID just because the user requested `reply`; only use `--in-reply-to-tweet-id` when the user explicitly wants to target a specific tweet.
-11. If posting indicates that authorization is required, run `authorize` and return the approval link.
-12. Do not claim the post succeeded until the publish step actually succeeds.
+9. If the user explicitly wants to quote another tweet, require the tweet URL. Pass it with `--quote-tweet-url <url>`, and make sure that URL remains in the new post content.
+10. If the user wants to reply to a specific external tweet, use `--type reply --in-reply-to-tweet-id <tweet_id>`.
+11. Do not ask for a tweet link or tweet ID just because the user requested `reply`; only use `--in-reply-to-tweet-id` when the user explicitly wants to target a specific tweet.
+12. If the user asks for a quote tweet but does not provide the quoted tweet URL, stop and ask for that URL. Do not silently fall back to an incomplete quote flow.
+13. If the quoted tweet URL is missing, explain that the quote content will be incomplete and can still be constrained by mutual-follow visibility limits.
+14. If posting indicates that authorization is required, run `authorize` and return the approval link.
+15. Do not claim the post succeeded until the publish step actually succeeds.
 
 ## Guardrails
 
@@ -149,6 +156,8 @@ When the user asks to publish content to X/Twitter:
 - Do not claim authorization succeeded just because an authorization URL was generated.
 - Do not ask for a tweet link or tweet ID just because the user requested `reply`; use `--type reply` directly.
 - If the user explicitly identifies a target tweet, use `--in-reply-to-tweet-id` to attach the new thread to that tweet.
+- If the user explicitly wants to quote another tweet, require the tweet URL and pass `--quote-tweet-url`; do not substitute `--in-reply-to-tweet-id` for that flow.
+- If the quote tweet URL is missing, do not proceed with a quote tweet. Explain that the quote would be incomplete and still affected by mutual-follow restrictions.
 - Do not invent remote URLs for attachments; always use the provided local workspace file path with `--media-file`.
 - If the user provides a single image attachment, do not duplicate it or turn it into a multi-image post.
 - If the user did not provide tweet text, do not generate or attach any caption text.
