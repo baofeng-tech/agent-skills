@@ -13,11 +13,18 @@ This repository contains **production-ready skills** for [OpenClaw](https://open
 
 ---
 
-## Available Skills
+### Available Skills
 
 | Skill | Description | Status |
 |-------|-------------|--------|
-| [**OpenClaw Starter Kit**](./aisa/) | Unified API access (Twitter, Search, Scholar, News, LLM) powered by AIsa | ✅ Ready |
+| [**Market**](./market/) | Query real-time and historical financial data across equities and crypto. | ✅ Ready |
+| [**Media Gen**](./media-gen/) | Generate images & videos with AIsa. | ✅ Ready |
+| [**Perplexity Search**](./perplexity-search/) | Perplexity Sonar search and answer generation through AIsa. | ✅ Ready |
+| [**Prediction Market**](./prediction-market/) | Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. | ✅ Ready |
+| [**Prediction Market Arbitrage**](./prediction-market-arbitrage/) | Find and analyze arbitrage opportunities across prediction markets. | ✅ Ready |
+| [**Search**](./search/) | Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models. | ✅ Ready |
+| [**Twitter**](./twitter/) | Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. | ✅ Ready |
+| [**YouTube**](./youtube/) | Search YouTube videos, channels, and trends. | ✅ Ready |
 
 ---
 
@@ -52,7 +59,7 @@ Want to contribute a skill? Each skill should include:
 3. **Scripts/Tools** - Any supporting code
 4. **References** - API docs, examples
 
-See existing skills for reference.
+See existing skills in the `openclaw-skills/` directory for reference.
 
 ---
 
