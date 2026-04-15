@@ -41,6 +41,46 @@
       "name": "aisa-youtube-serp-scout",
       "description": "YouTube research, competitor tracking, and trend discovery through the AIsa relay.",
       "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-youtube-serp-scout"
+    },
+    {
+      "name": "market",
+      "description": "Real-time and historical equities and crypto market data through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/market"
+    },
+    {
+      "name": "media-gen",
+      "description": "Image and video generation through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/media-gen"
+    },
+    {
+      "name": "perplexity-search",
+      "description": "Perplexity Sonar search and answer generation through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/perplexity-search"
+    },
+    {
+      "name": "prediction-market",
+      "description": "Prediction market prices, positions, and trades through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market"
+    },
+    {
+      "name": "prediction-market-arbitrage",
+      "description": "Prediction market arbitrage analysis through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage"
+    },
+    {
+      "name": "search",
+      "description": "Multi-source agent search across web, scholar, Tavily, and Perplexity through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/search"
+    },
+    {
+      "name": "twitter",
+      "description": "Twitter/X research, posting, and engagement through the AIsa relay.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter"
+    },
+    {
+      "name": "youtube",
+      "description": "YouTube search and trend discovery through AIsa.",
+      "location": "https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube"
     }
   ]
 }

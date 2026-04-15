@@ -1,11 +1,11 @@
 ---
-name: perplexity-search
+name: aisa-perplexity-search
 description: "Perplexity Sonar search and answer generation through AIsa. Use when the task is specifically to call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, or Sonar Deep Research for citation-backed web answers, analytical reasoning, or long-form research reports."
 homepage: https://aisa.one
 metadata: {"aisa":{"emoji":"🔎","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY","compatibility":["openclaw","claude-code","hermes"]}}
 ---
 
-# Perplexity-Search
+# AIsa Perplexity Search (`perplexity-search`)
 
 Use this skill when the user specifically wants Perplexity-powered search answers instead of structured scholar/web retrieval.
 

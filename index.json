@@ -58,6 +58,70 @@
       "path": "aisa-youtube-serp-scout",
       "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-youtube-serp-scout",
       "entry": "SKILL.md"
+    },
+    {
+      "name": "market",
+      "category": "finance",
+      "description": "Query real-time and historical financial data across equities and crypto for analysis, alerts, and reporting.",
+      "path": "market",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/market",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "media-gen",
+      "category": "media",
+      "description": "Generate images and videos with AIsa through a single API key.",
+      "path": "media-gen",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/media-gen",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "perplexity-search",
+      "category": "search",
+      "description": "Call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, and Sonar Deep Research through AIsa.",
+      "path": "perplexity-search",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/perplexity-search",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "prediction-market",
+      "category": "prediction",
+      "description": "Access Polymarket and Kalshi markets, prices, positions, and trades through AIsa.",
+      "path": "prediction-market",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "prediction-market-arbitrage",
+      "category": "prediction",
+      "description": "Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi.",
+      "path": "prediction-market-arbitrage",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "search",
+      "category": "search",
+      "description": "Run multi-source web, scholar, Tavily, and Perplexity-backed search workflows through AIsa.",
+      "path": "search",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/search",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "twitter",
+      "category": "twitter",
+      "description": "Search Twitter/X data and support approved posting and engagement workflows through the AIsa relay.",
+      "path": "twitter",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "youtube",
+      "category": "youtube",
+      "description": "Search YouTube videos, channels, and trends for content research and competitor tracking.",
+      "path": "youtube",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube",
+      "entry": "SKILL.md"
     }
   ]
 }

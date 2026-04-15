@@ -1,11 +1,11 @@
 ---
-name: Prediction Market Arbitrage
+name: aisa-prediction-market-arbitrage
 description: "Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi."
 homepage: https://aisa.one
 metadata: {"aisa":{"emoji":"⚖️","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY","compatibility":["openclaw","claude-code","hermes"]}}
 ---
 
-# Cross-Platform Prediction Market Arbitrage ⚖️
+# AIsa Prediction Market Arbitrage (`prediction-market-arbitrage`) ⚖️
 
 **Find arbitrage opportunities across prediction markets for autonomous agents. Powered by AIsa.**
 

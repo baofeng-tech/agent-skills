@@ -81,6 +81,90 @@
   - `SKILL.md`
   - `README.md`
 
+### `youtube`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube>
+- Summary: Search YouTube videos, channels, and trends for content research and competitor tracking.
+- Includes:
+  - `scripts/youtube_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+## Search
+
+### `search`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/search>
+- Summary: Run multi-source web, scholar, Tavily, and Perplexity-backed search workflows through AIsa.
+- Includes:
+  - `scripts/search_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+### `perplexity-search`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/perplexity-search>
+- Summary: Call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, and Sonar Deep Research through AIsa.
+- Includes:
+  - `scripts/perplexity_search_client.py`
+  - `SKILL.md`
+
+## Finance
+
+### `market`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/market>
+- Summary: Query real-time and historical financial data across equities and crypto for analysis, alerts, and reporting.
+- Includes:
+  - `scripts/market_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+## Prediction Markets
+
+### `prediction-market`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market>
+- Summary: Access Polymarket and Kalshi markets, prices, positions, and trades through AIsa.
+- Includes:
+  - `scripts/prediction_market_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+### `prediction-market-arbitrage`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage>
+- Summary: Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi.
+- Includes:
+  - `scripts/arbitrage_finder.py`
+  - `scripts/prediction_market_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+## Media
+
+### `media-gen`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/media-gen>
+- Summary: Generate images and videos with AIsa through a single API key.
+- Includes:
+  - `scripts/media_gen_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+## Additional Twitter / X
+
+### `twitter`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter>
+- Summary: Search Twitter/X data and support approved posting and engagement workflows through the AIsa relay.
+- Includes:
+  - `scripts/twitter_client.py`
+  - `scripts/twitter_oauth_client.py`
+  - `scripts/twitter_engagement_client.py`
+  - `references/post_twitter.md`
+  - `references/engage_twitter.md`
+
 ## Recommended Publish Order
 
 1. `aisa-twitter-command-center`
@@ -90,6 +174,14 @@
 5. `aisa-twitter-api`
 6. `aisa-twitter-engagement-suite`
 7. `x-intelligence-automation`
+8. `search`
+9. `perplexity-search`
+10. `market`
+11. `prediction-market`
+12. `prediction-market-arbitrage`
+13. `media-gen`
+14. `twitter`
+15. `youtube`
 
 ## Notes
 
