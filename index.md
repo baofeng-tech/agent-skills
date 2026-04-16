@@ -109,6 +109,45 @@
   - `scripts/perplexity_search_client.py`
   - `SKILL.md`
 
+### `aisa-tavily`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-tavily>
+- Summary: Run Tavily-backed AI web search and URL extraction through AIsa.
+- Includes:
+  - `scripts/search.mjs`
+  - `scripts/extract.mjs`
+  - `SKILL.md`
+
+## LLM / Providers
+
+### `llm-router`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/llm-router>
+- Summary: Route prompts across GPT, Claude, Gemini, Qwen, DeepSeek, and other models through AIsa's OpenAI-compatible gateway.
+- Includes:
+  - `scripts/llm_router_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+### `aisa-provider`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-provider>
+- Summary: Configure AIsa as an OpenClaw provider for Chinese model access, pricing, and setup workflows.
+- Includes:
+  - `references/config-examples.md`
+  - `references/guide-zh-CN.md`
+  - `references/pricing.md`
+  - `SKILL.md`
+
+### `cn-llm`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/cn-llm>
+- Summary: Access Qwen, DeepSeek, GLM, Baichuan, and related Chinese LLMs through AIsa.
+- Includes:
+  - `scripts/cn_llm_client.py`
+  - `SKILL.md`
+  - `README.md`
+
 ## Finance
 
 ### `market`
@@ -117,6 +156,16 @@
 - Summary: Query real-time and historical financial data across equities and crypto for analysis, alerts, and reporting.
 - Includes:
   - `scripts/market_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+### `us-stock-analyst`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/us-stock-analyst>
+- Summary: Run US stock analysis workflows combining market data, news, sentiment, and multi-model AI through AIsa.
+- Includes:
+  - `scripts/stock_analyst.py`
+  - `requirements.txt`
   - `SKILL.md`
   - `README.md`
 
@@ -140,6 +189,32 @@
   - `scripts/prediction_market_client.py`
   - `SKILL.md`
   - `README.md`
+
+### `prediction-market-arbitrage-api`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage-api>
+- Summary: Scan Polymarket and Kalshi for arbitrage opportunities through the AIsa API.
+- Includes:
+  - `scripts/arbitrage_finder.py`
+  - `scripts/prediction_market_client.py`
+  - `SKILL.md`
+
+### `prediction-market-data-zh`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-data-zh>
+- Summary: 中文预测市场数据查询，通过 AIsa 访问 Polymarket 和 Kalshi。
+- Includes:
+  - `scripts/prediction_market_client.py`
+  - `SKILL.md`
+
+### `prediction-market-arbitrage-zh`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage-zh>
+- Summary: 中文预测市场套利分析，通过 AIsa 扫描 Polymarket 与 Kalshi 价差。
+- Includes:
+  - `scripts/arbitrage_finder.py`
+  - `scripts/prediction_market_client.py`
+  - `SKILL.md`
 
 ## Media
 
@@ -182,6 +257,128 @@
 13. `media-gen`
 14. `twitter`
 15. `youtube`
+16. `aisa-tavily`
+17. `llm-router`
+18. `aisa-provider`
+19. `cn-llm`
+20. `us-stock-analyst`
+21. `prediction-market-arbitrage-api`
+22. `prediction-market-data-zh`
+23. `prediction-market-arbitrage-zh`
+
+## Imported Name-Preserved Variants
+
+### `last30days`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/last30days>
+- Summary: Research the last 30 days across Reddit, X/Twitter, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and web search. Use when: you need recent social research, company updates, person profiles, competitor comparisons, launch reactions, or trend scans. Supports AISA-powered planning, clustering, reranking, and JSON output.
+- Includes:
+  - `scripts/briefing.py`
+  - `scripts/compare.sh`
+  - `scripts/dev-python.sh`
+  - `scripts/evaluate_search_quality.py`
+
+### `last30days-zh`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/last30days-zh>
+- Summary: 聚合最近 30 天的 Reddit、X/Twitter、YouTube、TikTok、Instagram、Hacker News、Polymarket、GitHub 和 web search 结果。触发条件：当用户需要 recent social research、人物近况、公司动态、竞品对比、发布反应、趋势扫描时使用。支持 AISA 规划、聚类、重排和 JSON 输出。
+- Includes:
+  - `scripts/briefing.py`
+  - `scripts/compare.sh`
+  - `scripts/dev-python.sh`
+  - `scripts/evaluate_search_quality.py`
+
+### `marketpulse`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/marketpulse>
+- Summary: Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting.
+- Includes:
+  - `scripts/market_client.py`
+  - `README.md`
+
+### `openclaw-aisa-youtube-aisa`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-aisa-youtube-aisa>
+- Summary: Search YouTube videos, channels, and trends through the AISA YouTube SERP client. Use when: the user asks for content research, competitor tracking, or trend discovery without managing Google credentials. Supports curl queries and the bundled Python client with locale and filter controls.
+- Includes:
+  - `scripts/youtube_client.py`
+
+### `openclaw-media-gen`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-media-gen>
+- Summary: Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key.
+- Includes:
+  - `scripts/media_gen_client.py`
+  - `README.md`
+
+### `openclaw-search`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-search>
+- Summary: Intelligent search for agents. Multi-source retrieval with confidence scoring - web, academic, and Tavily in one unified API.
+- Includes:
+  - `scripts/search_client.py`
+  - `README.md`
+
+### `openclaw-twitter`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-twitter>
+- Summary: Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AISA relay, then publish approved posts with OAuth. Use when: the user asks for Twitter/X research, monitoring, or posting without sharing passwords. Supports read APIs, authorization links, and media-aware posting.
+- Includes:
+  - `scripts/twitter_client.py`
+  - `scripts/twitter_oauth_client.py`
+  - `references/post_twitter.md`
+
+### `openclaw-twitter-post-engage`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-twitter-post-engage>
+- Summary: Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AISA relay. Use when: the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords. Supports read APIs, OAuth-gated posting, and follow or like operations.
+- Includes:
+  - `scripts/twitter_client.py`
+  - `scripts/twitter_engagement_client.py`
+  - `scripts/twitter_oauth_client.py`
+  - `references/engage_twitter.md`
+
+### `openclaw-youtube`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-youtube>
+- Summary: YouTube SERP Scout for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking.
+- Includes:
+  - `scripts/youtube_client.py`
+  - `README.md`
+
+### `prediction-market-data`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-data>
+- Summary: Cross-platform prediction market data via AIsa API. Query Polymarket and Kalshi markets, prices, orderbooks, candlesticks, positions, and trades. Use when user asks about: prediction market odds, election betting, event probabilities, market sentiment, Polymarket prices, Kalshi prices, sports betting odds, wallet PnL, or cross-platform market comparison.
+- Includes:
+  - `scripts/prediction_market_client.py`
+
+### `twitter-command-center-search-post`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter-command-center-search-post>
+- Summary: Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, or posting without sharing account passwords.
+- Includes:
+  - `scripts/twitter_client.py`
+  - `scripts/twitter_oauth_client.py`
+  - `references/post_twitter.md`
+  - `README.md`
+
+### `twitter-command-center-search-post-interact`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter-command-center-search-post-interact>
+- Summary: Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.
+- Includes:
+  - `scripts/twitter_client.py`
+  - `scripts/twitter_engagement_client.py`
+  - `scripts/twitter_oauth_client.py`
+  - `references/engage_twitter.md`
+
+### `youtube-search`
+
+- GitHub: <https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube-search>
+- Summary: |
+- Includes:
+  - `LICENSE.txt`
 
 ## Notes
 

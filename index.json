@@ -122,6 +122,174 @@
       "path": "youtube",
       "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube",
       "entry": "SKILL.md"
+    },
+    {
+      "name": "aisa-tavily",
+      "category": "search",
+      "description": "Run Tavily-backed AI web search and URL extraction through AIsa.",
+      "path": "aisa-tavily",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-tavily",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "llm-router",
+      "category": "llm",
+      "description": "Route prompts across GPT, Claude, Gemini, Qwen, DeepSeek, and other models through AIsa's OpenAI-compatible gateway.",
+      "path": "llm-router",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/llm-router",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "aisa-provider",
+      "category": "llm",
+      "description": "Configure AIsa as an OpenClaw provider for Chinese model access, pricing, and setup workflows.",
+      "path": "aisa-provider",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-provider",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "cn-llm",
+      "category": "llm",
+      "description": "Access Qwen, DeepSeek, GLM, Baichuan, and related Chinese LLMs through AIsa.",
+      "path": "cn-llm",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/cn-llm",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "us-stock-analyst",
+      "category": "finance",
+      "description": "Run US stock analysis workflows combining market data, news, sentiment, and multi-model AI through AIsa.",
+      "path": "us-stock-analyst",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/us-stock-analyst",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "prediction-market-arbitrage-api",
+      "category": "prediction",
+      "description": "Scan Polymarket and Kalshi for arbitrage opportunities through the AIsa API.",
+      "path": "prediction-market-arbitrage-api",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage-api",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "prediction-market-data-zh",
+      "category": "prediction",
+      "description": "通过 AIsa 查询 Polymarket 和 Kalshi 的预测市场数据。",
+      "path": "prediction-market-data-zh",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-data-zh",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "prediction-market-arbitrage-zh",
+      "category": "prediction",
+      "description": "通过 AIsa 扫描 Polymarket 和 Kalshi 的跨平台套利机会。",
+      "path": "prediction-market-arbitrage-zh",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage-zh",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "last30days",
+      "category": "twitter",
+      "description": "Research the last 30 days across Reddit, X/Twitter, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and web search. Use when: you need recent social research, company updates, person profiles, competitor comparisons, launch reactions, or trend scans. Supports AISA-powered planning, clustering, reranking, and JSON output.",
+      "path": "last30days",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/last30days",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "last30days-zh",
+      "category": "twitter",
+      "description": "聚合最近 30 天的 Reddit、X/Twitter、YouTube、TikTok、Instagram、Hacker News、Polymarket、GitHub 和 web search 结果。触发条件：当用户需要 recent social research、人物近况、公司动态、竞品对比、发布反应、趋势扫描时使用。支持 AISA 规划、聚类、重排和 JSON 输出。",
+      "path": "last30days-zh",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/last30days-zh",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "marketpulse",
+      "category": "finance",
+      "description": "Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting.",
+      "path": "marketpulse",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/marketpulse",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "openclaw-aisa-youtube-aisa",
+      "category": "youtube",
+      "description": "Search YouTube videos, channels, and trends through the AISA YouTube SERP client. Use when: the user asks for content research, competitor tracking, or trend discovery without managing Google credentials. Supports curl queries and the bundled Python client with locale and filter controls.",
+      "path": "openclaw-aisa-youtube-aisa",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-aisa-youtube-aisa",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "openclaw-media-gen",
+      "category": "media",
+      "description": "Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key.",
+      "path": "openclaw-media-gen",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-media-gen",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "openclaw-search",
+      "category": "search",
+      "description": "Intelligent search for agents. Multi-source retrieval with confidence scoring - web, academic, and Tavily in one unified API.",
+      "path": "openclaw-search",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-search",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "openclaw-twitter",
+      "category": "twitter",
+      "description": "Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AISA relay, then publish approved posts with OAuth. Use when: the user asks for Twitter/X research, monitoring, or posting without sharing passwords. Supports read APIs, authorization links, and media-aware posting.",
+      "path": "openclaw-twitter",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-twitter",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "openclaw-twitter-post-engage",
+      "category": "twitter",
+      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AISA relay. Use when: the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords. Supports read APIs, OAuth-gated posting, and follow or like operations.",
+      "path": "openclaw-twitter-post-engage",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-twitter-post-engage",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "openclaw-youtube",
+      "category": "youtube",
+      "description": "YouTube SERP Scout for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking.",
+      "path": "openclaw-youtube",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-youtube",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "prediction-market-data",
+      "category": "finance",
+      "description": "Cross-platform prediction market data via AIsa API. Query Polymarket and Kalshi markets, prices, orderbooks, candlesticks, positions, and trades. Use when user asks about: prediction market odds, election betting, event probabilities, market sentiment, Polymarket prices, Kalshi prices, sports betting odds, wallet PnL, or cross-platform market comparison.",
+      "path": "prediction-market-data",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-data",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "twitter-command-center-search-post",
+      "category": "twitter",
+      "description": "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, or posting without sharing account passwords.",
+      "path": "twitter-command-center-search-post",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter-command-center-search-post",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "twitter-command-center-search-post-interact",
+      "category": "twitter",
+      "description": "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.",
+      "path": "twitter-command-center-search-post-interact",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter-command-center-search-post-interact",
+      "entry": "SKILL.md"
+    },
+    {
+      "name": "youtube-search",
+      "category": "youtube",
+      "description": "|",
+      "path": "youtube-search",
+      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube-search",
+      "entry": "SKILL.md"
     }
   ]
 }
