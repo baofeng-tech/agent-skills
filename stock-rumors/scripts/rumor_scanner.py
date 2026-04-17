@@ -17,7 +17,9 @@ Usage:
 """
 
 import argparse
+import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from openai import OpenAI
@@ -163,6 +165,17 @@ def get_client() -> OpenAI:
     return OpenAI(api_key=api_key, base_url=base_url)
 
 
+def extract_json_block(text: str) -> dict:
+    fenced = re.search(r"```json\s*(\{.*?\})\s*```", text, re.DOTALL)
+    candidate = fenced.group(1) if fenced else None
+    if candidate is None:
+        inline = re.search(r"(\{.*\})\s*$", text, re.DOTALL)
+        candidate = inline.group(1) if inline else None
+    if candidate is None:
+        raise ValueError("No JSON block found in model output.")
+    return json.loads(candidate)
+
+
 def run_rumor_scanner(focus: str = "all", output_format: str = "text") -> str:
     client = get_client()
     model = os.environ.get("AISA_MODEL", "gpt-4o")
@@ -191,7 +204,10 @@ def run_rumor_scanner(focus: str = "all", output_format: str = "text") -> str:
             ],
             temperature=0.2,
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content or ""
+        if output_format == "json":
+            return json.dumps(extract_json_block(content), indent=2, ensure_ascii=False)
+        return content
     except Exception as e:
         print(f"❌ AIsa API error: {e}", file=sys.stderr)
         sys.exit(1)

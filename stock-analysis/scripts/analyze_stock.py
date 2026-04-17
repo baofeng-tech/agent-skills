@@ -19,7 +19,9 @@ Usage:
 import argparse
 import json
 import os
+import re
 import sys
+from typing import Any
 from openai import OpenAI
 
 
@@ -116,6 +118,64 @@ def get_client() -> OpenAI:
     return OpenAI(api_key=api_key, base_url=base_url)
 
 
+def _extract_balanced_json(text: str) -> str | None:
+    start = text.find("{")
+    if start == -1:
+        return None
+
+    depth = 0
+    in_string = False
+    escape = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if in_string:
+            if escape:
+                escape = False
+            elif char == "\\":
+                escape = True
+            elif char == '"':
+                in_string = False
+            continue
+
+        if char == '"':
+            in_string = True
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start:index + 1]
+    return None
+
+
+def extract_json_block(text: str) -> dict[str, Any]:
+    candidates: list[str] = []
+
+    fenced = re.search(r"```json\s*(\{.*?\})\s*```", text, re.DOTALL | re.IGNORECASE)
+    if fenced:
+        candidates.append(fenced.group(1))
+
+    generic_fenced = re.search(r"```\s*(\{.*?\})\s*```", text, re.DOTALL)
+    if generic_fenced:
+        candidates.append(generic_fenced.group(1))
+
+    balanced = _extract_balanced_json(text)
+    if balanced:
+        candidates.append(balanced)
+
+    stripped = text.strip()
+    if stripped.startswith("{") and stripped.endswith("}"):
+        candidates.append(stripped)
+
+    for candidate in candidates:
+        try:
+            return json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
+
+    raise ValueError("No JSON block found in model output.")
+
+
 def detect_asset_type(ticker: str) -> str:
     t = ticker.upper()
     if t.endswith("-USD") and t[:-4].isalpha():
@@ -147,8 +207,16 @@ def analyze(tickers: list[str], output_format: str = "text", fast: bool = False)
         compare_note=compare_note,
     ) + fast_note
 
+    response_kwargs: dict[str, Any] = {}
     if output_format == "json":
-        prompt += "\n\nAfter the full analysis, append a JSON block (fenced with ```json) containing the structured summary:\n```json\n{\"tickers\": [{\"ticker\": \"AAPL\", \"score\": 7.2, \"signal\": \"BUY\", \"confidence\": \"High\", \"price\": 195.50, \"target\": 220.00, \"stop\": 175.00, \"risk_flags\": []}]}\n```"
+        prompt += (
+            "\n\nReturn ONLY valid JSON. Do not include markdown fences, tables, commentary, or prose outside the JSON object."
+            "\nUse this exact shape:\n"
+            "{\"tickers\": [{\"ticker\": \"AAPL\", \"score\": 7.2, \"signal\": \"BUY\", \"confidence\": \"High\", "
+            "\"price\": 195.5, \"target\": 220.0, \"stop\": 175.0, \"risk_flags\": [\"Overbought\"], "
+            "\"summary\": \"One short rationale sentence.\"}]}"
+        )
+        response_kwargs["response_format"] = {"type": "json_object"}
 
     try:
         response = client.chat.completions.create(
@@ -158,8 +226,12 @@ def analyze(tickers: list[str], output_format: str = "text", fast: bool = False)
                 {"role": "user", "content": prompt},
             ],
             temperature=0.1,
+            **response_kwargs,
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content or ""
+        if output_format == "json":
+            return json.dumps(extract_json_block(content), indent=2, ensure_ascii=False)
+        return content
     except Exception as e:
         print(f"❌ AIsa API error: {e}", file=sys.stderr)
         sys.exit(1)

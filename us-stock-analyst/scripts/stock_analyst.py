@@ -14,8 +14,10 @@ Base URL: https://api.aisa.one/apis/v1
 LLM Base URL: https://api.aisa.one/v1
 """
 
+import argparse
 import asyncio
 import json
+import os
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 import httpx
@@ -529,70 +531,123 @@ Respond ONLY with valid JSON."""
         await self.client.aclose()
 
 
-# ==================== Example Usage ====================
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Analyze a US stock with AIsa market, search, social, and LLM endpoints.",
+    )
+    parser.add_argument("--api-key", help="Override AISA_API_KEY instead of reading from the environment.")
+    parser.add_argument("--ticker", help="Stock ticker symbol, e.g. AAPL or NVDA.")
+    parser.add_argument(
+        "--depth",
+        choices=["quick", "standard", "deep"],
+        default="standard",
+        help="How many data sources to query before synthesis.",
+    )
+    parser.add_argument(
+        "--models",
+        default="gpt-4,claude-3-opus",
+        help="Comma-separated LLM models used for summary/sentiment/valuation.",
+    )
+    parser.add_argument(
+        "--output",
+        help="Optional JSON output path. Defaults to <TICKER>_analysis_<YYYYMMDD>.json in the cwd.",
+    )
+    parser.add_argument(
+        "--json-only",
+        action="store_true",
+        help="Print the final report as JSON instead of the human-readable summary.",
+    )
+    return parser
 
-async def main():
-    """Example: Analyze NVIDIA stock."""
-    api_key = input("Enter your AIsa API key: ")
-    ticker = input("Enter stock ticker (e.g., NVDA, AAPL): ").strip().upper()
-    
+
+def resolve_runtime_inputs(args: argparse.Namespace) -> tuple[str, str, List[str], str, Optional[str], bool]:
+    api_key = args.api_key or os.environ.get("AISA_API_KEY")
+    ticker = (args.ticker or "").strip().upper()
+
+    # Preserve the previous interactive flow as a fallback when the caller
+    # does not provide CLI arguments or env vars.
+    if not api_key:
+        api_key = input("Enter your AIsa API key: ").strip()
+    if not ticker:
+        ticker = input("Enter stock ticker (e.g., NVDA, AAPL): ").strip().upper()
+
+    if not api_key:
+        raise ValueError("AISA API key is required.")
+    if not ticker:
+        raise ValueError("Ticker is required.")
+
+    models = [item.strip() for item in args.models.split(",") if item.strip()]
+    if not models:
+        models = ["gpt-4", "claude-3-opus"]
+
+    return api_key, ticker, models, args.depth, args.output, args.json_only
+
+
+def print_report(report: Dict[str, Any]) -> None:
+    print("\n" + "=" * 70)
+    print("STOCK ANALYSIS REPORT")
+    print("=" * 70)
+
+    print(f"\nTICKER: {report['metadata']['ticker']}")
+    print(f"DATE: {report['metadata']['analysis_date'][:10]}")
+
+    print("\nINVESTMENT SUMMARY:")
+    print(report["investment_summary"])
+
+    print("\nKEY METRICS:")
+    for key, value in report["key_metrics"].items():
+        if value:
+            print(f"  {key.replace('_', ' ').title()}: {value}")
+
+    print("\nSENTIMENT:")
+    sentiment = report["sentiment_analysis"]
+    print(f"  {sentiment.get('sentiment', 'N/A').upper()}")
+    print(f"  Confidence: {sentiment.get('confidence', 'N/A')}")
+    print(f"  {sentiment.get('summary', '')}")
+
+    print("\nVALUATION:")
+    valuation = report["valuation"]
+    print(f"  Assessment: {valuation.get('valuation_assessment', 'N/A').upper()}")
+    if "price_target_12m" in valuation:
+        try:
+            print(f"  12M Target: ${valuation['price_target_12m']:.2f}")
+        except (TypeError, ValueError):
+            print(f"  12M Target: {valuation['price_target_12m']}")
+
+    print("\nDATA SOURCES:")
+    for source, count in report["data_sources"].items():
+        print(f"  {source}: {count}")
+
+    print("\n" + "=" * 70)
+    print(report["disclaimer"])
+    print("=" * 70 + "\n")
+
+
+async def main() -> None:
+    args = build_parser().parse_args()
+    api_key, ticker, models, depth, output_path, json_only = resolve_runtime_inputs(args)
+
     analyst = AIsaStockAnalyst(api_key=api_key)
-    
+
     try:
-        report = await analyst.analyze_stock(
-            ticker=ticker,
-            depth="standard",
-            models=["gpt-4", "claude-3-opus"]
-        )
-        
-        # Print report
-        print("\n" + "="*70)
-        print("STOCK ANALYSIS REPORT")
-        print("="*70)
-        
-        print(f"\nTICKER: {report['metadata']['ticker']}")
-        print(f"DATE: {report['metadata']['analysis_date'][:10]}")
-        
-        print(f"\nINVESTMENT SUMMARY:")
-        print(report['investment_summary'])
-        
-        print(f"\nKEY METRICS:")
-        for key, value in report['key_metrics'].items():
-            if value:
-                print(f"  {key.replace('_', ' ').title()}: {value}")
-        
-        print(f"\nSENTIMENT:")
-        sentiment = report['sentiment_analysis']
-        print(f"  {sentiment.get('sentiment', 'N/A').upper()}")
-        print(f"  Confidence: {sentiment.get('confidence', 'N/A')}")
-        print(f"  {sentiment.get('summary', '')}")
-        
-        print(f"\nVALUATION:")
-        val = report['valuation']
-        print(f"  Assessment: {val.get('valuation_assessment', 'N/A').upper()}")
-        if 'price_target_12m' in val:
-            print(f"  12M Target: ${val['price_target_12m']:.2f}")
-        
-        print(f"\nDATA SOURCES:")
-        for source, count in report['data_sources'].items():
-            print(f"  {source}: {count}")
-        
-        print("\n" + "="*70)
-        print(report['disclaimer'])
-        print("="*70 + "\n")
-        
-        # Save report
-        filename = f"{ticker}_analysis_{datetime.now().strftime('%Y%m%d')}.json"
+        report = await analyst.analyze_stock(ticker=ticker, depth=depth, models=models)
+
+        if json_only:
+            print(json.dumps(report, indent=2))
+        else:
+            print_report(report)
+
+        filename = output_path or f"{ticker}_analysis_{datetime.now().strftime('%Y%m%d')}.json"
         with open(filename, "w") as f:
             json.dump(report, f, indent=2)
-        
+
         print(f"✅ Full report saved to {filename}")
-        
+
     except Exception as e:
         print(f"❌ Error: {str(e)}")
         import traceback
         traceback.print_exc()
-        
+
     finally:
         await analyst.close()
 
