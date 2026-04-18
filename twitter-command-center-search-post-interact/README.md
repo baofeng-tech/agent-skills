@@ -1,4 +1,4 @@
-# OpenClaw Twitter 🐦
+# AIsa Twitter Command Center Engage 🐦
 
 Twitter/X intelligence and automation for autonomous agents. Powered by AIsa.
 
@@ -10,7 +10,7 @@ This skill provides comprehensive capabilities to **read, search, engage, write,
 - **Engagement via Relay**: Like/unlike tweets and follow/unfollow users through the local OAuth relay service.
 - **Write & Post (OAuth)**: Publish text, images, and videos, create threads, and quote/reply to tweets securely via user OAuth authorization.
 
-## Installation
+## Setup
 
 ```bash
 export AISA_API_KEY="your-key"
@@ -29,7 +29,7 @@ python scripts/twitter_client.py trends
 ### Post & Write (Requires OAuth)
 ```bash
 # Publish a text post
-python scripts/twitter_oauth_client.py post --text "Hello from OpenClaw!"
+python scripts/twitter_oauth_client.py post --text "Hello from AIsa!"
 
 # Publish a post with media
 python scripts/twitter_oauth_client.py post --text "Check out this image" --media-file ./photo.png
@@ -55,5 +55,5 @@ Sign up at [aisa.one](https://aisa.one)
 
 ## Links
 
-- [ClawHub](https://www.clawhub.com/aisa-one/openclaw-twitter)
+- Cross-platform mother skill for AgentSkills-compatible runtimes
 - [API Reference](https://docs.aisa.one/reference/)

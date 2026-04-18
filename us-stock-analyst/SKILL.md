@@ -1,7 +1,7 @@
 ---
 name: us-stock-analyst
 description: "Professional US stock analysis with financial data, news, social sentiment, and multi-model AI. Comprehensive reports at $0.02-0.10 per analysis."
-homepage: https://openclaw.ai
+homepage: https://aisa.one
 metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
 ---
 

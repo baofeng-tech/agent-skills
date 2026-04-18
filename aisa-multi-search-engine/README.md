@@ -1,38 +1,16 @@
 # AIsa Multi Search Engine
 
-Multi-source search engine plugin for [OpenClaw](https://docs.openclaw.ai), powered by [AIsa API](https://aisa.one).
+Multi-source search skill package powered by [AIsa API](https://aisa.one).
 
 One API key. Seven search tools. Web, academic, Tavily, and Perplexity — unified with confidence scoring.
 
-## Install
-
-```bash
-openclaw plugins install aisa-multi-search-engine
-```
-
-## Configure
-
-Set your AIsa API key:
+## Setup
 
 ```bash
 export AISA_API_KEY="your-key-here"
 ```
 
-Or configure in OpenClaw plugin settings:
-
-```json
-{
-  "plugins": {
-    "entries": {
-      "aisa-multi-search-engine": {
-        "config": {
-          "aisaApiKey": "your-key-here"
-        }
-      }
-    }
-  }
-}
-```
+This package is designed to work across AgentSkills-compatible runtimes. Use the runtime's normal environment or plugin configuration flow to provide `AISA_API_KEY`.
 
 ## Tools
 

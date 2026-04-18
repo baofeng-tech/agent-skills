@@ -418,4 +418,4 @@ EOF
 - [YouTube Search API Reference](https://docs.aisa.one/reference/get_youtube-search)
 - [AIsa Smart Search API](https://docs.aisa.one/reference/get_search-smart)
 - [AIsa Chat Completions API](https://docs.aisa.one/reference/createchatcompletion)
-- [OpenClaw Skills](https://clawhub.ai)
+- [ClawHub Skills](https://clawhub.ai)

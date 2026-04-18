@@ -1,4 +1,4 @@
-# US Stock Analyst - OpenClaw Skill
+# US Stock Analyst
 
 Professional equity analysis powered by AIsa's unified API platform.
 
