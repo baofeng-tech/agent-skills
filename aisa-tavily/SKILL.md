@@ -1,8 +1,16 @@
 ---
 name: aisa-tavily
-description: AI-optimized web search via AIsa's Tavily API proxy. Returns concise, relevant results for AI agents through AIsa's unified API gateway.
-homepage: https://aisa.one
-metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":["node"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'AI-optimized web search via AIsa''s Tavily API proxy. Returns concise, relevant results for AI agents through AIsa''s unified API gateway. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries node, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Tavily Search
@@ -12,10 +20,10 @@ AI-optimized web search using Tavily API through AIsa's unified gateway. Designe
 ## Search
 
 ```bash
-node {baseDir}/scripts/search.mjs "query"
-node {baseDir}/scripts/search.mjs "query" -n 10
-node {baseDir}/scripts/search.mjs "query" --deep
-node {baseDir}/scripts/search.mjs "query" --topic news
+node scripts/search.mjs "query"
+node scripts/search.mjs "query" -n 10
+node scripts/search.mjs "query" --deep
+node scripts/search.mjs "query" --topic news
 ```
 
 ## Options
@@ -28,7 +36,7 @@ node {baseDir}/scripts/search.mjs "query" --topic news
 ## Extract content from URL
 
 ```bash
-node {baseDir}/scripts/extract.mjs "https://example.com/article"
+node scripts/extract.mjs "https://example.com/article"
 ```
 
 Notes:

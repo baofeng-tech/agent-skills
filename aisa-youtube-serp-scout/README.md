@@ -1,35 +1,9 @@
-# AIsa YouTube SERP Scout
+# AIsa Youtube Serp Scout
 
-Cross-platform YouTube research skill for AgentSkills-compatible clients.
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-## What it does
+## Notes
 
-- Search YouTube videos, channels, and trends through the AIsa relay
-- Use the bundled Python client for repeatable research workflows
-- Support content research, competitor tracking, and trend discovery
-
-## Setup
-
-```bash
-export AISA_API_KEY="your-key"
-```
-
-Requires:
-
-- `python3`
-- `curl`
-- network access to `https://api.aisa.one/apis/v1/youtube/search`
-
-## Common Commands
-
-```bash
-python3 scripts/youtube_client.py search --query "AI agents tutorial"
-python3 scripts/youtube_client.py competitor --name "OpenAI" --topic "GPT tutorial"
-```
-
-## Platform Notes
-
-- AgentSkills: standard `SKILL.md + scripts/` structure.
-- OpenClaw: keeps OpenClaw metadata hints without changing the cross-platform body.
-- Hermes: fits naturally into a research category.
-- Claude Code: can use the same package as a standalone skill.
+- Search YouTube videos, channels, and trends through the AIsa YouTube SERP client. Use when the user asks for content research, competitor tracking, or trend discovery without managing Google credentials. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

@@ -1,11 +1,19 @@
 ---
 name: openclaw-media-gen
-description: "Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key."
-homepage: https://openclaw.ai
-metadata: {"openclaw":{"emoji":"🎬","requires":{"bins":["python3","curl"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key. Use when: the user needs AI image or video generation workflows.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, curl, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: media,video,image,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
-# OpenClaw Media Gen 🎬
+# Media Gen 🎬
 
 用 AIsa API 一把钥匙生成**图片**与**视频**：
 
@@ -107,23 +115,22 @@ curl "https://api.aisa.one/apis/v1/services/aigc/tasks?task_id=YOUR_TASK_ID" \
 
 ```bash
 # 生成图片（保存到本地文件）
-python3 {baseDir}/scripts/media_gen_client.py image \
+python3 scripts/media_gen_client.py image \
   --prompt "A cute red panda, cinematic lighting" \
   --out "out.png"
 
 # 创建视频任务（需要 img_url）
-python3 {baseDir}/scripts/media_gen_client.py video-create \
+python3 scripts/media_gen_client.py video-create \
   --prompt "cinematic close-up, slow push-in" \
   --img-url "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/320px-Cat03.jpg" \
   --duration 5
 
 # 轮询任务状态
-python3 {baseDir}/scripts/media_gen_client.py video-status --task-id YOUR_TASK_ID
+python3 scripts/media_gen_client.py video-status --task-id YOUR_TASK_ID
 
 # 等待直到成功（可选：成功后打印 video_url）
-python3 {baseDir}/scripts/media_gen_client.py video-wait --task-id YOUR_TASK_ID --poll 10 --timeout 600
+python3 scripts/media_gen_client.py video-wait --task-id YOUR_TASK_ID --poll 10 --timeout 600
 
 # 等待直到成功并自动下载 mp4
-python3 {baseDir}/scripts/media_gen_client.py video-wait --task-id YOUR_TASK_ID --download --out out.mp4
+python3 scripts/media_gen_client.py video-wait --task-id YOUR_TASK_ID --download --out out.mp4
 ```
-

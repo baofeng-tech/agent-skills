@@ -1,6 +1,16 @@
 ---
 name: stock-rumors
 description: Rumor Scanner — find early signals including M&A rumors, insider activity, analyst upgrades/downgrades, social whispers, and SEC/regulatory activity via AIsa API. Ranked by impact score. Use when the user asks about rumors, insider trading, M&A activity, analyst changes, or early market signals.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # Rumor Scanner — AIsa Edition
@@ -10,12 +20,12 @@ Scan for early market signals and rumors using the AIsa API.
 ## Usage
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-rumors/scripts/rumor_scanner.py"
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-rumors/scripts/rumor_scanner.py" --focus ma
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-rumors/scripts/rumor_scanner.py" --focus insider
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-rumors/scripts/rumor_scanner.py" --focus analyst
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-rumors/scripts/rumor_scanner.py" --focus social
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-rumors/scripts/rumor_scanner.py" --output json
+python3 scripts/rumor_scanner.py
+python3 scripts/rumor_scanner.py --focus ma
+python3 scripts/rumor_scanner.py --focus insider
+python3 scripts/rumor_scanner.py --focus analyst
+python3 scripts/rumor_scanner.py --focus social
+python3 scripts/rumor_scanner.py --output json
 ```
 
 ### Arguments

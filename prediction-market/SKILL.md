@@ -1,8 +1,16 @@
 ---
-name: aisa-prediction-market-data
-description: "Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades"
-homepage: https://aisa.one
-metadata: {"aisa":{"emoji":"📈","requires":{"bins":["curl","python"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY","compatibility":["openclaw","claude-code","hermes"]}}
+name: prediction-market
+description: 'Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock,prediction
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Prediction Market Data (`prediction-market`) 📈

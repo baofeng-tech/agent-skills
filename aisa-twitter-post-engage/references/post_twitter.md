@@ -64,7 +64,7 @@ Recommended flow:
 
 When the user provides image or video files from the local workspace:
 
-1. OpenClaw stores the attachment in the local workspace and provides the workspace file path to the skill.
+1. The runtime stores the attachment in the local workspace and provides the workspace file path to the skill.
 2. The skill passes that local path through `--media-file <workspace_path>`.
 3. The Python client reads the local file and sends it to the relay backend as `multipart/form-data`.
 4. The relay backend uploads the media to Twitter/X and then publishes the tweet.

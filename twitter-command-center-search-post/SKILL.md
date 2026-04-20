@@ -1,8 +1,16 @@
 ---
 name: twitter-command-center-search-post
-description: "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, or posting without sharing account passwords."
-homepage: https://aisa.one
-metadata: {"openclaw":{"emoji":"🐦","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, or posting without sharing account passwords.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: twitter,x,search
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Twitter Command Center 🐦
@@ -173,37 +181,37 @@ curl "https://api.aisa.one/apis/v1/twitter/spaces/detail?space_id=1dRJZlbLkjexB"
 
 ```bash
 # User operations
-python3 {baseDir}/scripts/twitter_client.py user-info --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py user-about --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py tweets --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py mentions --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py followers --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py followings --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py verified-followers --user-id 44196397
-python3 {baseDir}/scripts/twitter_client.py check-follow --source elonmusk --target BillGates
+python3 scripts/twitter_client.py user-info --username elonmusk
+python3 scripts/twitter_client.py user-about --username elonmusk
+python3 scripts/twitter_client.py tweets --username elonmusk
+python3 scripts/twitter_client.py mentions --username elonmusk
+python3 scripts/twitter_client.py followers --username elonmusk
+python3 scripts/twitter_client.py followings --username elonmusk
+python3 scripts/twitter_client.py verified-followers --user-id 44196397
+python3 scripts/twitter_client.py check-follow --source elonmusk --target BillGates
 
 # Search & discovery
-python3 {baseDir}/scripts/twitter_client.py search --query "AI agents"
-python3 {baseDir}/scripts/twitter_client.py search --query "AI agents" --type Top
-python3 {baseDir}/scripts/twitter_client.py user-search --query "AI researcher"
-python3 {baseDir}/scripts/twitter_client.py trends --woeid 1
+python3 scripts/twitter_client.py search --query "AI agents"
+python3 scripts/twitter_client.py search --query "AI agents" --type Top
+python3 scripts/twitter_client.py user-search --query "AI researcher"
+python3 scripts/twitter_client.py trends --woeid 1
 
 # Tweet operations
-python3 {baseDir}/scripts/twitter_client.py detail --tweet-ids 1895096451033985024
-python3 {baseDir}/scripts/twitter_client.py replies --tweet-id 1895096451033985024
-python3 {baseDir}/scripts/twitter_client.py quotes --tweet-id 1895096451033985024
-python3 {baseDir}/scripts/twitter_client.py retweeters --tweet-id 1895096451033985024
-python3 {baseDir}/scripts/twitter_client.py thread --tweet-id 1895096451033985024
+python3 scripts/twitter_client.py detail --tweet-ids 1895096451033985024
+python3 scripts/twitter_client.py replies --tweet-id 1895096451033985024
+python3 scripts/twitter_client.py quotes --tweet-id 1895096451033985024
+python3 scripts/twitter_client.py retweeters --tweet-id 1895096451033985024
+python3 scripts/twitter_client.py thread --tweet-id 1895096451033985024
 
 # List operations
-python3 {baseDir}/scripts/twitter_client.py list-members --list-id 1585430245762441216
-python3 {baseDir}/scripts/twitter_client.py list-followers --list-id 1585430245762441216
+python3 scripts/twitter_client.py list-members --list-id 1585430245762441216
+python3 scripts/twitter_client.py list-followers --list-id 1585430245762441216
 
 # Community operations
-python3 {baseDir}/scripts/twitter_client.py community-info --community-id 1708485837274263614
-python3 {baseDir}/scripts/twitter_client.py community-members --community-id 1708485837274263614
-python3 {baseDir}/scripts/twitter_client.py community-tweets --community-id 1708485837274263614
-python3 {baseDir}/scripts/twitter_client.py community-search --query "AI"
+python3 scripts/twitter_client.py community-info --community-id 1708485837274263614
+python3 scripts/twitter_client.py community-members --community-id 1708485837274263614
+python3 scripts/twitter_client.py community-tweets --community-id 1708485837274263614
+python3 scripts/twitter_client.py community-search --query "AI"
 ```
 
 ## API Endpoints Reference

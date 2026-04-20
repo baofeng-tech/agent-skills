@@ -37,7 +37,7 @@ ensure_supported_python()
 SCRIPT_DIR = Path(__file__).parent.resolve()
 sys.path.insert(0, str(SCRIPT_DIR))
 
-from lib import env, pipeline, render, schema, ui
+from lib import env, log, pipeline, render, schema, ui
 
 _child_pids: set[int] = set()
 _child_pids_lock = threading.Lock()
@@ -116,41 +116,19 @@ def emit_output(report: schema.Report, emit: str, fun_level: str = "medium") -> 
     raise SystemExit(f"Unsupported emit mode: {emit}")
 
 
-def persist_report(report: schema.Report) -> dict[str, int]:
-    import store
-
-    store.init_db()
-    topic_row = store.add_topic(report.topic)
-    topic_id = topic_row["id"]
-    source_mode = ",".join(sorted(report.items_by_source)) or "v3"
-    run_id = store.record_run(topic_id, source_mode=source_mode, status="running")
-    try:
-        findings = store.findings_from_report(report)
-        counts = store.store_findings(run_id, topic_id, findings)
-        store.update_run(
-            run_id,
-            status="completed",
-            findings_new=counts["new"],
-            findings_updated=counts["updated"],
-        )
-        return counts
-    except Exception as exc:
-        store.update_run(run_id, status="failed", error_message=str(exc)[:500])
-        raise
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Research a topic across live social, market, and grounded web sources.")
     parser.add_argument("topic", nargs="*", help="Research topic")
     parser.add_argument("--emit", default="compact", choices=["compact", "json", "context", "md"])
     parser.add_argument("--search", help="Comma-separated source list")
+    parser.add_argument("--api-key", help="Explicit AISA API key for hosted sources")
+    parser.add_argument("--config-file", help="Optional config file path (default: ./.last30days-data/config.env)")
     parser.add_argument("--quick", action="store_true", help="Lower-latency retrieval profile")
     parser.add_argument("--deep", action="store_true", help="Higher-recall retrieval profile")
     parser.add_argument("--debug", action="store_true", help="Enable HTTP debug logging")
     parser.add_argument("--mock", action="store_true", help="Use mock retrieval fixtures")
     parser.add_argument("--diagnose", action="store_true", help="Print provider and source availability")
     parser.add_argument("--save-dir", help="Optional directory for saving the rendered output")
-    parser.add_argument("--store", action="store_true", help="Persist ranked findings to the SQLite research store")
     parser.add_argument("--x-handle", help="X handle for targeted supplemental search")
     parser.add_argument("--x-related", help="Comma-separated related X handles (searched with lower weight)")
     parser.add_argument("--web-backend", default="auto",
@@ -160,15 +138,15 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Use the AISA-hosted deep web research path for in-depth analysis.")
     parser.add_argument("--plan", help="JSON query plan (skips internal LLM planner). Can be a JSON string or a file path.")
     parser.add_argument("--save-suffix", help="Suffix for saved output filename (e.g., 'aisa' → kanye-west-raw-aisa.md)")
+    parser.add_argument("--enable-youtube-transcripts", action="store_true", help="Enable optional direct transcript enrichment")
+    parser.add_argument("--enable-reddit-comments", action="store_true", help="Enable optional Reddit comment enrichment")
     parser.add_argument("--subreddits", help="Comma-separated subreddit names to search (e.g., SaaS,Entrepreneur)")
     parser.add_argument("--tiktok-hashtags", help="Comma-separated TikTok hashtags without # (e.g., tella,screenrecording)")
     parser.add_argument("--tiktok-creators", help="Comma-separated TikTok creator handles (e.g., TellaHQ,taborplace)")
     parser.add_argument("--ig-creators", help="Comma-separated Instagram creator handles (e.g., tella.tv,laborstories)")
-    parser.add_argument("--lookback-days", type=int, default=30, help="Number of days to look back for research (default: 30, watchlist uses 90)")
+    parser.add_argument("--lookback-days", type=int, default=30, help="Number of days to look back for research (default: 30)")
     parser.add_argument("--auto-resolve", action="store_true",
                         help="Use web search to discover subreddits/handles before planning (for platforms without WebSearch)")
-    parser.add_argument("--github-user", help="GitHub username for person-mode search (e.g., steipete)")
-    parser.add_argument("--github-repo", help="Comma-separated owner/repo for project-mode search (e.g., openclaw/openclaw,paperclipai/paperclip)")
     return parser
 
 
@@ -211,36 +189,19 @@ def _show_runtime_ui(report: schema.Report, progress: ui.ProgressDisplay, diag: 
 
 def main() -> int:
     parser = build_parser()
-    # Use parse_known_args so setup sub-flags (--device-auth, --github,
-    # --openclaw) pass through without argparse hard-exiting.
-    args, extra_argv = parser.parse_known_args()
-    if args.debug:
-        os.environ["LAST30DAYS_DEBUG"] = "1"
+    args = parser.parse_args()
+    log.set_debug(args.debug)
 
-    config = env.get_config()
+    config = env.get_config(
+        config_file=args.config_file,
+        overrides={
+            "AISA_API_KEY": args.api_key,
+            "LAST30DAYS_YOUTUBE_TRANSCRIPTS": "true" if args.enable_youtube_transcripts else None,
+            "LAST30DAYS_REDDIT_COMMENTS": "true" if args.enable_reddit_comments else None,
+        },
+    )
 
-    # Handle setup subcommand
     topic = " ".join(args.topic).strip()
-    if topic.lower() == "setup":
-        from lib import setup_wizard
-        if "--openclaw" in extra_argv:
-            results = setup_wizard.run_openclaw_setup(config)
-            print(json.dumps(results))
-            return 0
-        if "--github" in extra_argv:
-            results = setup_wizard.run_github_auth()
-            print(json.dumps(results))
-            return 0
-        if "--device-auth" in extra_argv:
-            results = setup_wizard.run_full_device_auth()
-            print(json.dumps(results))
-            return 0
-        sys.stderr.write("Running auto-setup...\n")
-        results = setup_wizard.run_auto_setup(config)
-        setup_wizard.write_setup_config(env.CONFIG_FILE)
-        results["env_written"] = True
-        sys.stderr.write(setup_wizard.get_setup_status_text(results) + "\n")
-        return 0
 
     requested_sources = parse_search_flag(args.search) if args.search else None
     diag = pipeline.diagnose(config, requested_sources)
@@ -268,8 +229,8 @@ def main() -> int:
         if args.plan:
             import json as _json
             plan_str = args.plan
-            if os.path.isfile(plan_str):
-                plan_str = open(plan_str).read()
+            if Path(plan_str).is_file():
+                plan_str = Path(plan_str).read_text(encoding="utf-8")
             try:
                 external_plan = _json.loads(plan_str)
             except _json.JSONDecodeError as exc:
@@ -287,22 +248,9 @@ def main() -> int:
             if resolution.get("x_handle") and not args.x_handle:
                 args.x_handle = resolution["x_handle"]
                 sys.stderr.write(f"[AutoResolve] X handle: @{args.x_handle}\n")
-            if resolution.get("github_user") and not args.github_user:
-                args.github_user = resolution["github_user"]
-                sys.stderr.write(f"[AutoResolve] GitHub user: @{args.github_user}\n")
-            if resolution.get("github_repos") and not args.github_repo:
-                args.github_repo = ",".join(resolution["github_repos"])
-                sys.stderr.write(f"[AutoResolve] GitHub repos: {args.github_repo}\n")
             if resolution.get("context"):
-                # Inject context into external_plan metadata for the planner to use
-                if not external_plan:
-                    external_plan = None  # planner will use its own, but with context
-                # Store context for the planner prompt injection
                 config["_auto_resolve_context"] = resolution["context"]
                 sys.stderr.write(f"[AutoResolve] Context: {resolution['context'][:80]}...\n")
-
-        github_user = args.github_user.lstrip("@").lower() if args.github_user else None
-        github_repos = [r.strip() for r in args.github_repo.split(",") if r.strip() and "/" in r.strip()] if args.github_repo else None
 
         # --deep-research: keep grounded research on the hosted AISA path
         if args.deep_research:
@@ -332,8 +280,6 @@ def main() -> int:
             tiktok_creators=tiktok_creators,
             ig_creators=ig_creators,
             lookback_days=args.lookback_days,
-            github_user=github_user,
-            github_repos=github_repos,
         )
         sys.stderr.write(
             f"[last30days] pipeline done in {time.time() - stage_start:.2f}s "
@@ -345,13 +291,6 @@ def main() -> int:
         progress.show_error(str(exc))
         raise
     _show_runtime_ui(report, progress, diag)
-    if args.store:
-        counts = persist_report(report)
-        sys.stderr.write(
-            f"[last30days] Stored {counts['new']} new, {counts['updated']} updated findings\n"
-        )
-        sys.stderr.flush()
-
     # Show quality nudge if applicable
     try:
         from lib import quality_nudge

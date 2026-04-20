@@ -1,6 +1,16 @@
 ---
 name: stock-portfolio
 description: Manage investment portfolios with live P&L tracking via AIsa API. Create, add, update, remove positions, rename, and show portfolio summary with real-time profit/loss. Use when the user wants to track investments, manage a portfolio, check P&L, or add/remove holdings.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: stock,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # Portfolio Management — AIsa Edition
@@ -11,30 +21,30 @@ Manage investment portfolios with live P&L tracking using the AIsa API.
 
 ```bash
 # Create a new portfolio
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" create "My Portfolio"
+python3 scripts/portfolio.py create "My Portfolio"
 
 # Add a position
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" add AAPL --quantity 10 --cost 150
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" add BTC-USD --quantity 0.5 --cost 40000
+python3 scripts/portfolio.py add AAPL --quantity 10 --cost 150
+python3 scripts/portfolio.py add BTC-USD --quantity 0.5 --cost 40000
 
 # Show portfolio with live P&L
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" show
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" show --portfolio "My Portfolio"
+python3 scripts/portfolio.py show
+python3 scripts/portfolio.py show --portfolio "My Portfolio"
 
 # Update a position
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" update AAPL --quantity 15 --cost 160
+python3 scripts/portfolio.py update AAPL --quantity 15 --cost 160
 
 # Remove a position
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" remove AAPL
+python3 scripts/portfolio.py remove AAPL
 
 # List all portfolios
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" list
+python3 scripts/portfolio.py list
 
 # Rename a portfolio
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" rename "My Portfolio" "Tech Holdings"
+python3 scripts/portfolio.py rename "My Portfolio" "Tech Holdings"
 
 # Delete a portfolio
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" delete "Old Portfolio"
+python3 scripts/portfolio.py delete "Old Portfolio"
 ```
 
 ### Actions
@@ -52,6 +62,6 @@ python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-portfolio/scripts/portfolio.py" dele
 
 ## Data Storage
 
-Portfolio data is stored in `${CLAUDE_PLUGIN_DATA}/portfolios.json` for persistence across sessions.
+Portfolio data is stored in `./.claude-skill-data/portfolios.json` for persistence across sessions.
 
 **NOT FINANCIAL ADVICE.** For informational purposes only.

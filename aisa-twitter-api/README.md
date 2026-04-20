@@ -1,28 +1,9 @@
 # AIsa Twitter API
 
-Cross-platform Twitter/X research and posting skill for AgentSkills-compatible clients.
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-## What it does
+## Notes
 
-- Search Twitter/X profiles, tweets, trends, lists, communities, and Spaces
-- Inspect timelines, mentions, replies, quotes, and thread context
-- Support approved posting workflows through OAuth
-
-## Setup
-
-```bash
-export AISA_API_KEY="your-key"
-```
-
-Requires:
-
-- `python3`
-- network access to `https://api.aisa.one/apis/v1/...`
-
-## Common Commands
-
-```bash
-python3 scripts/twitter_client.py search --query "AI agents" --type Latest
-python3 scripts/twitter_oauth_client.py authorize
-python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa"
-```
+- Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth. Use when the user asks for Twitter research, monitoring, or posting without sharing passwords.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

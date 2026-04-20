@@ -1,34 +1,9 @@
-# AIsa YouTube Search
+# AIsa Youtube Search
 
-Cross-platform YouTube discovery skill for AgentSkills-compatible clients.
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-## What it does
+## Notes
 
-- Search YouTube videos, channels, and playlists through the AIsa relay
-- Apply locale and filter parameters without managing Google credentials
-- Use simple `curl` requests for lightweight research workflows
-
-## Setup
-
-```bash
-export AISA_API_KEY="your-key"
-```
-
-Requires:
-
-- `curl`
-- network access to `https://api.aisa.one/apis/v1/youtube/search`
-
-## Common Commands
-
-```bash
-curl -s "https://api.aisa.one/apis/v1/youtube/search?engine=youtube&q=machine+learning+tutorial" \
-  -H "Authorization: Bearer $AISA_API_KEY"
-```
-
-## Platform Notes
-
-- AgentSkills: lightweight `SKILL.md`-only package with curl-based examples.
-- OpenClaw: `metadata.openclaw` includes environment and binary hints.
-- Hermes: can be categorized under research or media skills.
-- Claude Code: works as a standalone skill, or can be wrapped in a plugin later.
+- Search YouTube videos, channels, and playlists through the AIsa YouTube relay with one API key. Use when the user asks for YouTube discovery, query expansion, or pagination without managing Google credentials.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

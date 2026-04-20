@@ -1,4 +1,4 @@
-# OpenClaw Twitter OAuth
+# Twitter OAuth
 
 OAuth-based X/Twitter posting for autonomous agents through the AISA relay.
 
@@ -60,11 +60,11 @@ Recommended flow:
 3. After the user completes authorization, publish using the authorized account.
 4. Use `--open-browser` only when the user explicitly wants local browser launch instead of receiving the URL.
 
-### OpenClaw Attachment Flow
+### Attachment Flow
 
-When the user drops image or video files into OpenClaw:
+When the user provides image or video files in the current workspace:
 
-1. OpenClaw stores the attachment in the local workspace and provides the workspace file path to the skill.
+1. The runtime stores the attachment in the local workspace and provides the workspace file path to the skill.
 2. The skill passes that local path through `--media-file <workspace_path>`.
 3. The Python client reads the local file and sends it to the relay backend as `multipart/form-data`.
 4. The relay backend uploads the media to Twitter/X and then publishes the tweet.

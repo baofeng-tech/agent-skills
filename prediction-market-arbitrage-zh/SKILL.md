@@ -1,14 +1,17 @@
 ---
 name: prediction-market-arbitrage-zh
-description: "通过 AIsa API 发现 Polymarket 和 Kalshi 预测市场的套利机会。扫描体育市场跨平台价差、比较实时赔率、验证订单簿流动性。适用场景：预测市场套利、跨平台价差、体育博彩套利、赔率对比、无风险利润、市场低效。"
+description: '通过 AIsa API 发现 Polymarket 和 Kalshi 预测市场的套利机会。扫描体育市场跨平台价差、比较实时赔率、验证订单簿流动性。适用场景：预测市场套利、跨平台价差、体育博彩套利、赔率对比、无风险利润、市场低效。 Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.'
 license: MIT
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "⚖️"
-    requires:
-      bins: [python3]
-      env: [AISA_API_KEY]
-    primaryEnv: AISA_API_KEY
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock,prediction,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # 预测市场套利
@@ -37,25 +40,25 @@ export AISA_API_KEY="your-key"
 
 ```bash
 # 扫描指定日期所有 NBA 市场 — 自动显示价差
-python3 {baseDir}/scripts/arbitrage_finder.py scan nba --date 2025-04-01
+python3 scripts/arbitrage_finder.py scan nba --date 2025-04-01
 ```
 
 ### 分析特定市场
 
 ```bash
 # 通过 Polymarket slug
-python3 {baseDir}/scripts/arbitrage_finder.py match --polymarket-slug <slug>
+python3 scripts/arbitrage_finder.py match --polymarket-slug <slug>
 
 # 通过 Kalshi ticker
-python3 {baseDir}/scripts/arbitrage_finder.py match --kalshi-ticker <ticker>
+python3 scripts/arbitrage_finder.py match --kalshi-ticker <ticker>
 ```
 
 ### 行动前验证流动性
 
 ```bash
 # 检查两边的订单簿深度
-python3 {baseDir}/scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
-python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
+python3 scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
+python3 scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
 ```
 
 ## 命令参考
@@ -63,9 +66,9 @@ python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker
 ### arbitrage_finder.py — 自动检测
 
 ```bash
-python3 {baseDir}/scripts/arbitrage_finder.py scan <运动类型> --date <YYYY-MM-DD> [--min-spread <百分比>] [--min-liquidity <美元>] [--json]
-python3 {baseDir}/scripts/arbitrage_finder.py match --polymarket-slug <slug> [--min-spread <百分比>] [--min-liquidity <美元>] [--json]
-python3 {baseDir}/scripts/arbitrage_finder.py match --kalshi-ticker <ticker> [--min-spread <百分比>] [--min-liquidity <美元>] [--json]
+python3 scripts/arbitrage_finder.py scan <运动类型> --date <YYYY-MM-DD> [--min-spread <百分比>] [--min-liquidity <美元>] [--json]
+python3 scripts/arbitrage_finder.py match --polymarket-slug <slug> [--min-spread <百分比>] [--min-liquidity <美元>] [--json]
+python3 scripts/arbitrage_finder.py match --kalshi-ticker <ticker> [--min-spread <百分比>] [--min-liquidity <美元>] [--json]
 ```
 
 支持：`nba`、`nfl`、`mlb`、`nhl`、`soccer`、`tennis`。
@@ -76,20 +79,20 @@ python3 {baseDir}/scripts/arbitrage_finder.py match --kalshi-ticker <ticker> [--
 
 ```bash
 # 搜索市场
-python3 {baseDir}/scripts/prediction_market_client.py polymarket markets --search <关键词> --status open --limit 5
-python3 {baseDir}/scripts/prediction_market_client.py kalshi markets --search <关键词> --status open --limit 5
+python3 scripts/prediction_market_client.py polymarket markets --search <关键词> --status open --limit 5
+python3 scripts/prediction_market_client.py kalshi markets --search <关键词> --status open --limit 5
 
 # 获取价格（使用 markets 输出中的 token_id / market_ticker）
-python3 {baseDir}/scripts/prediction_market_client.py polymarket price <token_id>
-python3 {baseDir}/scripts/prediction_market_client.py kalshi price <market_ticker>
+python3 scripts/prediction_market_client.py polymarket price <token_id>
+python3 scripts/prediction_market_client.py kalshi price <market_ticker>
 
 # 跨平台体育市场匹配
-python3 {baseDir}/scripts/prediction_market_client.py sports by-date <运动类型> --date <YYYY-MM-DD>
-python3 {baseDir}/scripts/prediction_market_client.py sports matching (--polymarket-slug <slug> | --kalshi-ticker <ticker>)
+python3 scripts/prediction_market_client.py sports by-date <运动类型> --date <YYYY-MM-DD>
+python3 scripts/prediction_market_client.py sports matching (--polymarket-slug <slug> | --kalshi-ticker <ticker>)
 
 # 订单簿深度
-python3 {baseDir}/scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
-python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
+python3 scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
+python3 scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
 ```
 
 ## 理解套利

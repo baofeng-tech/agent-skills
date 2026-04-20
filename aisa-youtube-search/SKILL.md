@@ -2,26 +2,16 @@
 name: aisa-youtube-search
 description: Search YouTube videos, channels, and playlists through the AIsa YouTube relay with one API key. Use when the user asks for YouTube discovery, query expansion, or pagination without managing Google credentials.
 license: MIT-0
-compatibility: Requires curl, AISA_API_KEY, and internet access to api.aisa.one. Uses a lightweight curl-first workflow for broad compatibility across AgentSkills-compatible clients, including OpenClaw, Hermes, and Claude Code.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: "1.0.3"
+  version: 1.0.0
   homepage: https://aisa.one
-  tags: youtube,search,serp,discovery,media
-  openclaw:
-    emoji: "🎬"
-    primaryEnv: AISA_API_KEY
-    requires:
-      bins:
-        - curl
-      env:
-        - AISA_API_KEY
-  hermes:
-    tags:
-      - youtube
-      - search
-      - media
-allowed-tools: Read Grep Bash
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,youtube,search,video,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read
 ---
 
 # AIsa YouTube Search

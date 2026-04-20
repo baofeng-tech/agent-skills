@@ -1,8 +1,16 @@
 ---
-name: aisa-search
-description: "Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models."
-homepage: https://aisa.one
-metadata: {"aisa":{"emoji":"🔎","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY","compatibility":["openclaw","claude-code","hermes"]}}
+name: search
+description: 'Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Search
@@ -173,27 +181,27 @@ curl -X POST "https://api.aisa.one/apis/v1/tavily/map" \
 
 ```bash
 # Structured search
-python3 {baseDir}/scripts/search_client.py web --query "latest AI news" --count 10
-python3 {baseDir}/scripts/search_client.py scholar --query "transformer architecture" --count 10
-python3 {baseDir}/scripts/search_client.py smart --query "autonomous agents" --count 10
+python3 scripts/search_client.py web --query "latest AI news" --count 10
+python3 scripts/search_client.py scholar --query "transformer architecture" --count 10
+python3 scripts/search_client.py smart --query "autonomous agents" --count 10
 
 # Perplexity Sonar family
-python3 {baseDir}/scripts/search_client.py sonar --query "Summarize this week's AI launches"
-python3 {baseDir}/scripts/search_client.py sonar-pro --query "Compare AI agent frameworks with citations"
-python3 {baseDir}/scripts/search_client.py sonar-reasoning-pro --query "Analyze the defensibility of AI copilots"
-python3 {baseDir}/scripts/search_client.py sonar-deep-research --query "Write a deep research report on AI browser agents"
+python3 scripts/search_client.py sonar --query "Summarize this week's AI launches"
+python3 scripts/search_client.py sonar-pro --query "Compare AI agent frameworks with citations"
+python3 scripts/search_client.py sonar-reasoning-pro --query "Analyze the defensibility of AI copilots"
+python3 scripts/search_client.py sonar-deep-research --query "Write a deep research report on AI browser agents"
 
 # Optional system instruction
-python3 {baseDir}/scripts/search_client.py sonar-pro \
+python3 scripts/search_client.py sonar-pro \
   --query "Map the top coding agent products" \
   --system "Respond in markdown with a short executive summary first."
 
 # Tavily utilities
-python3 {baseDir}/scripts/search_client.py tavily-search --query "AI developments"
-python3 {baseDir}/scripts/search_client.py tavily-extract --urls "https://example.com/article"
+python3 scripts/search_client.py tavily-search --query "AI developments"
+python3 scripts/search_client.py tavily-extract --urls "https://example.com/article"
 
 # Multi-source retrieval
-python3 {baseDir}/scripts/search_client.py verity --query "Is quantum computing ready for enterprise?"
+python3 scripts/search_client.py verity --query "Is quantum computing ready for enterprise?"
 ```
 
 ## API Reference

@@ -1,6 +1,16 @@
 ---
 name: stock-hot
 description: Hot Scanner — find the most trending and high-momentum stocks and crypto right now via AIsa API. Top gainers, losers, most active by volume, crypto highlights, news catalysts, and top 5 watchlist picks. Use when the user asks about trending stocks, what's hot, market movers, or momentum plays.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # Hot Scanner — AIsa Edition
@@ -10,10 +20,10 @@ Scan for the most trending and high-momentum stocks and cryptocurrencies using t
 ## Usage
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-hot/scripts/hot_scanner.py"
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-hot/scripts/hot_scanner.py" --focus stocks
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-hot/scripts/hot_scanner.py" --focus crypto
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-hot/scripts/hot_scanner.py" --output json
+python3 scripts/hot_scanner.py
+python3 scripts/hot_scanner.py --focus stocks
+python3 scripts/hot_scanner.py --focus crypto
+python3 scripts/hot_scanner.py --output json
 ```
 
 ### Arguments

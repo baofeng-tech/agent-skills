@@ -1,30 +1,9 @@
-# MarketPulse (Stocks + Crypto Data) 📊
+# Market
 
-Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting.
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-## Features
+## Notes
 
-- **Stock Data**: Historical prices, real-time quotes
-- **Company News**: Latest news by ticker
-- **Financial Statements**: Income, balance sheets, cash flow
-- **Analyst Estimates**: EPS forecasts, recommendations
-- **Insider Trading**: Track insider transactions
-- **SEC Filings**: 10-K, 10-Q, 8-K and more
-- **Crypto Data**: Real-time prices, historical OHLCV
-- **Stock Screener**: Filter by metrics
-
-## Quick Start
-
-```bash
-export AISA_API_KEY="your-key"
-
-# Stock data
-python scripts/market_client.py stock prices --ticker AAPL
-
-# Crypto data
-python scripts/market_client.py crypto snapshot --symbol BTC
-```
-
-## Documentation
-
-See [SKILL.md](SKILL.md) for complete API documentation.
+- Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

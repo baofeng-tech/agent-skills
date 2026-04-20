@@ -1,8 +1,16 @@
 ---
 name: us-stock-analyst
-description: "Professional US stock analysis with financial data, news, social sentiment, and multi-model AI. Comprehensive reports at $0.02-0.10 per analysis."
-homepage: https://aisa.one
-metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'Professional US stock analysis with financial data, news, social sentiment, and multi-model AI. Comprehensive reports at $0.02-0.10 per analysis. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # US Stock Analyst 📈
@@ -190,19 +198,19 @@ curl -X POST "https://api.aisa.one/v1/chat/completions" \
 
 ```bash
 # Basic analysis
-python3 {baseDir}/scripts/stock_analyst.py analyze --ticker AAPL
+python3 scripts/stock_analyst.py analyze --ticker AAPL
 
 # Standard analysis with multiple models
-python3 {baseDir}/scripts/stock_analyst.py analyze --ticker NVDA --depth standard --models gpt-4 claude-3-opus
+python3 scripts/stock_analyst.py analyze --ticker NVDA --depth standard --models gpt-4 claude-3-opus
 
 # Deep analysis (all data sources)
-python3 {baseDir}/scripts/stock_analyst.py analyze --ticker TSLA --depth deep
+python3 scripts/stock_analyst.py analyze --ticker TSLA --depth deep
 
 # Quick screening
-python3 {baseDir}/scripts/stock_analyst.py analyze --ticker MSFT --depth quick
+python3 scripts/stock_analyst.py analyze --ticker MSFT --depth quick
 
 # Save report to file
-python3 {baseDir}/scripts/stock_analyst.py analyze --ticker GOOGL --output report.json
+python3 scripts/stock_analyst.py analyze --ticker GOOGL --output report.json
 ```
 
 ---

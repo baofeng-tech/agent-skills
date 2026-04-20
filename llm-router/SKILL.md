@@ -1,8 +1,16 @@
 ---
 name: llm-router
-description: "Unified LLM Gateway - One API for 70+ AI models. Route to GPT, Claude, Gemini, Qwen, Deepseek, Grok and more with a single API key."
-homepage: https://aisa.one
-metadata: {"openclaw":{"emoji":"🧠","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'Unified LLM Gateway - One API for 70+ AI models. Route to GPT, Claude, Gemini, Qwen, Deepseek, Grok and more with a single API key. Use when: the user needs model routing, provider setup, or Chinese LLM access guidance.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: llm,router,provider
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa LLM Router 🧠
@@ -246,7 +254,7 @@ curl -X POST "https://api.aisa.one/v1/models/gemini-2.0-flash:generateContent" \
 
 ## Python Client
 
-### Installation
+### Setupation
 
 No installation required - uses standard library only.
 
@@ -254,25 +262,25 @@ No installation required - uses standard library only.
 
 ```bash
 # Basic completion
-python3 {baseDir}/scripts/llm_router_client.py chat --model gpt-4.1 --message "Hello, world!"
+python3 scripts/llm_router_client.py chat --model gpt-4.1 --message "Hello, world!"
 
 # With system prompt
-python3 {baseDir}/scripts/llm_router_client.py chat --model claude-3-sonnet --system "You are a poet" --message "Write about the moon"
+python3 scripts/llm_router_client.py chat --model claude-3-sonnet --system "You are a poet" --message "Write about the moon"
 
 # Streaming
-python3 {baseDir}/scripts/llm_router_client.py chat --model gpt-4o --message "Tell me a story" --stream
+python3 scripts/llm_router_client.py chat --model gpt-4o --message "Tell me a story" --stream
 
 # Multi-turn conversation
-python3 {baseDir}/scripts/llm_router_client.py chat --model qwen-max --messages '[{"role":"user","content":"Hi"},{"role":"assistant","content":"Hello!"},{"role":"user","content":"How are you?"}]'
+python3 scripts/llm_router_client.py chat --model qwen-max --messages '[{"role":"user","content":"Hi"},{"role":"assistant","content":"Hello!"},{"role":"user","content":"How are you?"}]'
 
 # Vision analysis
-python3 {baseDir}/scripts/llm_router_client.py vision --model gpt-4o --image "https://example.com/image.jpg" --prompt "Describe this image"
+python3 scripts/llm_router_client.py vision --model gpt-4o --image "https://example.com/image.jpg" --prompt "Describe this image"
 
 # List supported models
-python3 {baseDir}/scripts/llm_router_client.py models
+python3 scripts/llm_router_client.py models
 
 # Compare models
-python3 {baseDir}/scripts/llm_router_client.py compare --models "gpt-4.1,claude-3-sonnet,gemini-2.0-flash" --message "What is 2+2?"
+python3 scripts/llm_router_client.py compare --models "gpt-4.1,claude-3-sonnet,gemini-2.0-flash" --message "What is 2+2?"
 ```
 
 ### Python SDK Usage

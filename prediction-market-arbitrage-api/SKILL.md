@@ -1,14 +1,17 @@
 ---
 name: prediction-market-arbitrage-api
-description: "Find arbitrage opportunities across Polymarket and Kalshi prediction markets via AIsa API. Scan sports markets for cross-platform price discrepancies, compare real-time odds, verify orderbook liquidity. Use when user asks about: prediction market arbitrage, cross-platform price differences, sports betting arbitrage, odds comparison, risk-free profit, market inefficiencies."
+description: 'Find arbitrage opportunities across Polymarket and Kalshi prediction markets via AIsa API. Scan sports markets for cross-platform price discrepancies, compare real-time odds, verify orderbook liquidity. Use when user asks about: prediction market arbitrage, cross-platform price differences, sports betting arbitrage, odds comparison, risk-free profit, market inefficiencies.'
 license: MIT
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "⚖️"
-    requires:
-      bins: [python3]
-      env: [AISA_API_KEY]
-    primaryEnv: AISA_API_KEY
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,prediction,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # Prediction Market Arbitrage Api
@@ -37,25 +40,25 @@ Finding arbitrage involves these steps:
 
 ```bash
 # Scan all NBA markets on a date — shows spreads automatically
-python3 {baseDir}/scripts/arbitrage_finder.py scan nba --date 2025-04-01
+python3 scripts/arbitrage_finder.py scan nba --date 2025-04-01
 ```
 
 ### Analyze a specific market
 
 ```bash
 # By Polymarket slug
-python3 {baseDir}/scripts/arbitrage_finder.py match --polymarket-slug <slug>
+python3 scripts/arbitrage_finder.py match --polymarket-slug <slug>
 
 # By Kalshi ticker
-python3 {baseDir}/scripts/arbitrage_finder.py match --kalshi-ticker <ticker>
+python3 scripts/arbitrage_finder.py match --kalshi-ticker <ticker>
 ```
 
 ### Verify liquidity before acting
 
 ```bash
 # Check orderbook depth on both sides
-python3 {baseDir}/scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
-python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
+python3 scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
+python3 scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
 ```
 
 ## Commands
@@ -63,9 +66,9 @@ python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker
 ### arbitrage_finder.py — Automated Detection
 
 ```bash
-python3 {baseDir}/scripts/arbitrage_finder.py scan <sport> --date <YYYY-MM-DD> [--min-spread <pct>] [--min-liquidity <usd>] [--json]
-python3 {baseDir}/scripts/arbitrage_finder.py match --polymarket-slug <slug> [--min-spread <pct>] [--min-liquidity <usd>] [--json]
-python3 {baseDir}/scripts/arbitrage_finder.py match --kalshi-ticker <ticker> [--min-spread <pct>] [--min-liquidity <usd>] [--json]
+python3 scripts/arbitrage_finder.py scan <sport> --date <YYYY-MM-DD> [--min-spread <pct>] [--min-liquidity <usd>] [--json]
+python3 scripts/arbitrage_finder.py match --polymarket-slug <slug> [--min-spread <pct>] [--min-liquidity <usd>] [--json]
+python3 scripts/arbitrage_finder.py match --kalshi-ticker <ticker> [--min-spread <pct>] [--min-liquidity <usd>] [--json]
 ```
 
 Sports: `nba`, `nfl`, `mlb`, `nhl`, `soccer`, `tennis`.
@@ -76,20 +79,20 @@ Use for manual price checks and deeper analysis.
 
 ```bash
 # Search markets
-python3 {baseDir}/scripts/prediction_market_client.py polymarket markets --search <kw> --status open --limit 5
-python3 {baseDir}/scripts/prediction_market_client.py kalshi markets --search <kw> --status open --limit 5
+python3 scripts/prediction_market_client.py polymarket markets --search <kw> --status open --limit 5
+python3 scripts/prediction_market_client.py kalshi markets --search <kw> --status open --limit 5
 
 # Get prices (use token_id / market_ticker from markets output)
-python3 {baseDir}/scripts/prediction_market_client.py polymarket price <token_id>
-python3 {baseDir}/scripts/prediction_market_client.py kalshi price <market_ticker>
+python3 scripts/prediction_market_client.py polymarket price <token_id>
+python3 scripts/prediction_market_client.py kalshi price <market_ticker>
 
 # Cross-platform sports matching
-python3 {baseDir}/scripts/prediction_market_client.py sports by-date <sport> --date <YYYY-MM-DD>
-python3 {baseDir}/scripts/prediction_market_client.py sports matching (--polymarket-slug <slug> | --kalshi-ticker <ticker>)
+python3 scripts/prediction_market_client.py sports by-date <sport> --date <YYYY-MM-DD>
+python3 scripts/prediction_market_client.py sports matching (--polymarket-slug <slug> | --kalshi-ticker <ticker>)
 
 # Orderbook depth
-python3 {baseDir}/scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
-python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
+python3 scripts/prediction_market_client.py polymarket orderbooks --token-id <id>
+python3 scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker>
 ```
 
 ## Understanding Arbitrage

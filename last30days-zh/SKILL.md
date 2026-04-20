@@ -1,31 +1,22 @@
 ---
 name: last30days-zh
-version: "1.0.4"
-description: "聚合最近 30 天的 Reddit、X/Twitter、YouTube、TikTok、Instagram、Hacker News、Polymarket、GitHub 和 web search 结果。触发条件：当用户需要 recent social research、人物近况、公司动态、竞品对比、发布反应、趋势扫描时使用。支持 AISA 规划、聚类、重排和 JSON 输出。"
-argument-hint: "last30days OpenAI Agents SDK, last30days Peter Steinberger, last30days OpenClaw vs Codex"
-allowed-tools: Bash, Read, Write, AskUserQuestion, WebSearch
-homepage: https://github.com/AIsa-team/agent-skills
-repository: https://github.com/AIsa-team/agent-skills
-author: mvanhorn
+description: '聚合最近 30 天的 Reddit、X/Twitter、YouTube、TikTok、Instagram、Hacker News、Polymarket 和 web search 结果. Use when: the user needs recent multi-source research across the last 30 days.'
 license: MIT
-user-invocable: true
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, bash, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "📰"
-    requires:
-      env:
-        - AISA_API_KEY
-      bins:
-        - python3
-        - bash
-    primaryEnv: AISA_API_KEY
-    files:
-      - "scripts/*"
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: twitter,x,youtube,search,research,market
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # last30days 中文版
 
-聚合最近 30 天的社交平台、社区论坛、预测市场、GitHub 和 grounded web 结果，再合成为一份研究简报。
+聚合最近 30 天的社交平台、社区论坛、预测市场和 grounded web 结果，再合成为一份研究简报。
 
 ## 触发条件
 
@@ -42,32 +33,25 @@ metadata:
 
 - 通过 AISA 提供规划、重排、综合、grounded web search、X/Twitter、YouTube 和 Polymarket。
 - Reddit 和 Hacker News 走公开路径。
-- GitHub 走官方 GitHub API，按需使用 `GH_TOKEN` 或 `GITHUB_TOKEN`。
 - TikTok、Instagram、Threads、Pinterest 在启用时走托管发现路径。
+- 对外发布层现在只保留无状态研究主链，不再默认携带旧的 watchlist / briefing / 第二凭证 GitHub 扩展面。
 
 ## 环境要求
 
 - 主凭证：`AISA_API_KEY`
-- 可选 GitHub：`GH_TOKEN` 或 `GITHUB_TOKEN`
 - Python `3.12+`
-
-```bash
-for py in /usr/local/python3.12/bin/python3.12 python3.14 python3.13 python3.12 python3; do
-  command -v "$py" >/dev/null 2>&1 || continue
-  "$py" -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 12) else 1)' || continue
-  LAST30DAYS_PYTHON="$py"
-  break
-done
-```
+- 统一使用仓库相对路径下的 `scripts/` 命令，避免运行时变量替换失败。
+- 可选 repo-local 配置文件：`./.last30days-data/config.env`，也可以直接传 `--api-key`。
 
 ## 快速命令
 
 ```bash
-bash "${SKILL_ROOT}/scripts/run-last30days.sh" "$ARGUMENTS" --emit=compact
-"${LAST30DAYS_PYTHON}" "${SKILL_ROOT}/scripts/last30days.py" "$ARGUMENTS" --emit=json
-"${LAST30DAYS_PYTHON}" "${SKILL_ROOT}/scripts/last30days.py" "$ARGUMENTS" --quick
-"${LAST30DAYS_PYTHON}" "${SKILL_ROOT}/scripts/last30days.py" "$ARGUMENTS" --deep
-"${LAST30DAYS_PYTHON}" "${SKILL_ROOT}/scripts/last30days.py" --diagnose
+bash scripts/run-last30days.sh "$ARGUMENTS" --emit=compact
+python3 scripts/last30days.py "$ARGUMENTS" --api-key="$AISA_API_KEY"
+python3 scripts/last30days.py "$ARGUMENTS" --emit=json
+python3 scripts/last30days.py "$ARGUMENTS" --quick
+python3 scripts/last30days.py "$ARGUMENTS" --deep
+python3 scripts/last30days.py --diagnose
 ```
 
 ## 示例
@@ -76,4 +60,3 @@ bash "${SKILL_ROOT}/scripts/run-last30days.sh" "$ARGUMENTS" --emit=compact
 - `last30days Peter Steinberger`
 - `last30days OpenClaw vs Codex`
 - `last30days Kanye West --quick`
-

@@ -1,13 +1,18 @@
 """Shared logging utilities for last30days skill."""
 
-import os
 import sys
 
-DEBUG = os.environ.get("LAST30DAYS_DEBUG", "").lower() in ("1", "true", "yes")
+DEBUG = False
+
+
+def set_debug(enabled: bool) -> None:
+    """Enable or disable debug logging at runtime."""
+    global DEBUG
+    DEBUG = bool(enabled)
 
 
 def debug(msg: str) -> None:
-    """Log debug message to stderr (only when LAST30DAYS_DEBUG is set)."""
+    """Log debug message to stderr when debug mode is enabled."""
     if DEBUG:
         sys.stderr.write(f"[DEBUG] {msg}\n")
         sys.stderr.flush()

@@ -1,29 +1,19 @@
 ---
 name: openclaw-twitter
-description: Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AISA relay, then publish approved posts with OAuth. Use when: the user asks for Twitter/X research, monitoring, or posting without sharing passwords. Supports read APIs, authorization links, and media-aware posting.
-homepage: https://openclaw.ai
-author: 0xjordansg-yolo
-user-invocable: true
-requires:
-  bins:
-    - python3
-  env:
-    - AISA_API_KEY
+description: 'Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AISA relay, then publish approved posts with OAuth. Use when: the user asks for Twitter/X research, monitoring, or posting without sharing passwords. Supports read APIs, authorization links, and media-aware posting.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "🐦"
-    requires:
-      bins:
-        - python3
-      env:
-        - AISA_API_KEY
-    primaryEnv: AISA_API_KEY
-    files:
-      - "scripts/*"
-      - "references/*"
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: twitter,x,search,research,media,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
-# OpenClaw Twitter
+# Twitter
 
 Runtime-focused release bundle for Twitter/X search and posting through the AISA relay.
 
@@ -63,12 +53,12 @@ All network calls go to `https://api.aisa.one/apis/v1/...`.
 ## Common Commands
 
 ```bash
-python3 {baseDir}/scripts/twitter_client.py user-info --username elonmusk
-python3 {baseDir}/scripts/twitter_client.py search --query "AI agents" --type Latest
-python3 {baseDir}/scripts/twitter_client.py trends --woeid 1
-python3 {baseDir}/scripts/twitter_oauth_client.py status
-python3 {baseDir}/scripts/twitter_oauth_client.py authorize
-python3 {baseDir}/scripts/twitter_oauth_client.py post --text "Hello from OpenClaw"
+python3 scripts/twitter_client.py user-info --username elonmusk
+python3 scripts/twitter_client.py search --query "AI agents" --type Latest
+python3 scripts/twitter_client.py trends --woeid 1
+python3 scripts/twitter_oauth_client.py status
+python3 scripts/twitter_oauth_client.py authorize
+python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa"
 ```
 
 ## Posting Workflow
@@ -87,7 +77,7 @@ These points summarize the common reasons similar skills are marked `Suspicious`
 - The package is API-key-first: it requires `AISA_API_KEY` and does not ask for passwords, cookies, `CT0`, or other legacy secrets.
 - The release bundle is runtime-only: it keeps `SKILL.md`, `scripts/`, and the posting reference, while omitting non-runtime files such as `README.md` and `_meta.json`.
 - The package does not include cache sync, self-install logic, home-directory persistence, browser-cookie extraction, or external agent CLI wrappers.
-- Browser opening is optional and not the default workflow; returning the authorization link is the preferred path for OpenClaw.
+- Browser opening is optional and not the default workflow; returning the authorization link is the preferred path for this release.
 
 ## Release Bundle Notes
 

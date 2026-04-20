@@ -13,7 +13,6 @@ network timeouts, and missing subreddits.
 """
 
 import json
-import os
 import sys
 import time
 import urllib.error
@@ -54,9 +53,9 @@ def _log(msg: str):
     sys.stderr.flush()
 
 
-def comment_enrichment_enabled() -> bool:
+def comment_enrichment_enabled(config: dict[str, Any] | None = None) -> bool:
     """Return True when optional Reddit comment enrichment is explicitly enabled."""
-    raw = (os.environ.get("LAST30DAYS_REDDIT_COMMENTS") or "").strip().lower()
+    raw = str((config or {}).get("LAST30DAYS_REDDIT_COMMENTS") or "").strip().lower()
     return raw in {"1", "true", "yes", "on"}
 
 
@@ -323,6 +322,7 @@ def search_reddit_public(
     depth: str = "default",
     subreddits: Optional[List[str]] = None,
     *,
+    config: dict[str, Any] | None = None,
     enrich_comments: bool | None = None,
 ) -> List[Dict[str, Any]]:
     """High-level Reddit public search matching the openai_reddit interface.
@@ -343,7 +343,7 @@ def search_reddit_public(
         List of normalized item dicts matching the shared Reddit item shape.
     """
     if enrich_comments is None:
-        enrich_comments = comment_enrichment_enabled()
+        enrich_comments = comment_enrichment_enabled(config)
     all_posts: List[Dict[str, Any]] = []
 
     # Phase 1: Search targeted subreddits in parallel (if provided)

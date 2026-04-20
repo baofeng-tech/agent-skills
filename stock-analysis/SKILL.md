@@ -1,6 +1,16 @@
 ---
 name: stock-analysis
 description: Analyze stocks and cryptocurrencies with 8-dimension scoring via AIsa API. Provides BUY/HOLD/SELL signals with confidence levels, entry/target/stop prices, and risk flags. Supports single or multi-ticker analysis with optional fast mode and JSON output. Use when the user asks to analyze a stock, check a ticker, or compare investments.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: stock,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # Stock & Crypto Analysis — AIsa Edition
@@ -17,18 +27,18 @@ export AISA_BASE_URL=https://api.aisa.one/v1   # optional
 export AISA_MODEL=gpt-4o                         # optional
 ```
 
-Or use the plugin's `userConfig` values (set automatically when the plugin is enabled).
+Or use environment variables (set automatically when the plugin is enabled).
 
 ## Usage
 
 Run the analysis script with one or more ticker symbols:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-analysis/scripts/analyze_stock.py" AAPL
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-analysis/scripts/analyze_stock.py" BTC-USD ETH-USD
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-analysis/scripts/analyze_stock.py" AAPL MSFT GOOGL
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-analysis/scripts/analyze_stock.py" AAPL --fast
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/stock-analysis/scripts/analyze_stock.py" AAPL --output json
+python3 scripts/analyze_stock.py AAPL
+python3 scripts/analyze_stock.py BTC-USD ETH-USD
+python3 scripts/analyze_stock.py AAPL MSFT GOOGL
+python3 scripts/analyze_stock.py AAPL --fast
+python3 scripts/analyze_stock.py AAPL --output json
 ```
 
 ### Arguments

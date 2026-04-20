@@ -1,6 +1,16 @@
 ---
 name: smart-search
-description: Intelligent hybrid search combining web and academic sources via AIsa Smart Search endpoint. Best when you need both web and scholarly results.
+description: 'Intelligent hybrid search combining web and academic sources via AIsa Smart Search endpoint. Best when you need both web and scholarly results. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Smart Search
@@ -9,14 +19,14 @@ Intelligent hybrid search that combines web and academic sources using the AIsa 
 
 ## Setup
 
-This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the plugin's `userConfig`.
+This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the environment variables.
 
 ## Usage
 
 Run the search client with the `smart` subcommand:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/smart-search/scripts/search_client.py smart --query "<search query>" --count <max_results>
+python3 scripts/search_client.py smart --query "<search query>" --count <max_results>
 ```
 
 ### Arguments
@@ -29,7 +39,7 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/smart-search/scripts/search_client.py smart
 ### Example
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/smart-search/scripts/search_client.py smart --query "impact of large language models on software engineering" --count 10
+python3 scripts/search_client.py smart --query "impact of large language models on software engineering" --count 10
 ```
 
 ## Output

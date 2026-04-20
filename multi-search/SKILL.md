@@ -1,6 +1,16 @@
 ---
 name: multi-search
-description: Parallel multi-source search combining Web, Scholar, Smart, and Tavily results with confidence scoring and AI synthesis. Best for comprehensive research requiring cross-source validation.
+description: 'Parallel multi-source search combining Web, Scholar, Smart, and Tavily results with confidence scoring and AI synthesis. Best for comprehensive research requiring cross-source validation. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Multi-Source Search
@@ -9,14 +19,14 @@ The most comprehensive search tool in this plugin. Queries Web, Scholar, Smart, 
 
 ## Setup
 
-This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the plugin's `userConfig`.
+This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the environment variables.
 
 ## Usage
 
 Run the search client with the `verity` subcommand:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/multi-search/scripts/search_client.py verity --query "<search query>" --count <results_per_source>
+python3 scripts/search_client.py verity --query "<search query>" --count <results_per_source>
 ```
 
 ### Arguments
@@ -29,7 +39,7 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/multi-search/scripts/search_client.py verit
 ### Example
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/multi-search/scripts/search_client.py verity --query "impact of AI on healthcare diagnostics" --count 5
+python3 scripts/search_client.py verity --query "impact of AI on healthcare diagnostics" --count 5
 ```
 
 ## Output

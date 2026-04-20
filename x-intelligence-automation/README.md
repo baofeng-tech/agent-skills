@@ -1,20 +1,9 @@
 # X Intelligence Automation
 
-Cross-platform Twitter/X research, posting, and engagement skill for AgentSkills-compatible clients.
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-## What it does
+## Notes
 
-- Search Twitter/X content and monitor accounts or topics
-- Publish through OAuth after explicit approval
-- Perform approved engagement actions like like, unlike, follow, and unfollow
-
-## Setup
-
-```bash
-export AISA_API_KEY="your-key"
-```
-
-Requires:
-
-- `python3`
-- network access to `https://api.aisa.one/apis/v1/...`
+- Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

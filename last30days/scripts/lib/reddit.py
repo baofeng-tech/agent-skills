@@ -12,11 +12,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed, wait as futures
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Set
 
-try:
-    import requests as _requests
-except ImportError:
-    _requests = None
-
 
 def _first_of(*values, default=None):
     """Return first value that is not None."""
@@ -93,7 +88,7 @@ def expand_reddit_queries(topic: str, depth: str) -> List[str]:
     core = _extract_core_subject(topic)
     queries = [core]
 
-    # Broader variant: include more context from original topic
+    # Alternate variant: keep the original wording when it is still concise.
     original_clean = topic.strip().rstrip('?!.')
     if core.lower() != original_clean.lower() and len(original_clean.split()) <= 8:
         queries.append(original_clean)

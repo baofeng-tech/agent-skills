@@ -35,7 +35,7 @@ from openai import OpenAI
 # ─── Storage ────────────────────────────────────────────────────────────────
 
 def get_storage_path() -> Path:
-    state_dir = os.environ.get("CLAWDBOT_STATE_DIR", os.path.expanduser("~/.clawdbot"))
+    state_dir = os.environ.get("CLAWDBOT_STATE_DIR", str(Path.cwd() / ".claude-skill-data"))
     p = Path(state_dir) / "skills" / "stock-analysis"
     p.mkdir(parents=True, exist_ok=True)
     return p / "portfolios.json"

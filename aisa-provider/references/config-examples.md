@@ -1,5 +1,7 @@
 # AIsa Provider Configuration Examples
 
+> Release note: This package is published for this runtime. References to OpenClaw below describe the original source workflow, a companion runtime, or compatibility guidance unless the skill is explicitly about OpenClaw itself.
+
 ## Minimal Config (env var auto-detection)
 
 No config needed. Just set the environment variable:

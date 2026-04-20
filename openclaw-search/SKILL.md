@@ -1,11 +1,19 @@
 ---
 name: openclaw-search
-description: "Intelligent search for agents. Multi-source retrieval with confidence scoring - web, academic, and Tavily in one unified API."
-homepage: https://openclaw.ai
-metadata: {"openclaw":{"emoji":"🔍","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'Intelligent search for agents. Multi-source retrieval with confidence scoring - web, academic, and Tavily in one unified API. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
-# OpenClaw Search 🔍
+# Search 🔍
 
 **Intelligent search for autonomous agents. Powered by AIsa.**
 
@@ -197,24 +205,24 @@ Unlike standard RAG systems, OpenClaw Search evaluates credibility and consensus
 
 ```bash
 # Web search
-python3 {baseDir}/scripts/search_client.py web --query "latest AI news" --count 10
+python3 scripts/search_client.py web --query "latest AI news" --count 10
 
 # Academic search
-python3 {baseDir}/scripts/search_client.py scholar --query "transformer architecture" --count 10
-python3 {baseDir}/scripts/search_client.py scholar --query "LLM" --year-from 2024 --year-to 2025
+python3 scripts/search_client.py scholar --query "transformer architecture" --count 10
+python3 scripts/search_client.py scholar --query "LLM" --year-from 2024 --year-to 2025
 
 # Smart search (web + academic)
-python3 {baseDir}/scripts/search_client.py smart --query "autonomous agents" --count 10
+python3 scripts/search_client.py smart --query "autonomous agents" --count 10
 
 # Full text search
-python3 {baseDir}/scripts/search_client.py full --query "AI startup funding"
+python3 scripts/search_client.py full --query "AI startup funding"
 
 # Tavily operations
-python3 {baseDir}/scripts/search_client.py tavily-search --query "AI developments"
-python3 {baseDir}/scripts/search_client.py tavily-extract --urls "https://example.com/article"
+python3 scripts/search_client.py tavily-search --query "AI developments"
+python3 scripts/search_client.py tavily-extract --urls "https://example.com/article"
 
 # Multi-source search with confidence scoring
-python3 {baseDir}/scripts/search_client.py verity --query "Is quantum computing ready for enterprise?"
+python3 scripts/search_client.py verity --query "Is quantum computing ready for enterprise?"
 ```
 
 ---

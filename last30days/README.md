@@ -1,25 +1,9 @@
-# last30days
+# Last30days
 
-English ClawHub publish bundle for `last30days`.
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-Included:
+## Notes
 
-- runtime scripts
-- `SKILL.md`
-- `.codex-plugin/plugin.json`
-- license and package metadata
-
-Excluded on purpose:
-
-- tests
-- historical docs
-- hooks
-- fixtures
-- Gemini-specific extension metadata
-
-Runtime summary:
-
-- `AISA_API_KEY` powers hosted planning, reranking, synthesis, X/Twitter, YouTube, Polymarket, and grounded web search.
-- Reddit and Hacker News use public paths.
-- GitHub stays on the official GitHub API path and may need `GH_TOKEN` or `GITHUB_TOKEN`.
-
+- Research the last 30 days across Reddit, X/Twitter, YouTube, TikTok, Instagram, Hacker News, Polymarket, and web search. Use when: the user needs recent multi-source research across the last 30 days.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

@@ -1,6 +1,16 @@
 ---
 name: web-search
-description: Search the web using AIsa Scholar Web endpoint. Returns structured web results with titles, URLs, and snippets.
+description: 'Search the web using AIsa Scholar Web endpoint. Returns structured web results with titles, URLs, and snippets. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Web Search
@@ -9,14 +19,14 @@ Search the web using the AIsa Scholar Web Search endpoint. Returns structured re
 
 ## Setup
 
-This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the plugin's `userConfig`.
+This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the environment variables.
 
 ## Usage
 
 Run the search client with the `web` subcommand:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/web-search/scripts/search_client.py web --query "<search query>" --count <max_results>
+python3 scripts/search_client.py web --query "<search query>" --count <max_results>
 ```
 
 ### Arguments
@@ -29,7 +39,7 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/web-search/scripts/search_client.py web --q
 ### Example
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/web-search/scripts/search_client.py web --query "latest AI agent frameworks 2026" --count 5
+python3 scripts/search_client.py web --query "latest AI agent frameworks 2026" --count 5
 ```
 
 ## Output

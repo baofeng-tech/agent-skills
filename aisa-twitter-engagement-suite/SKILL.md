@@ -2,26 +2,16 @@
 name: aisa-twitter-engagement-suite
 description: Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords.
 license: MIT-0
-compatibility: Requires python3, AISA_API_KEY, and internet access to api.aisa.one. Uses relative paths for scripts and references to maximize compatibility across AgentSkills-compatible clients, including OpenClaw, Hermes, and Claude Code.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: "1.0.6"
+  version: 1.0.0
   homepage: https://aisa.one
-  tags: twitter,x,engagement,automation,social-media
-  openclaw:
-    emoji: "🐦"
-    primaryEnv: AISA_API_KEY
-    requires:
-      bins:
-        - python3
-      env:
-        - AISA_API_KEY
-  hermes:
-    tags:
-      - twitter
-      - automation
-      - engagement
-allowed-tools: Read Grep Bash
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: twitter,x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Twitter Engagement Suite

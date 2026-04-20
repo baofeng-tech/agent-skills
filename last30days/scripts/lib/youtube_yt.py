@@ -2,7 +2,6 @@
 
 import json
 import math
-import os
 import re
 import signal
 import shutil
@@ -97,9 +96,9 @@ def is_ytdlp_installed() -> bool:
     return False
 
 
-def transcript_enrichment_enabled() -> bool:
+def transcript_enrichment_enabled(config: dict[str, Any] | None = None) -> bool:
     """Return True when optional transcript enrichment is explicitly enabled."""
-    raw = (os.environ.get("LAST30DAYS_YOUTUBE_TRANSCRIPTS") or "").strip().lower()
+    raw = str((config or {}).get("LAST30DAYS_YOUTUBE_TRANSCRIPTS") or "").strip().lower()
     return raw in {"1", "true", "yes", "on"}
 
 
@@ -193,6 +192,8 @@ def search_youtube(
     from_date: str,
     to_date: str,
     depth: str = "default",
+    *,
+    api_key: str = "",
 ) -> Dict[str, Any]:
     """Search YouTube via the AISA proxy.
 
@@ -206,7 +207,6 @@ def search_youtube(
         Dict with 'items' list of video metadata dicts.
     """
     del to_date
-    api_key = os.environ.get("AISA_API_KEY", "")
     if not api_key:
         return {"items": [], "error": "AISA_API_KEY not configured"}
     core_topic = _extract_core_subject(topic)
@@ -433,6 +433,8 @@ def search_and_transcribe(
     to_date: str,
     depth: str = "default",
     *,
+    api_key: str = "",
+    config: dict[str, Any] | None = None,
     enrich_transcripts: bool | None = None,
 ) -> Dict[str, Any]:
     """Full YouTube search using the hosted AISA path.
@@ -452,14 +454,14 @@ def search_and_transcribe(
         Dict with 'items' list. Each item has a 'transcript_snippet' field.
     """
     if enrich_transcripts is None:
-        enrich_transcripts = transcript_enrichment_enabled()
+        enrich_transcripts = transcript_enrichment_enabled(config)
 
     # Step 1: Multi-query search via the hosted AISA YouTube path
     queries = expand_youtube_queries(topic, depth)
     seen_ids: Set[str] = set()
     items: List[Dict[str, Any]] = []
     for q in queries:
-        search_result = search_youtube(q, from_date, to_date, depth)
+        search_result = search_youtube(q, from_date, to_date, depth, api_key=api_key)
         for item in search_result.get("items", []):
             vid = item.get("video_id", "")
             if vid and vid not in seen_ids:
@@ -562,14 +564,12 @@ def search_youtube_sc(
     token: str = None,
 ) -> Dict[str, Any]:
     """Compatibility wrapper around the AISA YouTube search path."""
-    del token
-    return search_youtube(topic, from_date, to_date, depth=depth)
+    return search_youtube(topic, from_date, to_date, depth=depth, api_key=token or "")
 
 
 def _sc_youtube_search(keyword: str, token: str) -> List[Dict[str, Any]]:
     """Compatibility wrapper around the AISA YouTube search path."""
-    del token
-    return search_youtube(keyword, "", "", depth="default").get("items", [])
+    return search_youtube(keyword, "", "", depth="default", api_key=token or "").get("items", [])
 
 
 def _sc_fetch_transcript(video_id: str, token: str) -> Optional[str]:

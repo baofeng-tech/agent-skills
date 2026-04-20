@@ -1,5 +1,7 @@
 # AIsa 供应商 — 中文使用指南
 
+> Release note: This package is published for this runtime. References to OpenClaw below describe the original source workflow, a companion runtime, or compatibility guidance unless the skill is explicitly about OpenClaw itself.
+
 ## 简介
 
 AIsa 是一个统一 API 网关，通过与中国主要 AI 平台的官方合作伙伴关系，为 OpenClaw 用户提供生产级的中国 AI 模型访问。

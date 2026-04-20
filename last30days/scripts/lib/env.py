@@ -2,25 +2,23 @@
 
 from __future__ import annotations
 
-import os
 import sys
 from pathlib import Path
 from typing import Any
 
-# Allow override via environment variable for testing
-# Set LAST30DAYS_CONFIG_DIR="" for clean/no-config mode
-# Set LAST30DAYS_CONFIG_DIR="/path/to/dir" for custom config location
-_config_override = os.environ.get('LAST30DAYS_CONFIG_DIR')
-if _config_override == "":
-    # Empty string = no config file (clean mode)
-    CONFIG_DIR = None
-    CONFIG_FILE = None
-elif _config_override:
-    CONFIG_DIR = Path(_config_override)
-    CONFIG_FILE = CONFIG_DIR / ".env"
-else:
-    CONFIG_DIR = Path.home() / ".config" / "last30days"
-    CONFIG_FILE = CONFIG_DIR / ".env"
+CONFIG_DIR = Path.cwd() / ".last30days-data"
+CONFIG_FILE = CONFIG_DIR / "config.env"
+DEFAULTS: dict[str, str | None] = {
+    "AISA_BASE_URL": "https://api.aisa.one",
+    "LAST30DAYS_REASONING_PROVIDER": "auto",
+    "LAST30DAYS_PLANNER_MODEL": None,
+    "LAST30DAYS_RERANK_MODEL": None,
+    "LAST30DAYS_X_BACKEND": None,
+    "INCLUDE_SOURCES": None,
+    "LAST30DAYS_YOUTUBE_TRANSCRIPTS": None,
+    "LAST30DAYS_REDDIT_COMMENTS": None,
+    "FUN_LEVEL": "medium",
+}
 
 def _check_file_permissions(path: Path) -> None:
     """Warn to stderr if a secrets file has overly permissive permissions."""
@@ -40,9 +38,9 @@ def _check_file_permissions(path: Path) -> None:
 
 def load_env_file(path: Path) -> dict[str, str]:
     """Load environment variables from a file."""
-    env = {}
+    values: dict[str, str] = {}
     if not path or not path.exists():
-        return env
+        return values
     _check_file_permissions(path)
 
     with open(path, 'r') as f:
@@ -58,79 +56,31 @@ def load_env_file(path: Path) -> dict[str, str]:
                 if value and value[0] in ('"', "'") and value[-1] == value[0]:
                     value = value[1:-1]
                 if key and value:
-                    env[key] = value
-    return env
+                    values[key] = value
+    return values
 
-def _find_project_env() -> Path | None:
-    """Find per-project .env by walking up from cwd.
+def get_config(
+    *,
+    config_file: str | Path | None = None,
+    overrides: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Load repo-local config and apply explicit CLI overrides."""
+    path = Path(config_file).expanduser().resolve() if config_file else CONFIG_FILE
+    file_env = load_env_file(path) if path.exists() else {}
 
-    Searches for .claude/last30days.env in each parent directory,
-    stopping at the user's home directory or filesystem root.
-    """
-    cwd = Path.cwd()
-    for parent in [cwd, *cwd.parents]:
-        candidate = parent / '.claude' / 'last30days.env'
-        if candidate.exists():
-            return candidate
-        # Stop at filesystem root or home
-        if parent == Path.home() or parent == parent.parent:
-            break
-    return None
-
-
-def get_config() -> dict[str, Any]:
-    """Load configuration from multiple sources.
-
-    Priority (highest wins):
-      1. Environment variables (os.environ)
-      2. .claude/last30days.env (per-project config)
-      3. ~/.config/last30days/.env (global config)
-    """
-    # Load from global config file
-    file_env = load_env_file(CONFIG_FILE) if CONFIG_FILE else {}
-
-    # Load from per-project config (overrides global)
-    project_env_path = _find_project_env()
-    project_env = load_env_file(project_env_path) if project_env_path else {}
-
-    # Merge: project overrides global
-    merged_env = {**file_env, **project_env}
-
-    # Build config: process.env > project .env > global .env
-    config = {
-        'AISA_API_KEY': os.environ.get('AISA_API_KEY') or merged_env.get('AISA_API_KEY'),
-        'AISA_BASE_URL': os.environ.get('AISA_BASE_URL') or merged_env.get('AISA_BASE_URL', 'https://api.aisa.one'),
-        'GITHUB_TOKEN': (
-            os.environ.get('GITHUB_TOKEN')
-            or os.environ.get('GH_TOKEN')
-            or merged_env.get('GITHUB_TOKEN')
-            or merged_env.get('GH_TOKEN')
-        ),
+    config: dict[str, Any] = {
+        "AISA_API_KEY": file_env.get("AISA_API_KEY"),
+        "XIAOHONGSHU_API_BASE": file_env.get("XIAOHONGSHU_API_BASE"),
     }
+    for key, default in DEFAULTS.items():
+        config[key] = file_env.get(key, default)
 
-    keys = [
-        ('XIAOHONGSHU_API_BASE', None),
-        ('LAST30DAYS_REASONING_PROVIDER', 'auto'),
-        ('LAST30DAYS_PLANNER_MODEL', None),
-        ('LAST30DAYS_RERANK_MODEL', None),
-        ('LAST30DAYS_X_BACKEND', None),
-        ('SETUP_COMPLETE', None),
-        ('INCLUDE_SOURCES', None),
-        ('LAST30DAYS_YOUTUBE_TRANSCRIPTS', None),
-        ('LAST30DAYS_REDDIT_COMMENTS', None),
-    ]
+    for key, value in (overrides or {}).items():
+        if value in (None, ""):
+            continue
+        config[key] = value
 
-    for key, default in keys:
-        config[key] = os.environ.get(key) or merged_env.get(key, default)
-
-    # Track which config source was used
-    if project_env_path:
-        config['_CONFIG_SOURCE'] = f'project:{project_env_path}'
-    elif CONFIG_FILE and CONFIG_FILE.exists():
-        config['_CONFIG_SOURCE'] = f'global:{CONFIG_FILE}'
-    else:
-        config['_CONFIG_SOURCE'] = 'env_only'
-
+    config["_CONFIG_SOURCE"] = str(path) if path.exists() else "cli_only"
     return config
 
 
@@ -142,12 +92,8 @@ def get_x_source_with_method(config: dict[str, Any]) -> tuple[str | None, str]:
 
 
 def config_exists() -> bool:
-    """Check if any configuration source exists."""
-    if _find_project_env():
-        return True
-    if CONFIG_FILE:
-        return CONFIG_FILE.exists()
-    return False
+    """Check if the repo-local config file exists."""
+    return CONFIG_FILE.exists()
 
 
 def is_reddit_available(config: dict[str, Any]) -> bool:
@@ -205,7 +151,7 @@ def is_polymarket_available() -> bool:
 
     AISA is required for the hosted Polymarket integration.
     """
-    return bool(os.environ.get("AISA_API_KEY"))
+    return False
 
 
 def is_tiktok_available(config: dict[str, Any]) -> bool:

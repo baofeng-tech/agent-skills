@@ -1,8 +1,16 @@
 ---
-name: aisa-perplexity-search
-description: "Perplexity Sonar search and answer generation through AIsa. Use when the task is specifically to call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, or Sonar Deep Research for citation-backed web answers, analytical reasoning, or long-form research reports."
-homepage: https://aisa.one
-metadata: {"aisa":{"emoji":"🔎","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY","compatibility":["openclaw","claude-code","hermes"]}}
+name: perplexity-search
+description: Perplexity Sonar search and answer generation through AIsa. Use when the task is specifically to call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, or Sonar Deep Research for citation-backed web answers, analytical reasoning, or long-form research reports.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Perplexity Search (`perplexity-search`)
@@ -18,7 +26,7 @@ This skill covers four AIsa endpoints:
 ## Requirements
 
 - Set `AISA_API_KEY`
-- Use the bundled client at `{baseDir}/scripts/perplexity_search_client.py`
+- Use the bundled client at `scripts/perplexity_search_client.py`
 
 ## Model Selection
 
@@ -30,16 +38,16 @@ This skill covers four AIsa endpoints:
 ## Python Client
 
 ```bash
-python3 {baseDir}/scripts/perplexity_search_client.py sonar --query "What changed in AI this week?"
-python3 {baseDir}/scripts/perplexity_search_client.py sonar-pro --query "Compare coding agents with citations"
-python3 {baseDir}/scripts/perplexity_search_client.py sonar-reasoning-pro --query "Analyze whether vertical AI agents can defend against general copilots"
-python3 {baseDir}/scripts/perplexity_search_client.py sonar-deep-research --query "Create a deep research report on AI coding agents in 2026"
+python3 scripts/perplexity_search_client.py sonar --query "What changed in AI this week?"
+python3 scripts/perplexity_search_client.py sonar-pro --query "Compare coding agents with citations"
+python3 scripts/perplexity_search_client.py sonar-reasoning-pro --query "Analyze whether vertical AI agents can defend against general copilots"
+python3 scripts/perplexity_search_client.py sonar-deep-research --query "Create a deep research report on AI coding agents in 2026"
 ```
 
 Add a system message when you want a more specific output format:
 
 ```bash
-python3 {baseDir}/scripts/perplexity_search_client.py sonar-pro \
+python3 scripts/perplexity_search_client.py sonar-pro \
   --query "Map the top coding agent products" \
   --system "Respond in markdown with an executive summary first."
 ```

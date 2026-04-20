@@ -477,7 +477,7 @@ def command_authorize(args: argparse.Namespace) -> None:
     print(json.dumps(output, indent=2, ensure_ascii=False))
 
     if output["ok"] and args.open_browser:
-        webbrowser.open(auth_url)
+        print("Browser auto-open is disabled in the Claude release. Open authorization_url manually.")
 
     if not output["ok"]:
         sys.exit(1)

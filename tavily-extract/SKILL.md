@@ -1,6 +1,16 @@
 ---
 name: tavily-extract
-description: Extract clean, readable content from one or more URLs using Tavily Extract via AIsa API. Useful for reading full articles without visiting the page.
+description: 'Extract clean, readable content from one or more URLs using Tavily Extract via AIsa API. Useful for reading full articles without visiting the page. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Tavily Extract
@@ -9,14 +19,14 @@ Extract clean, readable content from one or more URLs using the Tavily Extract e
 
 ## Setup
 
-This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the plugin's `userConfig`.
+This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the environment variables.
 
 ## Usage
 
 Run the search client with the `extract` subcommand:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-extract/scripts/search_client.py extract --urls "<comma-separated URLs>"
+python3 scripts/search_client.py extract --urls "<comma-separated URLs>"
 ```
 
 ### Arguments
@@ -29,10 +39,10 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-extract/scripts/search_client.py ext
 
 ```bash
 # Extract a single article
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-extract/scripts/search_client.py extract --urls "https://example.com/article"
+python3 scripts/search_client.py extract --urls "https://example.com/article"
 
 # Extract multiple pages
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-extract/scripts/search_client.py extract --urls "https://example.com/page1,https://example.com/page2"
+python3 scripts/search_client.py extract --urls "https://example.com/page1,https://example.com/page2"
 ```
 
 ## Output

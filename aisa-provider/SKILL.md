@@ -1,17 +1,21 @@
 ---
 name: aisa-provider
 description: Configure AIsa as a first-class model provider for OpenClaw, enabling production access to major Chinese AI models (Qwen, DeepSeek, Kimi K2.5, Doubao) through official partnerships with Alibaba Cloud, BytePlus, and Moonshot. Use this skill when the user wants to set up Chinese AI models, configure AIsa API access, compare pricing between AIsa and other providers (OpenRouter, Bailian), switch between Qwen/DeepSeek/Kimi models, or troubleshoot AIsa provider configuration in OpenClaw. Also use when the user mentions AISA_API_KEY, asks about Chinese LLM pricing, Kimi K2.5 setup, or needs help with Qwen Key Account setup.
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, openclaw, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "🇨🇳"
-    requires:
-      env:
-        - AISA_API_KEY
-    primaryEnv: AISA_API_KEY
-    homepage: "https://marketplace.aisa.one"
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: llm,router,provider,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read
 ---
 
 # AIsa Provider for OpenClaw
+
+> Release note: This package is published for this runtime. References to OpenClaw below describe the original source workflow, a companion runtime, or compatibility guidance unless the skill is explicitly about OpenClaw itself.
 
 AIsa is a unified API gateway providing production access to China's leading AI models through official partnerships with all major Chinese AI platforms. It is an Alibaba Cloud Qwen Key Account partner, offering the full Qwen model family at discounted pricing, plus models on the Alibaba Bailian aggregation platform (DeepSeek, Kimi, GLM).
 
@@ -27,7 +31,7 @@ AIsa also provides access to **Kimi K2.5** (Moonshot AI's flagship reasoning mod
 export AISA_API_KEY="your-key-here"
 ```
 
-OpenClaw auto-detects `AISA_API_KEY` and registers AIsa as a provider. No config file changes needed.
+If your runtime supports provider auto-discovery, `AISA_API_KEY` may be enough. Otherwise use the explicit config examples below.
 
 ### Option 2: Interactive Onboarding
 

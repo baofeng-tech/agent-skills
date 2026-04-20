@@ -1,20 +1,17 @@
 ---
 name: twitter-autopilot
-description: >-
-  Search and read X (Twitter) data via AIsa API: user profiles, timelines,
-  mentions, followers, tweet search, trends, lists, communities, and Spaces.
-  Publish posts, like/unlike tweets, and follow/unfollow users through OAuth
-  relay — no passwords or cookies needed. Use when asked about Twitter/X data,
-  social listening, influencer monitoring, trending topics, competitor intel,
-  posting to X, or engaging with tweets.
+description: 'Search and read X (Twitter) data via AIsa API: user profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publish posts, like/unlike tweets, and follow/unfollow users through OAuth relay — no passwords or cookies needed. Use when asked about Twitter/X data, social listening, influencer monitoring, trending topics, competitor intel, posting to X, or engaging with tweets.'
 license: Apache-2.0
-compatibility: Requires curl or python3, and an AISA_API_KEY from aisa.one
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  author: aisa
-  version: "1.0.0"
-  tags: twitter, x, social-media, social-listening, monitoring, oauth, engagement, aisa
+  author: AIsa
+  version: 1.0.0
   homepage: https://aisa.one
-  repository: https://github.com/0xjordansg-yolo/Twitter-Skills-Hermes-Agent
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: twitter,x,search,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # Twitter Autopilot 🐦

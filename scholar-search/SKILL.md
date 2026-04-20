@@ -1,6 +1,16 @@
 ---
 name: scholar-search
-description: Search academic papers and scholarly articles via AIsa Scholar endpoint. Supports year range filtering for targeted research.
+description: 'Search academic papers and scholarly articles via AIsa Scholar endpoint. Supports year range filtering for targeted research. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Scholar Search
@@ -9,14 +19,14 @@ Search academic papers and scholarly articles using the AIsa Scholar Search endp
 
 ## Setup
 
-This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the plugin's `userConfig`.
+This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the environment variables.
 
 ## Usage
 
 Run the search client with the `scholar` subcommand:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/scholar-search/scripts/search_client.py scholar --query "<academic query>" --count <max_results> [--year-from YYYY] [--year-to YYYY]
+python3 scripts/search_client.py scholar --query "<academic query>" --count <max_results> [--year-from YYYY] [--year-to YYYY]
 ```
 
 ### Arguments
@@ -32,10 +42,10 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/scholar-search/scripts/search_client.py sch
 
 ```bash
 # Search for recent transformer papers
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/scholar-search/scripts/search_client.py scholar --query "transformer architecture attention mechanism" --count 10 --year-from 2024
+python3 scripts/search_client.py scholar --query "transformer architecture attention mechanism" --count 10 --year-from 2024
 
 # Search papers in a specific year range
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/scholar-search/scripts/search_client.py scholar --query "reinforcement learning from human feedback" --year-from 2022 --year-to 2025
+python3 scripts/search_client.py scholar --query "reinforcement learning from human feedback" --year-from 2022 --year-to 2025
 ```
 
 ## Output

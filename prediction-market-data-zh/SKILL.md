@@ -1,14 +1,17 @@
 ---
 name: prediction-market-data-zh
-description: "通过 AIsa API 查询跨平台预测市场数据。支持 Polymarket 和 Kalshi 的市场行情、价格、订单簿、K线、持仓和交易记录。适用场景：查询预测市场赔率、选举博彩、事件概率、市场情绪、Polymarket 价格、Kalshi 价格、体育博彩赔率、钱包盈亏、跨平台市场对比。"
+description: '通过 AIsa API 查询跨平台预测市场数据。支持 Polymarket 和 Kalshi 的市场行情、价格、订单簿、K线、持仓和交易记录。适用场景：查询预测市场赔率、选举博彩、事件概率、市场情绪、Polymarket 价格、Kalshi 价格、体育博彩赔率、钱包盈亏、跨平台市场对比。 Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.'
 license: MIT
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "📈"
-    requires:
-      bins: [python3]
-      env: [AISA_API_KEY]
-    primaryEnv: AISA_API_KEY
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock,prediction,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # 预测市场数据
@@ -37,26 +40,26 @@ export AISA_API_KEY="your-key"
 
 ```bash
 # 第一步：搜索市场，提取 token_id（side_a.id 或 side_b.id）
-python3 {baseDir}/scripts/prediction_market_client.py polymarket markets --search "election" --status open --limit 5
+python3 scripts/prediction_market_client.py polymarket markets --search "election" --status open --limit 5
 
 # 第二步：用第一步的 token_id 获取价格
-python3 {baseDir}/scripts/prediction_market_client.py polymarket price <token_id>
+python3 scripts/prediction_market_client.py polymarket price <token_id>
 ```
 
 ### Kalshi：搜索 → 获取价格
 
 ```bash
 # 第一步：搜索市场，提取 market_ticker
-python3 {baseDir}/scripts/prediction_market_client.py kalshi markets --search "fed rate" --status open --limit 5
+python3 scripts/prediction_market_client.py kalshi markets --search "fed rate" --status open --limit 5
 
 # 第二步：用第一步的 market_ticker 获取价格
-python3 {baseDir}/scripts/prediction_market_client.py kalshi price <market_ticker>
+python3 scripts/prediction_market_client.py kalshi price <market_ticker>
 ```
 
 ### 跨平台体育市场
 
 ```bash
-python3 {baseDir}/scripts/prediction_market_client.py sports by-date nba --date 2025-04-01
+python3 scripts/prediction_market_client.py sports by-date nba --date 2025-04-01
 ```
 
 ## ID 参考
@@ -74,31 +77,31 @@ python3 {baseDir}/scripts/prediction_market_client.py sports by-date nba --date 
 ### Polymarket
 
 ```bash
-python3 {baseDir}/scripts/prediction_market_client.py polymarket markets [--search <关键词>] [--status open|closed] [--min-volume <数值>] [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket price <token_id> [--at-time <unix时间戳>]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket activity --user <钱包地址> [--market-slug <slug>] [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket orders [--market-slug <slug>] [--token-id <id>] [--user <钱包地址>] [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket orderbooks --token-id <id> [--start <毫秒>] [--end <毫秒>] [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket candlesticks <condition_id> --start <unix时间戳> --end <unix时间戳> [--interval 1|60|1440]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket positions <钱包地址> [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket wallet (--eoa <地址> | --proxy <地址>) [--with-metrics]
-python3 {baseDir}/scripts/prediction_market_client.py polymarket pnl <钱包地址> --granularity <day|week|month>
+python3 scripts/prediction_market_client.py polymarket markets [--search <关键词>] [--status open|closed] [--min-volume <数值>] [--limit <数值>]
+python3 scripts/prediction_market_client.py polymarket price <token_id> [--at-time <unix时间戳>]
+python3 scripts/prediction_market_client.py polymarket activity --user <钱包地址> [--market-slug <slug>] [--limit <数值>]
+python3 scripts/prediction_market_client.py polymarket orders [--market-slug <slug>] [--token-id <id>] [--user <钱包地址>] [--limit <数值>]
+python3 scripts/prediction_market_client.py polymarket orderbooks --token-id <id> [--start <毫秒>] [--end <毫秒>] [--limit <数值>]
+python3 scripts/prediction_market_client.py polymarket candlesticks <condition_id> --start <unix时间戳> --end <unix时间戳> [--interval 1|60|1440]
+python3 scripts/prediction_market_client.py polymarket positions <钱包地址> [--limit <数值>]
+python3 scripts/prediction_market_client.py polymarket wallet (--eoa <地址> | --proxy <地址>) [--with-metrics]
+python3 scripts/prediction_market_client.py polymarket pnl <钱包地址> --granularity <day|week|month>
 ```
 
 ### Kalshi
 
 ```bash
-python3 {baseDir}/scripts/prediction_market_client.py kalshi markets [--search <关键词>] [--status open|closed] [--min-volume <数值>] [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py kalshi price <market_ticker> [--at-time <unix时间戳>]
-python3 {baseDir}/scripts/prediction_market_client.py kalshi trades [--ticker <ticker>] [--start <unix时间戳>] [--end <unix时间戳>] [--limit <数值>]
-python3 {baseDir}/scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker> [--start <毫秒>] [--end <毫秒>] [--limit <数值>]
+python3 scripts/prediction_market_client.py kalshi markets [--search <关键词>] [--status open|closed] [--min-volume <数值>] [--limit <数值>]
+python3 scripts/prediction_market_client.py kalshi price <market_ticker> [--at-time <unix时间戳>]
+python3 scripts/prediction_market_client.py kalshi trades [--ticker <ticker>] [--start <unix时间戳>] [--end <unix时间戳>] [--limit <数值>]
+python3 scripts/prediction_market_client.py kalshi orderbooks --ticker <ticker> [--start <毫秒>] [--end <毫秒>] [--limit <数值>]
 ```
 
 ### 跨平台体育市场
 
 ```bash
-python3 {baseDir}/scripts/prediction_market_client.py sports matching (--polymarket-slug <slug> | --kalshi-ticker <ticker>)
-python3 {baseDir}/scripts/prediction_market_client.py sports by-date <运动类型> --date <YYYY-MM-DD>
+python3 scripts/prediction_market_client.py sports matching (--polymarket-slug <slug> | --kalshi-ticker <ticker>)
+python3 scripts/prediction_market_client.py sports by-date <运动类型> --date <YYYY-MM-DD>
 ```
 
 支持：`nfl`、`mlb`、`cfb`、`nba`、`nhl`、`cbb`、`pga`、`tennis`。

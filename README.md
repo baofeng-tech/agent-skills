@@ -1,80 +1,71 @@
-# AIsa Agent Skills ⚡
+# agentskill.sh Release
 
-> **Production-ready skills for autonomous agents. Compatible with all major agent harnesses, including OpenClaw, Claude Code, and Hermes.**
+GitHub-ready release layer generated from `targetSkills/` for agentskill.sh import.
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+## Purpose
 
----
+- Produce a root-level public skill repository that agentskill.sh can scan with `Analyze & Import`.
+- Keep the frontmatter close to the open Agent Skills spec while making the repo shape explicit for GitHub import.
+- Emit per-skill ZIP artifacts for direct-URL or manual update workflows.
 
-## What is This?
+## Recommended Submit Flow
 
-This repository contains **production-ready skills** for autonomous agents powered by [AIsa](https://aisa.one). Each skill provides a specific capability that your agent can use, and is compatible with all major agent harnesses — including OpenClaw, Claude Code, and Hermes.
+1. Push this directory to the public GitHub repository root at `https://github.com/baofeng-tech/agent-skills`.
+2. Open `https://agentskill.sh/submit`.
+3. Paste the GitHub repo URL and run `Analyze & Import`.
+4. Optionally add the GitHub webhook `https://agentskill.sh/api/webhooks/github` for faster sync.
+5. Keep `index.json`, `index.md`, and `well-known-skills-index.json` at repo root for cleaner crawler discovery.
 
----
+## Generated Skills
 
-### Available Skills
-
-| Skill | Description | Status |
-|-------|-------------|--------|
-| [**Market**](./market/) | Query real-time and historical financial data across equities and crypto. | ✅ Ready |
-| [**Media Gen**](./media-gen/) | Generate images & videos with AIsa. | ✅ Ready |
-| [**Perplexity Search**](./perplexity-search/) | Perplexity Sonar search and answer generation through AIsa. | ✅ Ready |
-| [**Prediction Market**](./prediction-market/) | Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. | ✅ Ready |
-| [**Prediction Market Arbitrage**](./prediction-market-arbitrage/) | Find and analyze arbitrage opportunities across prediction markets. | ✅ Ready |
-| [**Search**](./search/) | Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models. | ✅ Ready |
-| [**Twitter**](./twitter/) | Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. | ✅ Ready |
-| [**YouTube**](./youtube/) | Search YouTube videos, channels, and trends. | ✅ Ready |
-
----
-
-## Quick Start
-
-### 1. Choose a Skill
-
-Browse the skills above and pick what your agent needs.
-
-### 2. Follow the Skill Guide
-
-Each skill folder contains:
-- `README.md` - Human-readable documentation
-- `SKILL.md` - Skill specification
-- Supporting scripts and references
-
-### 3. Configure Your Agent
-
-```bash
-# Example: Set your AIsa API key
-export AISA_API_KEY="your-api-key"
-```
-
----
-
-## Adding New Skills
-
-Want to contribute a skill? Each skill should include:
-
-1. **SKILL.md** - Skill specification with metadata
-2. **README.md** - Human-readable documentation
-3. **Scripts/Tools** - Any supporting code
-4. **References** - API docs, examples
-
-See existing skills in this repository for reference.
-
----
-
-## Links
-
-- ⚡ [AIsa](https://aisa.one) - Unified API backend
-- 📖 [Documentation](https://docs.aisa.one) - API reference
-
----
-
-## License
-
-Apache 2.0 License - see [LICENSE](LICENSE) for details.
-
----
-
-<p align="center">
-  <b>AIsa Agent Skills</b> - Extend your agent's capabilities.
-</p>
+- `aisa-multi-search-engine`
+- `aisa-provider`
+- `aisa-tavily`
+- `aisa-twitter-api`
+- `aisa-twitter-command-center`
+- `aisa-twitter-engagement-suite`
+- `aisa-twitter-post-engage`
+- `aisa-youtube-search`
+- `aisa-youtube-serp-scout`
+- `cn-llm`
+- `last30days`
+- `last30days-zh`
+- `llm-router`
+- `market`
+- `marketpulse`
+- `media-gen`
+- `multi-search`
+- `openclaw-aisa-youtube-aisa`
+- `openclaw-media-gen`
+- `openclaw-search`
+- `openclaw-twitter`
+- `openclaw-twitter-post-engage`
+- `openclaw-youtube`
+- `perplexity-research`
+- `perplexity-search`
+- `prediction-market`
+- `prediction-market-arbitrage`
+- `prediction-market-arbitrage-api`
+- `prediction-market-arbitrage-zh`
+- `prediction-market-data`
+- `prediction-market-data-zh`
+- `scholar-search`
+- `search`
+- `smart-search`
+- `stock-analysis`
+- `stock-dividend`
+- `stock-hot`
+- `stock-portfolio`
+- `stock-rumors`
+- `stock-watchlist`
+- `tavily-extract`
+- `tavily-search`
+- `twitter`
+- `twitter-autopilot`
+- `twitter-command-center-search-post`
+- `twitter-command-center-search-post-interact`
+- `us-stock-analyst`
+- `web-search`
+- `x-intelligence-automation`
+- `youtube`
+- `youtube-search`

@@ -1,29 +1,9 @@
 # AIsa Multi Search Engine
 
-Multi-source search skill package powered by [AIsa API](https://aisa.one).
+GitHub-ready release package prepared specifically for agentskill.sh import and refresh.
 
-One API key. Seven search tools. Web, academic, Tavily, and Perplexity — unified with confidence scoring.
+## Notes
 
-## Setup
-
-```bash
-export AISA_API_KEY="your-key-here"
-```
-
-This package is designed to work across AgentSkills-compatible runtimes. Use the runtime's normal environment or plugin configuration flow to provide `AISA_API_KEY`.
-
-## Tools
-
-| Tool | Description |
-|------|-------------|
-| `aisa_web_search` | Structured web search |
-| `aisa_scholar_search` | Academic paper search with year filtering |
-| `aisa_smart_search` | Hybrid web + academic search |
-| `aisa_tavily_search` | Advanced search with depth, topic, time, domain filters |
-| `aisa_tavily_extract` | Extract content from URLs |
-| `aisa_perplexity_search` | Deep research via Perplexity Sonar models |
-| `aisa_multi_search` | Parallel multi-source search with confidence scoring |
-
-## License
-
-MIT
+- Multi-source search engine powered by AIsa API. Combines Tavily web search, Scholar academic search, Smart hybrid search, and Perplexity deep research — all through a single AIsa API key. Includes confidence scoring and AI synthesis. Use when: the user needs web search, research, source discovery, or content extraction.
+- This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
+- The same skill can also be submitted by direct `SKILL.md` URL when needed.

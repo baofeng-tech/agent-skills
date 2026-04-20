@@ -1,5 +1,7 @@
 # AIsa Pricing Reference
 
+> Release note: This package is published for this runtime. References to OpenClaw below describe the original source workflow, a companion runtime, or compatibility guidance unless the skill is explicitly about OpenClaw itself.
+
 > ⚠️ All prices below are for reference only (as of February 2026). Real-time pricing is subject to change — always check https://marketplace.aisa.one/pricing for the latest rates.
 
 All prices are per 1 million tokens (USD).

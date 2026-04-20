@@ -1,31 +1,20 @@
 ---
 name: openclaw-aisa-youtube-aisa
-description: Search YouTube videos, channels, and trends through the AISA YouTube SERP client. Use when: the user asks for content research, competitor tracking, or trend discovery without managing Google credentials. Supports curl queries and the bundled Python client with locale and filter controls.
-version: "1.0.0"
-author: 0xjordansg-yolo
+description: 'Search YouTube videos, channels, and trends through the AISA YouTube SERP client. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.'
 license: MIT-0
-user-invocable: true
-requires:
-  bins:
-    - python3
-    - curl
-  env:
-    - AISA_API_KEY
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
-  openclaw:
-    emoji: "📺"
-    requires:
-      bins:
-        - python3
-        - curl
-      env:
-        - AISA_API_KEY
-    primaryEnv: AISA_API_KEY
-    files:
-      - "scripts/*"
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: youtube,search,research,video,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
-# OpenClaw YouTube SERP Scout
+# YouTube SERP Scout
 
 Runtime-focused release bundle for YouTube search, competitor tracking, and trend discovery through the AISA relay.
 
@@ -59,9 +48,9 @@ export AISA_API_KEY="your-key"
 ## Quick Reference
 
 ```bash
-python3 {baseDir}/scripts/youtube_client.py search --query "AI agents tutorial"
-python3 {baseDir}/scripts/youtube_client.py search --query "machine learning" --country us
-python3 {baseDir}/scripts/youtube_client.py competitor --name "OpenAI" --topic "GPT tutorial"
+python3 scripts/youtube_client.py search --query "AI agents tutorial"
+python3 scripts/youtube_client.py search --query "machine learning" --country us
+python3 scripts/youtube_client.py competitor --name "OpenAI" --topic "GPT tutorial"
 ```
 ## Advanced / Debug Usage (Optional)
 

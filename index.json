@@ -1,295 +1,591 @@
 {
-  "repository": "https://github.com/AIsa-team/agent-skills",
-  "branch": "agentskills",
-  "branch_url": "https://github.com/AIsa-team/agent-skills/tree/agentskills",
+  "generated_at": "2026-04-20",
+  "source": "targetSkills",
   "skills": [
     {
-      "name": "aisa-twitter-command-center",
-      "category": "twitter",
-      "description": "Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth.",
-      "path": "aisa-twitter-command-center",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-twitter-command-center",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "aisa-twitter-api",
-      "category": "twitter",
-      "description": "Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth.",
-      "path": "aisa-twitter-api",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-twitter-api",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "aisa-twitter-post-engage",
-      "category": "twitter",
-      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay, including posting, likes, follows, and related workflows.",
-      "path": "aisa-twitter-post-engage",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-twitter-post-engage",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "aisa-twitter-engagement-suite",
-      "category": "twitter",
-      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay, with a bundled engagement workflow suite.",
-      "path": "aisa-twitter-engagement-suite",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-twitter-engagement-suite",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "x-intelligence-automation",
-      "category": "twitter",
-      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay, packaged under the X Intelligence Automation brand.",
-      "path": "x-intelligence-automation",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/x-intelligence-automation",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "aisa-youtube-search",
-      "category": "youtube",
-      "description": "Search YouTube videos, channels, and playlists through the AIsa YouTube relay with one API key.",
-      "path": "aisa-youtube-search",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-youtube-search",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "aisa-youtube-serp-scout",
-      "category": "youtube",
-      "description": "Search YouTube videos, channels, and trends through the AIsa YouTube SERP client for content research, competitor tracking, and trend discovery.",
-      "path": "aisa-youtube-serp-scout",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-youtube-serp-scout",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "market",
-      "category": "finance",
-      "description": "Query real-time and historical financial data across equities and crypto for analysis, alerts, and reporting.",
-      "path": "market",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/market",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "media-gen",
-      "category": "media",
-      "description": "Generate images and videos with AIsa through a single API key.",
-      "path": "media-gen",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/media-gen",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "perplexity-search",
-      "category": "search",
-      "description": "Call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, and Sonar Deep Research through AIsa.",
-      "path": "perplexity-search",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/perplexity-search",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "prediction-market",
-      "category": "prediction",
-      "description": "Access Polymarket and Kalshi markets, prices, positions, and trades through AIsa.",
-      "path": "prediction-market",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "prediction-market-arbitrage",
-      "category": "prediction",
-      "description": "Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi.",
-      "path": "prediction-market-arbitrage",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "search",
-      "category": "search",
-      "description": "Run multi-source web, scholar, Tavily, and Perplexity-backed search workflows through AIsa.",
-      "path": "search",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/search",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "twitter",
-      "category": "twitter",
-      "description": "Search Twitter/X data and support approved posting and engagement workflows through the AIsa relay.",
-      "path": "twitter",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "youtube",
-      "category": "youtube",
-      "description": "Search YouTube videos, channels, and trends for content research and competitor tracking.",
-      "path": "youtube",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "aisa-tavily",
-      "category": "search",
-      "description": "Run Tavily-backed AI web search and URL extraction through AIsa.",
-      "path": "aisa-tavily",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-tavily",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "llm-router",
-      "category": "llm",
-      "description": "Route prompts across GPT, Claude, Gemini, Qwen, DeepSeek, and other models through AIsa's OpenAI-compatible gateway.",
-      "path": "llm-router",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/llm-router",
-      "entry": "SKILL.md"
+      "name": "aisa-multi-search-engine",
+      "path": "agentskill-sh-release/aisa-multi-search-engine",
+      "description": "Multi-source search engine powered by AIsa API. Combines Tavily web search, Scholar academic search, Smart hybrid search, and Perplexity deep research — all through a single AIsa API key. Includes confidence scoring and AI synthesis. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/aisa-multi-search-engine.zip",
+      "changes": [
+        "removed non-standard plugin wrapper files from the standard GitHub skill bundle: index.ts, package.json",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "aisa-provider",
-      "category": "llm",
-      "description": "Configure AIsa as an OpenClaw provider for Chinese model access, pricing, and setup workflows.",
-      "path": "aisa-provider",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/aisa-provider",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/aisa-provider",
+      "description": "Configure AIsa as a first-class model provider for OpenClaw, enabling production access to major Chinese AI models (Qwen, DeepSeek, Kimi K2.5, Doubao) through official partnerships with Alibaba Cloud, BytePlus, and Moonshot. Use this skill when the user wants to set up Chinese AI models, configure AIsa API access, compare pricing between AIsa and other providers (OpenRouter, Bailian), switch between Qwen/DeepSeek/Kimi models, or troubleshoot AIsa provider configuration in OpenClaw. Also use when the user mentions AISA_API_KEY, asks about Chinese LLM pricing, Kimi K2.5 setup, or needs help with Qwen Key Account setup.",
+      "zip": "agentskill-sh-release/zips/aisa-provider.zip",
+      "changes": [
+        "rewrote 3 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-tavily",
+      "path": "agentskill-sh-release/aisa-tavily",
+      "description": "AI-optimized web search via AIsa's Tavily API proxy. Returns concise, relevant results for AI agents through AIsa's unified API gateway. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/aisa-tavily.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-twitter-api",
+      "path": "agentskill-sh-release/aisa-twitter-api",
+      "description": "Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth. Use when the user asks for Twitter research, monitoring, or posting without sharing passwords.",
+      "zip": "agentskill-sh-release/zips/aisa-twitter-api.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 1 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-twitter-command-center",
+      "path": "agentskill-sh-release/aisa-twitter-command-center",
+      "description": "Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth. Use when the user asks for Twitter research, monitoring, or posting without sharing passwords.",
+      "zip": "agentskill-sh-release/zips/aisa-twitter-command-center.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 1 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-twitter-engagement-suite",
+      "path": "agentskill-sh-release/aisa-twitter-engagement-suite",
+      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords.",
+      "zip": "agentskill-sh-release/zips/aisa-twitter-engagement-suite.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 1 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-twitter-post-engage",
+      "path": "agentskill-sh-release/aisa-twitter-post-engage",
+      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords.",
+      "zip": "agentskill-sh-release/zips/aisa-twitter-post-engage.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 1 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-youtube-search",
+      "path": "agentskill-sh-release/aisa-youtube-search",
+      "description": "Search YouTube videos, channels, and playlists through the AIsa YouTube relay with one API key. Use when the user asks for YouTube discovery, query expansion, or pagination without managing Google credentials.",
+      "zip": "agentskill-sh-release/zips/aisa-youtube-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "aisa-youtube-serp-scout",
+      "path": "agentskill-sh-release/aisa-youtube-serp-scout",
+      "description": "Search YouTube videos, channels, and trends through the AIsa YouTube SERP client. Use when the user asks for content research, competitor tracking, or trend discovery without managing Google credentials. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.",
+      "zip": "agentskill-sh-release/zips/aisa-youtube-serp-scout.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "cn-llm",
-      "category": "llm",
-      "description": "Access Qwen, DeepSeek, GLM, Baichuan, and related Chinese LLMs through AIsa.",
-      "path": "cn-llm",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/cn-llm",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "us-stock-analyst",
-      "category": "finance",
-      "description": "Run US stock analysis workflows combining market data, news, sentiment, and multi-model AI through AIsa.",
-      "path": "us-stock-analyst",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/us-stock-analyst",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "prediction-market-arbitrage-api",
-      "category": "prediction",
-      "description": "Scan Polymarket and Kalshi for arbitrage opportunities through the AIsa API.",
-      "path": "prediction-market-arbitrage-api",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage-api",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "prediction-market-data-zh",
-      "category": "prediction",
-      "description": "通过 AIsa 查询 Polymarket 和 Kalshi 的预测市场数据。",
-      "path": "prediction-market-data-zh",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-data-zh",
-      "entry": "SKILL.md"
-    },
-    {
-      "name": "prediction-market-arbitrage-zh",
-      "category": "prediction",
-      "description": "通过 AIsa 扫描 Polymarket 和 Kalshi 的跨平台套利机会。",
-      "path": "prediction-market-arbitrage-zh",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-arbitrage-zh",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/cn-llm",
+      "description": "China LLM Gateway - Unified interface for Chinese LLMs including Qwen, DeepSeek, GLM, Baichuan. OpenAI compatible, one API Key for all models. Use when: the user needs model routing, provider setup, or Chinese LLM access guidance.",
+      "zip": "agentskill-sh-release/zips/cn-llm.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "last30days",
-      "category": "twitter",
-      "description": "Research the last 30 days across Reddit, X/Twitter, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and web search. Use when: you need recent social research, company updates, person profiles, competitor comparisons, launch reactions, or trend scans. Supports AISA-powered planning, clustering, reranking, and JSON output.",
-      "path": "last30days",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/last30days",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/last30days",
+      "description": "Research the last 30 days across Reddit, X/Twitter, YouTube, TikTok, Instagram, Hacker News, Polymarket, and web search. Use when: the user needs recent multi-source research across the last 30 days.",
+      "zip": "agentskill-sh-release/zips/last30days.zip",
+      "changes": [
+        "removed 1 non-runtime generated/test files from the release bundle",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "last30days-zh",
-      "category": "twitter",
-      "description": "聚合最近 30 天的 Reddit、X/Twitter、YouTube、TikTok、Instagram、Hacker News、Polymarket、GitHub 和 web search 结果。触发条件：当用户需要 recent social research、人物近况、公司动态、竞品对比、发布反应、趋势扫描时使用。支持 AISA 规划、聚类、重排和 JSON 输出。",
-      "path": "last30days-zh",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/last30days-zh",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/last30days-zh",
+      "description": "聚合最近 30 天的 Reddit、X/Twitter、YouTube、TikTok、Instagram、Hacker News、Polymarket 和 web search 结果. Use when: the user needs recent multi-source research across the last 30 days.",
+      "zip": "agentskill-sh-release/zips/last30days-zh.zip",
+      "changes": [
+        "removed 1 non-runtime generated/test files from the release bundle",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "llm-router",
+      "path": "agentskill-sh-release/llm-router",
+      "description": "Unified LLM Gateway - One API for 70+ AI models. Route to GPT, Claude, Gemini, Qwen, Deepseek, Grok and more with a single API key. Use when: the user needs model routing, provider setup, or Chinese LLM access guidance.",
+      "zip": "agentskill-sh-release/zips/llm-router.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "market",
+      "path": "agentskill-sh-release/market",
+      "description": "Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/market.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "marketpulse",
-      "category": "finance",
-      "description": "Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting.",
-      "path": "marketpulse",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/marketpulse",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/marketpulse",
+      "description": "Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/marketpulse.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "media-gen",
+      "path": "agentskill-sh-release/media-gen",
+      "description": "Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key. Use when: the user needs AI image or video generation workflows.",
+      "zip": "agentskill-sh-release/zips/media-gen.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "multi-search",
+      "path": "agentskill-sh-release/multi-search",
+      "description": "Parallel multi-source search combining Web, Scholar, Smart, and Tavily results with confidence scoring and AI synthesis. Best for comprehensive research requiring cross-source validation. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/multi-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "openclaw-aisa-youtube-aisa",
-      "category": "youtube",
-      "description": "Search YouTube videos, channels, and trends through the AISA YouTube SERP client. Use when: the user asks for content research, competitor tracking, or trend discovery without managing Google credentials. Supports curl queries and the bundled Python client with locale and filter controls.",
-      "path": "openclaw-aisa-youtube-aisa",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-aisa-youtube-aisa",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/openclaw-aisa-youtube-aisa",
+      "description": "Search YouTube videos, channels, and trends through the AISA YouTube SERP client. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.",
+      "zip": "agentskill-sh-release/zips/openclaw-aisa-youtube-aisa.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "openclaw-media-gen",
-      "category": "media",
-      "description": "Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key.",
-      "path": "openclaw-media-gen",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-media-gen",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/openclaw-media-gen",
+      "description": "Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key. Use when: the user needs AI image or video generation workflows.",
+      "zip": "agentskill-sh-release/zips/openclaw-media-gen.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "openclaw-search",
-      "category": "search",
-      "description": "Intelligent search for agents. Multi-source retrieval with confidence scoring - web, academic, and Tavily in one unified API.",
-      "path": "openclaw-search",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-search",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/openclaw-search",
+      "description": "Intelligent search for agents. Multi-source retrieval with confidence scoring - web, academic, and Tavily in one unified API. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/openclaw-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "openclaw-twitter",
-      "category": "twitter",
+      "path": "agentskill-sh-release/openclaw-twitter",
       "description": "Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AISA relay, then publish approved posts with OAuth. Use when: the user asks for Twitter/X research, monitoring, or posting without sharing passwords. Supports read APIs, authorization links, and media-aware posting.",
-      "path": "openclaw-twitter",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-twitter",
-      "entry": "SKILL.md"
+      "zip": "agentskill-sh-release/zips/openclaw-twitter.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 1 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "openclaw-twitter-post-engage",
-      "category": "twitter",
+      "path": "agentskill-sh-release/openclaw-twitter-post-engage",
       "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AISA relay. Use when: the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords. Supports read APIs, OAuth-gated posting, and follow or like operations.",
-      "path": "openclaw-twitter-post-engage",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-twitter-post-engage",
-      "entry": "SKILL.md"
+      "zip": "agentskill-sh-release/zips/openclaw-twitter-post-engage.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 2 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "openclaw-youtube",
-      "category": "youtube",
-      "description": "YouTube SERP Scout for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking.",
-      "path": "openclaw-youtube",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/openclaw-youtube",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/openclaw-youtube",
+      "description": "YouTube SERP Scout for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.",
+      "zip": "agentskill-sh-release/zips/openclaw-youtube.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "perplexity-research",
+      "path": "agentskill-sh-release/perplexity-research",
+      "description": "Deep research using Perplexity Sonar models via AIsa API. Provides synthesized answers with citations. Supports 4 models from fast to exhaustive deep research. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/perplexity-research.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "perplexity-search",
+      "path": "agentskill-sh-release/perplexity-search",
+      "description": "Perplexity Sonar search and answer generation through AIsa. Use when the task is specifically to call Perplexity Sonar, Sonar Pro, Sonar Reasoning Pro, or Sonar Deep Research for citation-backed web answers, analytical reasoning, or long-form research reports.",
+      "zip": "agentskill-sh-release/zips/perplexity-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "prediction-market",
+      "path": "agentskill-sh-release/prediction-market",
+      "description": "Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/prediction-market.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "prediction-market-arbitrage",
+      "path": "agentskill-sh-release/prediction-market-arbitrage",
+      "description": "Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/prediction-market-arbitrage.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "prediction-market-arbitrage-api",
+      "path": "agentskill-sh-release/prediction-market-arbitrage-api",
+      "description": "Find arbitrage opportunities across Polymarket and Kalshi prediction markets via AIsa API. Scan sports markets for cross-platform price discrepancies, compare real-time odds, verify orderbook liquidity. Use when user asks about: prediction market arbitrage, cross-platform price differences, sports betting arbitrage, odds comparison, risk-free profit, market inefficiencies.",
+      "zip": "agentskill-sh-release/zips/prediction-market-arbitrage-api.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "prediction-market-arbitrage-zh",
+      "path": "agentskill-sh-release/prediction-market-arbitrage-zh",
+      "description": "通过 AIsa API 发现 Polymarket 和 Kalshi 预测市场的套利机会。扫描体育市场跨平台价差、比较实时赔率、验证订单簿流动性。适用场景：预测市场套利、跨平台价差、体育博彩套利、赔率对比、无风险利润、市场低效。 Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/prediction-market-arbitrage-zh.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "prediction-market-data",
-      "category": "finance",
+      "path": "agentskill-sh-release/prediction-market-data",
       "description": "Cross-platform prediction market data via AIsa API. Query Polymarket and Kalshi markets, prices, orderbooks, candlesticks, positions, and trades. Use when user asks about: prediction market odds, election betting, event probabilities, market sentiment, Polymarket prices, Kalshi prices, sports betting odds, wallet PnL, or cross-platform market comparison.",
-      "path": "prediction-market-data",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/prediction-market-data",
-      "entry": "SKILL.md"
+      "zip": "agentskill-sh-release/zips/prediction-market-data.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "prediction-market-data-zh",
+      "path": "agentskill-sh-release/prediction-market-data-zh",
+      "description": "通过 AIsa API 查询跨平台预测市场数据。支持 Polymarket 和 Kalshi 的市场行情、价格、订单簿、K线、持仓和交易记录。适用场景：查询预测市场赔率、选举博彩、事件概率、市场情绪、Polymarket 价格、Kalshi 价格、体育博彩赔率、钱包盈亏、跨平台市场对比。 Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/prediction-market-data-zh.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "scholar-search",
+      "path": "agentskill-sh-release/scholar-search",
+      "description": "Search academic papers and scholarly articles via AIsa Scholar endpoint. Supports year range filtering for targeted research. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/scholar-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "search",
+      "path": "agentskill-sh-release/search",
+      "description": "Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "smart-search",
+      "path": "agentskill-sh-release/smart-search",
+      "description": "Intelligent hybrid search combining web and academic sources via AIsa Smart Search endpoint. Best when you need both web and scholarly results. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/smart-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "stock-analysis",
+      "path": "agentskill-sh-release/stock-analysis",
+      "description": "Analyze stocks and cryptocurrencies with 8-dimension scoring via AIsa API. Provides BUY/HOLD/SELL signals with confidence levels, entry/target/stop prices, and risk flags. Supports single or multi-ticker analysis with optional fast mode and JSON output. Use when the user asks to analyze a stock, check a ticker, or compare investments.",
+      "zip": "agentskill-sh-release/zips/stock-analysis.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "stock-dividend",
+      "path": "agentskill-sh-release/stock-dividend",
+      "description": "Analyze dividend metrics for stocks via AIsa API. Provides yield, payout ratio, growth CAGR, safety score (0-100), income rating, and Dividend Aristocrat/King status. Use when the user asks about dividends, income investing, or dividend safety.",
+      "zip": "agentskill-sh-release/zips/stock-dividend.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "stock-hot",
+      "path": "agentskill-sh-release/stock-hot",
+      "description": "Hot Scanner — find the most trending and high-momentum stocks and crypto right now via AIsa API. Top gainers, losers, most active by volume, crypto highlights, news catalysts, and top 5 watchlist picks. Use when the user asks about trending stocks, what's hot, market movers, or momentum plays.",
+      "zip": "agentskill-sh-release/zips/stock-hot.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "stock-portfolio",
+      "path": "agentskill-sh-release/stock-portfolio",
+      "description": "Manage investment portfolios with live P&L tracking via AIsa API. Create, add, update, remove positions, rename, and show portfolio summary with real-time profit/loss. Use when the user wants to track investments, manage a portfolio, check P&L, or add/remove holdings.",
+      "zip": "agentskill-sh-release/zips/stock-portfolio.zip",
+      "changes": [
+        "switched default local storage to repo-local path in scripts/portfolio.py",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "stock-rumors",
+      "path": "agentskill-sh-release/stock-rumors",
+      "description": "Rumor Scanner — find early signals including M&A rumors, insider activity, analyst upgrades/downgrades, social whispers, and SEC/regulatory activity via AIsa API. Ranked by impact score. Use when the user asks about rumors, insider trading, M&A activity, analyst changes, or early market signals.",
+      "zip": "agentskill-sh-release/zips/stock-rumors.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "stock-watchlist",
+      "path": "agentskill-sh-release/stock-watchlist",
+      "description": "Manage a stock/crypto watchlist with price target and stop-loss alerts via AIsa API. Add, remove, list, and check tickers with live price alerts. Use when the user wants to track stocks, set price alerts, manage a watchlist, or check triggered alerts.",
+      "zip": "agentskill-sh-release/zips/stock-watchlist.zip",
+      "changes": [
+        "switched default local storage to repo-local path in scripts/watchlist.py",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "tavily-extract",
+      "path": "agentskill-sh-release/tavily-extract",
+      "description": "Extract clean, readable content from one or more URLs using Tavily Extract via AIsa API. Useful for reading full articles without visiting the page. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/tavily-extract.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "tavily-search",
+      "path": "agentskill-sh-release/tavily-search",
+      "description": "Advanced web search via Tavily through AIsa API. Supports search depth, topic filtering (general/news/finance), time ranges, domain inclusion/exclusion, and LLM-generated answers. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/tavily-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "twitter",
+      "path": "agentskill-sh-release/twitter",
+      "description": "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.",
+      "zip": "agentskill-sh-release/zips/twitter.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "twitter-autopilot",
+      "path": "agentskill-sh-release/twitter-autopilot",
+      "description": "Search and read X (Twitter) data via AIsa API: user profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publish posts, like/unlike tweets, and follow/unfollow users through OAuth relay — no passwords or cookies needed. Use when asked about Twitter/X data, social listening, influencer monitoring, trending topics, competitor intel, posting to X, or engaging with tweets.",
+      "zip": "agentskill-sh-release/zips/twitter-autopilot.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "twitter-command-center-search-post",
-      "category": "twitter",
+      "path": "agentskill-sh-release/twitter-command-center-search-post",
       "description": "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, or posting without sharing account passwords.",
-      "path": "twitter-command-center-search-post",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter-command-center-search-post",
-      "entry": "SKILL.md"
+      "zip": "agentskill-sh-release/zips/twitter-command-center-search-post.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "twitter-command-center-search-post-interact",
-      "category": "twitter",
+      "path": "agentskill-sh-release/twitter-command-center-search-post-interact",
       "description": "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.",
-      "path": "twitter-command-center-search-post-interact",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/twitter-command-center-search-post-interact",
-      "entry": "SKILL.md"
+      "zip": "agentskill-sh-release/zips/twitter-command-center-search-post-interact.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "us-stock-analyst",
+      "path": "agentskill-sh-release/us-stock-analyst",
+      "description": "Professional US stock analysis with financial data, news, social sentiment, and multi-model AI. Comprehensive reports at $0.02-0.10 per analysis. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.",
+      "zip": "agentskill-sh-release/zips/us-stock-analyst.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "web-search",
+      "path": "agentskill-sh-release/web-search",
+      "description": "Search the web using AIsa Scholar Web endpoint. Returns structured web results with titles, URLs, and snippets. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/web-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "x-intelligence-automation",
+      "path": "agentskill-sh-release/x-intelligence-automation",
+      "description": "Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords.",
+      "zip": "agentskill-sh-release/zips/x-intelligence-automation.zip",
+      "changes": [
+        "disabled browser auto-open in scripts/twitter_oauth_client.py",
+        "rewrote 1 markdown file(s) to reduce OpenClaw-specific release wording",
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
+      "name": "youtube",
+      "path": "agentskill-sh-release/youtube",
+      "description": "YouTube SERP Scout for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.",
+      "zip": "agentskill-sh-release/zips/youtube.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     },
     {
       "name": "youtube-search",
-      "category": "youtube",
-      "description": "|",
-      "path": "youtube-search",
-      "source": "https://github.com/AIsa-team/agent-skills/tree/agentskills/youtube-search",
-      "entry": "SKILL.md"
+      "path": "agentskill-sh-release/youtube-search",
+      "description": "YouTube Search API via AIsa unified endpoint. Search YouTube videos, channels, and playlists with a single AIsa API key — no Google API key or OAuth required. Use this skill when users want to search YouTube content. For other AIsa capabilities (LLM, financial data, Twitter, web search), see the aisa-core skill. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.",
+      "zip": "agentskill-sh-release/zips/youtube-search.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
     }
   ]
 }

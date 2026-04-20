@@ -1,6 +1,16 @@
 ---
 name: tavily-search
-description: Advanced web search via Tavily through AIsa API. Supports search depth, topic filtering (general/news/finance), time ranges, domain inclusion/exclusion, and LLM-generated answers.
+description: 'Advanced web search via Tavily through AIsa API. Supports search depth, topic filtering (general/news/finance), time ranges, domain inclusion/exclusion, and LLM-generated answers. Use when: the user needs web search, research, source discovery, or content extraction.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: x,search,research,finance,llm,aisa
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa Tavily Search
@@ -9,14 +19,14 @@ Advanced web search powered by Tavily through the AIsa API. Offers fine-grained 
 
 ## Setup
 
-This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the plugin's `userConfig`.
+This skill requires the `AISA_API_KEY` environment variable. When installed as a Claude plugin, the key is configured via the environment variables.
 
 ## Usage
 
 Run the search client with the `tavily` subcommand:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-search/scripts/search_client.py tavily --query "<search query>" [options]
+python3 scripts/search_client.py tavily --query "<search query>" [options]
 ```
 
 ### Arguments
@@ -34,13 +44,13 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-search/scripts/search_client.py tavi
 
 ```bash
 # Basic search
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-search/scripts/search_client.py tavily --query "OpenAI latest announcements" --count 10
+python3 scripts/search_client.py tavily --query "OpenAI latest announcements" --count 10
 
 # Advanced news search with answer
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-search/scripts/search_client.py tavily --query "AI regulation 2026" --depth advanced --topic news --include-answer
+python3 scripts/search_client.py tavily --query "AI regulation 2026" --depth advanced --topic news --include-answer
 
 # Finance-focused search
-python3 ${CLAUDE_PLUGIN_ROOT}/skills/tavily-search/scripts/search_client.py tavily --query "NVIDIA earnings Q1 2026" --topic finance --include-answer
+python3 scripts/search_client.py tavily --query "NVIDIA earnings Q1 2026" --topic finance --include-answer
 ```
 
 ## Output

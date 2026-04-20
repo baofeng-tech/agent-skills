@@ -1,8 +1,16 @@
 ---
 name: cn-llm
-description: "China LLM Gateway - Unified interface for Chinese LLMs including Qwen, DeepSeek, GLM, Baichuan. OpenAI compatible, one API Key for all models."
-homepage: https://aisa.one
-metadata: {"openclaw":{"emoji":"🐉","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'China LLM Gateway - Unified interface for Chinese LLMs including Qwen, DeepSeek, GLM, Baichuan. OpenAI compatible, one API Key for all models. Use when: the user needs model routing, provider setup, or Chinese LLM access guidance.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: llm,provider
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa CN-LLM 🐉
@@ -211,25 +219,25 @@ data: [DONE]
 
 ```bash
 # Qwen chat
-python3 {baseDir}/scripts/cn_llm_client.py chat --model qwen3-max --message "Hello, please introduce yourself"
+python3 scripts/cn_llm_client.py chat --model qwen3-max --message "Hello, please introduce yourself"
 
 # Qwen3 code generation
-python3 {baseDir}/scripts/cn_llm_client.py chat --model qwen3-coder-plus --message "Write a binary search algorithm"
+python3 scripts/cn_llm_client.py chat --model qwen3-coder-plus --message "Write a binary search algorithm"
 
 # DeepSeek-R1 reasoning
-python3 {baseDir}/scripts/cn_llm_client.py chat --model deepseek-r1 --message "Which is larger, 9.9 or 9.11? Please reason in detail"
+python3 scripts/cn_llm_client.py chat --model deepseek-r1 --message "Which is larger, 9.9 or 9.11? Please reason in detail"
 
 # DeepSeek-V3 chat
-python3 {baseDir}/scripts/cn_llm_client.py chat --model deepseek-v3 --message "Tell a story" --stream
+python3 scripts/cn_llm_client.py chat --model deepseek-v3 --message "Tell a story" --stream
 
 # With system prompt
-python3 {baseDir}/scripts/cn_llm_client.py chat --model qwen3-max --system "You are a classical poetry expert" --message "Write a poem about plum blossoms"
+python3 scripts/cn_llm_client.py chat --model qwen3-max --system "You are a classical poetry expert" --message "Write a poem about plum blossoms"
 
 # Model comparison
-python3 {baseDir}/scripts/cn_llm_client.py compare --models "qwen3-max,deepseek-v3" --message "What is quantum computing?"
+python3 scripts/cn_llm_client.py compare --models "qwen3-max,deepseek-v3" --message "What is quantum computing?"
 
 # List supported models
-python3 {baseDir}/scripts/cn_llm_client.py models
+python3 scripts/cn_llm_client.py models
 ```
 
 ### Python SDK Usage

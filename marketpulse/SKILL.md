@@ -1,8 +1,16 @@
 ---
 name: marketpulse
-description: "Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting."
-homepage: https://aisa.one
-metadata: {"openclaw":{"emoji":"📊","requires":{"bins":["curl","python3"],"env":["AISA_API_KEY"]},"primaryEnv":"AISA_API_KEY"}}
+description: 'Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.'
+compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
+metadata:
+  author: AIsa
+  version: 1.0.0
+  homepage: https://aisa.one
+  repository: https://github.com/baofeng-tech/agent-skills
+  tags: market,stock
+  platforms: agentskills.io,agentskill.sh,github
+  primary_env: AISA_API_KEY
+allowed-tools: Read Bash Grep
 ---
 
 # AIsa MarketPulse 📊
@@ -248,40 +256,40 @@ curl "https://api.aisa.one/apis/v1/financial/crypto/prices?ticker=ETH-USD&interv
 ```bash
 # ==================== Stock Data ====================
 # Note: start_date and end_date are REQUIRED for prices
-python3 {baseDir}/scripts/market_client.py stock prices --ticker AAPL --start 2025-01-01 --end 2025-01-31
-python3 {baseDir}/scripts/market_client.py stock prices --ticker AAPL --start 2025-01-01 --end 2025-01-31 --interval week
-python3 {baseDir}/scripts/market_client.py stock news --ticker AAPL --count 10
+python3 scripts/market_client.py stock prices --ticker AAPL --start 2025-01-01 --end 2025-01-31
+python3 scripts/market_client.py stock prices --ticker AAPL --start 2025-01-01 --end 2025-01-31 --interval week
+python3 scripts/market_client.py stock news --ticker AAPL --count 10
 
 # ==================== Financial Statements ====================
-python3 {baseDir}/scripts/market_client.py stock statements --ticker AAPL --type all
-python3 {baseDir}/scripts/market_client.py stock statements --ticker AAPL --type income
-python3 {baseDir}/scripts/market_client.py stock statements --ticker AAPL --type balance
-python3 {baseDir}/scripts/market_client.py stock statements --ticker AAPL --type cash
+python3 scripts/market_client.py stock statements --ticker AAPL --type all
+python3 scripts/market_client.py stock statements --ticker AAPL --type income
+python3 scripts/market_client.py stock statements --ticker AAPL --type balance
+python3 scripts/market_client.py stock statements --ticker AAPL --type cash
 
 # ==================== Metrics & Analysis ====================
-python3 {baseDir}/scripts/market_client.py stock metrics --ticker AAPL
-python3 {baseDir}/scripts/market_client.py stock analyst --ticker AAPL
+python3 scripts/market_client.py stock metrics --ticker AAPL
+python3 scripts/market_client.py stock analyst --ticker AAPL
 
 # ==================== Insider & Institutional ====================
-python3 {baseDir}/scripts/market_client.py stock insider --ticker AAPL
-python3 {baseDir}/scripts/market_client.py stock ownership --ticker AAPL
+python3 scripts/market_client.py stock insider --ticker AAPL
+python3 scripts/market_client.py stock ownership --ticker AAPL
 
 # ==================== SEC Filings ====================
-python3 {baseDir}/scripts/market_client.py stock filings --ticker AAPL
+python3 scripts/market_client.py stock filings --ticker AAPL
 
 # ==================== Stock Screener ====================
-python3 {baseDir}/scripts/market_client.py stock screen --pe-max 15 --growth-min 0.2
+python3 scripts/market_client.py stock screen --pe-max 15 --growth-min 0.2
 
 # ==================== Interest Rates ====================
-python3 {baseDir}/scripts/market_client.py stock rates
-python3 {baseDir}/scripts/market_client.py stock rates --historical
+python3 scripts/market_client.py stock rates
+python3 scripts/market_client.py stock rates --historical
 
 # ==================== Crypto Data ====================
 # Note: Use ticker format SYMBOL-USD (or just SYMBOL, auto-converted)
-python3 {baseDir}/scripts/market_client.py crypto snapshot --ticker BTC-USD
-python3 {baseDir}/scripts/market_client.py crypto snapshot --ticker ETH  # Auto-converts to ETH-USD
-python3 {baseDir}/scripts/market_client.py crypto historical --ticker BTC-USD --start 2025-01-01 --end 2025-01-31
-python3 {baseDir}/scripts/market_client.py crypto portfolio --tickers BTC-USD,ETH-USD,SOL-USD
+python3 scripts/market_client.py crypto snapshot --ticker BTC-USD
+python3 scripts/market_client.py crypto snapshot --ticker ETH  # Auto-converts to ETH-USD
+python3 scripts/market_client.py crypto historical --ticker BTC-USD --start 2025-01-01 --end 2025-01-31
+python3 scripts/market_client.py crypto portfolio --tickers BTC-USD,ETH-USD,SOL-USD
 ```
 
 ---
