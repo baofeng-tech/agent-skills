@@ -1,11 +1,11 @@
 ---
 name: aisa-twitter-api
-description: Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth. Use when the user asks for Twitter research, monitoring, or posting without sharing passwords.
+description: 'Twitter/X command center for research, monitoring, watchlists, and approved posting through AIsa. Use when: the user needs one flagship skill for trend tracking, competitor monitoring, or publish-ready Twitter workflows without sharing passwords. Supports search, watchlists, and OAuth-gated posting.'
 license: Apache-2.0
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 1.0.5
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
   tags: twitter,x,search,research,aisa
@@ -14,13 +14,13 @@ metadata:
 allowed-tools: Read Bash Grep
 ---
 
-# AIsa Twitter API
+# AIsa Twitter API Command Center
 
-Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth.
+Run Twitter/X research, monitoring, trend discovery, and approved posting from one AIsa-backed command center.
 
 ## When to use
 
-- The user wants Twitter/X research, monitoring, or content discovery.
+- The user wants one Twitter/X skill for research, monitoring, or content discovery.
 - The user wants to inspect profiles, timelines, mentions, trends, replies, quotes, lists, communities, or Spaces.
 - The user wants to draft or publish posts after explicit OAuth approval without sharing passwords.
 
@@ -28,7 +28,7 @@ Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces throug
 
 - The user needs password-based login, cookie extraction, or browser credential scraping.
 - The workflow must avoid relay-based calls to `api.aisa.one`.
-- The request is for unsupported engagement actions not covered by this package.
+- The request centers on likes, follows, replies, or growth actions better handled by `aisa-twitter-engagement-suite`.
 
 ## Quick Reference
 
@@ -49,6 +49,12 @@ export AISA_API_KEY="your-key"
 - Search tweets and users, inspect replies, quotes, retweeters, thread context, trends, lists, communities, and Spaces.
 - Publish text, image, and video posts after explicit OAuth approval.
 
+## High-Intent Workflows
+
+- Research a creator, competitor, or narrative before writing.
+- Monitor a keyword, launch, or watchlist and pull supporting tweets fast.
+- Draft and publish a post only after the user explicitly approves OAuth.
+
 ## Common Commands
 
 ```bash
@@ -62,6 +68,13 @@ python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa"
 - Do not ask for Twitter passwords or browser cookies.
 - Do not invent captions, tweet URLs, or attachment files.
 - Do not claim external posting succeeded until the API confirms success.
+
+## Example Requests
+
+- Research what builders on X are saying about AI agents this week.
+- Track reactions to our product launch and pull representative tweets.
+- Build a small watchlist of competitor accounts and summarize what changed today.
+- Authorize and publish a short Twitter post with an attached image.
 
 ## Security Notes
 

@@ -4,7 +4,7 @@ description: 'Query real-time and historical financial data across equities and 
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 1.0.1
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
   tags: market,stock

@@ -4,7 +4,7 @@ description: 'Prediction markets data - Polymarket, Kalshi markets, prices, posi
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 1.0.1
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
   tags: market,stock,prediction

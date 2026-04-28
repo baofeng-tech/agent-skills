@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Twitter engagement client for local like/unlike/follow/unfollow relay actions.
+Twitter engagement client for configured relay like/unlike/follow/unfollow actions.
+
+Defaults to the AIsa relay and supports TWITTER_RELAY_BASE_URL /
+TWITTER_RELAY_TIMEOUT overrides through the shared relay config loader.
 
 Commands:
     python twitter_engagement_client.py list-tweets --user "@elonmusk" --limit 10
@@ -509,7 +512,7 @@ def command_status(args: argparse.Namespace) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Twitter engagement client for local relay like/follow actions",
+        description="Twitter engagement client for configured relay like/follow actions",
     )
     parser.add_argument("--aisa-api-key", help="Override AISA_API_KEY")
     parser.add_argument("--timeout", type=int, help="Override TWITTER_RELAY_TIMEOUT")

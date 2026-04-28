@@ -1,21 +1,39 @@
 ---
 name: search
-description: 'Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models. Use when: the user needs web search, research, source discovery, or content extraction.'
+description: 'Search command center for web, academic, Tavily, and Perplexity-backed research through one AIsa API key. Use when: the user needs one flagship skill for live search, source discovery, or citation-ready research. Supports fast lookup, answer generation, and deep research reports.'
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 1.0.1
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
-  tags: x,search,research
+  tags: x,search,research,aisa
   platforms: agentskills.io,agentskill.sh,github
   primary_env: AISA_API_KEY
 allowed-tools: Read Bash Grep
 ---
 
-# AIsa Search
+# AIsa Search Command Center
 
-Intelligent search for autonomous agents, powered by AIsa.
+Run live search, source discovery, and citation-ready research from one flagship AIsa search surface.
+
+## When to use
+
+- The user needs one general-purpose search skill for live web lookup, source discovery, or research synthesis.
+- The user wants to move between quick search, scholar search, Tavily extraction, and Perplexity-backed answer generation without changing skills.
+- The user needs a flagship search lane that can expand into citations, summaries, and deep research.
+
+## When NOT to use
+
+- The task is specifically about cross-source verification, confidence scoring, or consensus checks better handled by `multi-source-search`.
+- The task is narrow enough for a single-provider sibling such as `scholar-search`, `tavily-search`, or `perplexity-search`.
+- The workflow must avoid relay-based calls to `api.aisa.one`.
+
+## High-Intent Workflows
+
+- Search the web quickly, then expand into cited answers without switching packages.
+- Pull academic sources or extracted pages when the first-pass lookup needs stronger evidence.
+- Produce a deep research report when the user wants a broader map instead of a short answer.
 
 One API key gives you:
 - Structured web search
@@ -51,6 +69,12 @@ Use Sonar Deep Research to produce a thorough market map of AI browser agents.
 ```bash
 export AISA_API_KEY="your-key"
 ```
+
+## Example Requests
+
+- Search the latest AI agent launches and show the most relevant sources first.
+- Find papers and cited analysis on multimodal reasoning from the last 18 months.
+- Build a deep research report on browser-use agents with sources and tradeoffs.
 
 ## Search APIs
 

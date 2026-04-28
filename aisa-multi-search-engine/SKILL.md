@@ -1,10 +1,11 @@
 ---
 name: aisa-multi-search-engine
 description: 'Multi-source search engine powered by AIsa API. Combines Tavily web search, Scholar academic search, Smart hybrid search, and Perplexity deep research — all through a single AIsa API key. Includes confidence scoring and AI synthesis. Use when: the user needs web search, research, source discovery, or content extraction.'
+license: MIT
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, node, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 1.0.2
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
   tags: x,search,research,aisa
@@ -222,12 +223,11 @@ The plugin accepts the following configuration options.
 | Explain | ~$0.003 |
 | Perplexity Sonar | ~$0.005 |
 
-Every response includes `usage.cost` and `usage.credits_remaining`.
 
 ## Resources
 
 - [AIsa](https://aisa.one) — Get your API key
-- [AIsa API Reference](https://docs.aisa.one/reference) — Complete endpoint documentation
+- [AIsa API Reference](https://aisa.one/docs/api-reference) — Complete endpoint documentation
 - [ClawHub](https://clawhub.ai) — Plugin marketplace
 
 ## License

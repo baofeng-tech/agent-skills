@@ -1,6 +1,7 @@
 ---
 name: prediction-market-arbitrage
 description: 'Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.'
+license: MIT
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
@@ -13,11 +14,27 @@ metadata:
 allowed-tools: Read Bash Grep
 ---
 
-# AIsa Prediction Market Arbitrage (`prediction-market-arbitrage`) ⚖️
+# Cross-Platform Prediction Market Arbitrage ⚖️
 
 **Find arbitrage opportunities across prediction markets for autonomous agents. Powered by AIsa.**
 
 One API key. Match events across Polymarket and Kalshi to detect price discrepancies and potential risk-free profit opportunities.
+
+## Compatibility
+
+Works with any [agentskills.io](https://agentskills.io)-compatible
+harness, including:
+
+- **Claude Code** and **Claude** (Anthropic)
+- **OpenAI Codex**
+- **Cursor**
+- **Gemini CLI** (Google)
+- **OpenCode**, **Goose**, **OpenClaw**, **Hermes**
+- and any other harness that implements the [Agent Skills
+  specification](https://agentskills.io/specification)
+
+Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at
+[aisa.one](https://aisa.one)).
 
 ## What Can You Do?
 
@@ -160,8 +177,6 @@ This constraint is required because a literal brace placeholder may be interpret
 |-----|------|
 | Prediction market read query | $0.01 |
 
-Every response includes `usage.cost` and `usage.credits_remaining`.
-
 ## Get Started
 
 1. Sign up at [aisa.one](https://aisa.one)
@@ -171,4 +186,4 @@ Every response includes `usage.cost` and `usage.credits_remaining`.
 
 ## Full API Reference
 
-See [API Reference](https://docs.aisa.one/reference/) for complete endpoint documentation.
+See [API Reference](https://aisa.one/docs/api-reference/) for complete endpoint documentation.

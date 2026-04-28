@@ -1,4 +1,4 @@
-"""v1.0.2 orchestration pipeline."""
+"""Orchestration pipeline. Version lives in lib/__init__.py (__version__)."""
 
 from __future__ import annotations
 
@@ -15,6 +15,7 @@ from . import (
     dedupe,
     entity_extract,
     env,
+    github,
     grounding,
     hackernews,
     instagram,
@@ -47,7 +48,6 @@ SEARCH_ALIAS = {
     "hn": "hackernews",
     "web": "grounding",
     "xhs": "xiaohongshu",
-    "xquik": "x",
 }
 
 MAX_SOURCE_FETCHES: dict[str, int] = {"x": 2}
@@ -62,6 +62,7 @@ MOCK_AVAILABLE_SOURCES = [
     "polymarket",
     "grounding",
     "xiaohongshu",
+    "github",
 ]
 
 
@@ -91,6 +92,8 @@ def available_sources(config: dict[str, Any], requested_sources: list[str] | Non
     available.append("hackernews")
     if config.get("AISA_API_KEY"):
         available.append("polymarket")
+    if config.get("GITHUB_TOKEN") or config.get("GH_TOKEN"):
+        available.append("github")
     if config.get("AISA_API_KEY"):
         available.append("grounding")
     if requested_sources and "xiaohongshu" in requested_sources and env.is_xiaohongshu_available(config):
@@ -124,6 +127,7 @@ def diagnose(config: dict[str, Any], requested_sources: list[str] | None = None)
         "bird_authenticated": x_status["bird_authenticated"],
         "bird_username": x_status["bird_username"],
         "native_web_backend": native_web_backend,
+        "has_github": bool(config.get("GITHUB_TOKEN") or config.get("GH_TOKEN")),
         "available_sources": available_sources(config, requested_sources),
     }
 
@@ -144,6 +148,8 @@ def run(
     tiktok_creators: list[str] | None = None,
     ig_creators: list[str] | None = None,
     lookback_days: int = 30,
+    github_user: str | None = None,
+    github_repos: list[str] | None = None,
 ) -> schema.Report:
     started_at = time.time()
 
@@ -204,6 +210,50 @@ def run(
     _stage_log("bundle init")
     bundle = schema.RetrievalBundle(artifacts={"grounding": []})
 
+    # Project-mode or person-mode GitHub: run once before the main subquery loop
+    _github_custom_done = False
+    _github_enriched_repos: set[str] = set()
+
+    # Project mode takes priority over person mode
+    if github_repos and "github" in available:
+        try:
+            project_items = github.search_github_project(
+                github_repos, from_date, to_date,
+                depth=depth, token=config.get("GITHUB_TOKEN"),
+            )
+            if project_items:
+                normalized = _normalize_score_dedupe(
+                    "github", project_items, from_date, to_date,
+                    freshness_mode=plan.freshness_mode,
+                    ranking_query=f"What are {', '.join(github_repos)} doing on GitHub?",
+                )
+                primary_label = plan.subqueries[0].label if plan.subqueries else "primary"
+                bundle.add_items(primary_label, "github", normalized)
+                _github_custom_done = True
+                _github_enriched_repos = {r.lower() for r in github_repos}
+        except Exception as exc:
+            bundle.errors_by_source["github"] = f"Project-mode failed: {exc}"
+
+    _github_person_done = False
+    if github_user and "github" in available and not _github_custom_done:
+        try:
+            person_items = github.search_github_person(
+                github_user, from_date, to_date,
+                depth=depth, token=config.get("GITHUB_TOKEN"),
+            )
+            if person_items:
+                normalized = _normalize_score_dedupe(
+                    "github", person_items, from_date, to_date,
+                    freshness_mode=plan.freshness_mode,
+                    ranking_query=f"What is @{github_user} doing on GitHub?",
+                )
+                # Use the first subquery's label so RRF can look up the weight
+                primary_label = plan.subqueries[0].label if plan.subqueries else "primary"
+                bundle.add_items(primary_label, "github", normalized)
+                _github_person_done = True
+        except Exception as exc:
+            bundle.errors_by_source["github"] = f"Person-mode failed: {exc}"
+
     # Thread-safe set prevents redundant fetches after a source returns 429
     rate_limited_sources: set[str] = set()
     rate_limit_lock = threading.Lock()
@@ -223,6 +273,9 @@ def run(
         for subquery in plan.subqueries:
             for source in subquery.sources:
                 if source not in available:
+                    continue
+                # Skip GitHub keyword search if person-mode already ran
+                if source == "github" and (_github_person_done or _github_custom_done):
                     continue
                 # Enforce per-source fetch cap
                 cap = MAX_SOURCE_FETCHES.get(source)
@@ -318,6 +371,9 @@ def run(
     _stage_log("supplemental done")
 
     # Phase 2b: retry thin sources with simplified query
+    # Note: _github_skip_sources tells the retry to not re-run GitHub keyword search
+    # when project-mode or person-mode already provided authoritative data.
+    _github_skip_retry = {"github"} if (_github_person_done or _github_custom_done) else set()
     _stage_log("retry thin start")
     _retry_thin_sources(
         topic=topic,
@@ -332,6 +388,7 @@ def run(
         rate_limit_lock=rate_limit_lock,
         settings=settings,
         web_backend=web_backend,
+        skip_sources=_github_skip_retry,
     )
     _stage_log("retry thin done")
 
@@ -347,24 +404,44 @@ def run(
     _stage_log("fusion start")
     candidates = weighted_rrf(bundle.items_by_source_and_query, plan, pool_limit=settings["pool_limit"])
     _stage_log("fusion done")
-    _stage_log("rerank start")
-    ranked_candidates = rerank.rerank_candidates(
-        topic=topic,
-        plan=plan,
-        candidates=candidates,
-        provider=None if mock else reasoning_provider,
-        model=None if mock else runtime.rerank_model,
-        shortlist_size=settings["rerank_limit"],
-    )
-    _stage_log("rerank done")
-    _stage_log("fun score start")
-    rerank.score_fun(
-        topic=topic,
-        candidates=ranked_candidates,
-        provider=None if mock else reasoning_provider,
-        model=None if mock else runtime.rerank_model,
-    )
-    _stage_log("fun score done")
+    # Rerank and fun-score operate on the same candidate pool but mutate
+    # disjoint attributes (rerank_score vs fun_score) and don't read each
+    # other's output. Run them concurrently — at default depth the
+    # fun-score LLM call is ~6x slower than rerank, so parallelizing
+    # hides the rerank latency inside the fun-score wait.
+    _stage_log("rerank+fun start (parallel)")
+    with ThreadPoolExecutor(max_workers=2) as rf_pool:
+        rerank_future = rf_pool.submit(
+            rerank.rerank_candidates,
+            topic=topic,
+            plan=plan,
+            candidates=candidates,
+            provider=None if mock else reasoning_provider,
+            model=None if mock else runtime.rerank_model,
+            shortlist_size=settings["rerank_limit"],
+        )
+        fun_future = rf_pool.submit(
+            rerank.score_fun,
+            topic=topic,
+            # Pass the pre-rerank pool: at our scales both paths score the
+            # same set of candidates, just in different order. Scores are
+            # attached to candidate objects directly, so the rerank
+            # return value still carries them.
+            candidates=candidates,
+            provider=None if mock else reasoning_provider,
+            model=None if mock else (runtime.fun_model or runtime.rerank_model),
+        )
+        ranked_candidates = rerank_future.result()
+        fun_future.result()
+    _stage_log("rerank+fun done")
+
+    # Phase 3: post-rerank GitHub star enrichment
+    if "github" in available and not mock:
+        github.enrich_candidates_with_stars(
+            ranked_candidates,
+            token=config.get("GITHUB_TOKEN"),
+            already_enriched=_github_enriched_repos,
+        )
 
     _stage_log("cluster start")
     clusters = cluster_candidates(ranked_candidates, plan)
@@ -752,7 +829,7 @@ def _retrieve_stream(
         # from the original user topic, not the planner's narrowed search_query.
         reddit_query = raw_topic or subquery.search_query
         return reddit_public.search_reddit_public(
-            reddit_query, from_date, to_date, depth=depth, subreddits=subreddits, config=config
+            reddit_query, from_date, to_date, depth=depth, subreddits=subreddits
         ), {}
     if source == "x":
         backend = runtime.x_search_backend or env.get_x_source(config)
@@ -769,14 +846,7 @@ def _retrieve_stream(
         # Use raw_topic so expand_youtube_queries() generates diverse variants
         # from the original user topic, not the planner's narrowed search_query.
         yt_query = raw_topic or subquery.search_query
-        result = youtube_yt.search_and_transcribe(
-            yt_query,
-            from_date,
-            to_date,
-            depth=depth,
-            api_key=config.get("AISA_API_KEY") or "",
-            config=config,
-        )
+        result = youtube_yt.search_and_transcribe(yt_query, from_date, to_date, depth=depth)
         items = youtube_yt.parse_youtube_response(result)
         return items, {}
     if source == "tiktok":
@@ -821,6 +891,9 @@ def _retrieve_stream(
             raise RuntimeError("AISA_API_KEY is required for Polymarket retrieval.")
         result = aisa.search_polymarket(config["AISA_API_KEY"], subquery.search_query)
         return aisa.parse_polymarket_response(result, topic=subquery.search_query), {}
+    if source == "github":
+        result = github.search_github(subquery.search_query, from_date, to_date, depth=depth, token=config.get("GITHUB_TOKEN"))
+        return result, {}
     if source == "pinterest":
         result = pinterest.search_pinterest(
             subquery.search_query, from_date, to_date,

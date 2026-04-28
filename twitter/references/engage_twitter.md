@@ -1,6 +1,6 @@
 # AIsa Twitter Engagement
 
-**Like, unlike, follow, and unfollow X/Twitter content through the local relay service.**
+**Like, unlike, follow, and unfollow X/Twitter content through the configured AIsa relay service.**
 
 This workflow is for engagement actions, not publishing.
 
@@ -32,6 +32,8 @@ Follow the author of the tweet we just looked at
 
 ```bash
 export AISA_API_KEY="your-key"
+export TWITTER_RELAY_BASE_URL="https://api.aisa.one/apis/v1/twitter"  # optional
+export TWITTER_RELAY_TIMEOUT="30"  # optional
 ```
 
 ## Python Client

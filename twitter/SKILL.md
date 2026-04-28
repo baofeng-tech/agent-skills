@@ -58,6 +58,10 @@ If the user asks to send, publish, or reply, or quote on X/Twitter, handle that 
 
 ```bash
 export AISA_API_KEY="your-key"
+
+# Optional: override the default AIsa relay for OAuth, posting, and engagement
+export TWITTER_RELAY_BASE_URL="https://api.aisa.one/apis/v1/twitter"
+export TWITTER_RELAY_TIMEOUT="30"
 ```
 
 ## Core Capabilities
@@ -220,7 +224,7 @@ python3 scripts/twitter_client.py community-members --community-id 1708485837274
 python3 scripts/twitter_client.py community-tweets --community-id 1708485837274263614
 python3 scripts/twitter_client.py community-search --query "AI"
 
-# Engagement operations through the local relay
+# Engagement operations through the configured AIsa relay
 python3 scripts/twitter_engagement_client.py list-tweets --user "@elonmusk" --limit 10
 python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
 python3 scripts/twitter_engagement_client.py unlike-latest --user "@elonmusk"

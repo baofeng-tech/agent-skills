@@ -1,4 +1,4 @@
-"""Core data model for the v1.0.2 last30days pipeline."""
+"""Core data model for the v1.0.3 last30days pipeline."""
 
 from __future__ import annotations
 

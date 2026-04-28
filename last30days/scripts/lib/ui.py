@@ -6,6 +6,8 @@ import threading
 import random
 from typing import Optional
 
+from . import __version__
+
 # Check if we're in a real terminal (not captured by Claude Code)
 IS_TTY = sys.stderr.isatty()
 
@@ -179,7 +181,7 @@ I just researched that for you. Here's what I've got right now:
 
 {status_line}
 
-More sources means better research, but it works fine as-is. Add `AISA_API_KEY` to unlock the hosted X, YouTube, web, and Polymarket path in one step. Reddit and HN can already contribute on their public routes.
+More sources means better research, but it works fine as-is. Add `AISA_API_KEY` to unlock the hosted X, YouTube, web, and Polymarket path in one step. Reddit and HN can already contribute on their public routes. GitHub uses its official API path and may still need `GH_TOKEN` or `GITHUB_TOKEN`.
 
 Some examples of what you can do:
 - "last30 what are people saying about Figma"
@@ -202,7 +204,7 @@ BIRD_AUTH_HELP = f"""
 {Colors.YELLOW}Legacy X authentication failed.{Colors.RESET}
 
 Recommended fix:
-1. Add AISA_API_KEY to ./.last30days-data/config.env or pass --api-key directly
+1. Add AISA_API_KEY to ./.claude-skill-data/last30days/.env or .claude/last30days.env
 2. Re-run to use the hosted AISA Twitter proxy
 """
 
@@ -210,7 +212,7 @@ BIRD_AUTH_HELP_PLAIN = """
 Legacy X authentication failed.
 
 Recommended fix:
-1. Add AISA_API_KEY to ./.last30days-data/config.env or pass --api-key directly
+1. Add AISA_API_KEY to ./.claude-skill-data/last30days/.env or .claude/last30days.env
 2. Re-run to use the hosted AISA Twitter proxy
 """
 
@@ -501,9 +503,15 @@ def show_diagnostic_banner(diag: dict):
 
     lines = []
 
+    # Box interior (between '│' edges) is 53 chars wide. Version string is
+    # centralized in lib/__init__.py; compute right-padding so the box stays
+    # aligned regardless of how many digits the version has.
+    _title = f" /last30days v{__version__} - Source Status"
+    _title_pad = " " * max(1, 53 - len(_title))
+
     if IS_TTY:
         lines.append(f"{Colors.DIM}┌─────────────────────────────────────────────────────┐{Colors.RESET}")
-        lines.append(f"{Colors.DIM}│{Colors.RESET} {Colors.BOLD}/last30days v1.0.2 - Source Status{Colors.RESET}                 {Colors.DIM}│{Colors.RESET}")
+        lines.append(f"{Colors.DIM}│{Colors.RESET} {Colors.BOLD}/last30days v{__version__} - Source Status{Colors.RESET}{_title_pad}{Colors.DIM}│{Colors.RESET}")
         lines.append(f"{Colors.DIM}│{Colors.RESET}                                                     {Colors.DIM}│{Colors.RESET}")
 
         # Reddit
@@ -543,12 +551,12 @@ def show_diagnostic_banner(diag: dict):
             lines.append(f"{Colors.DIM}│{Colors.RESET}  {Colors.YELLOW}⚡ Web{Colors.RESET}       — Add AISA_API_KEY                  {Colors.DIM}│{Colors.RESET}")
 
         lines.append(f"{Colors.DIM}│{Colors.RESET}                                                     {Colors.DIM}│{Colors.RESET}")
-        lines.append(f"{Colors.DIM}│{Colors.RESET}  Config: {Colors.BOLD}./.last30days-data/config.env{Colors.RESET}           {Colors.DIM}│{Colors.RESET}")
+        lines.append(f"{Colors.DIM}│{Colors.RESET}  Config: {Colors.BOLD}./.claude-skill-data/last30days/.env{Colors.RESET}                  {Colors.DIM}│{Colors.RESET}")
         lines.append(f"{Colors.DIM}└─────────────────────────────────────────────────────┘{Colors.RESET}")
     else:
         # Plain text for non-TTY (Claude Code / Codex)
         lines.append("┌─────────────────────────────────────────────────────┐")
-        lines.append("│ /last30days v1.0.2 - Source Status                 │")
+        lines.append(f"│{_title}{_title_pad}│")
         lines.append("│                                                     │")
 
         if has_reddit:
@@ -578,7 +586,7 @@ def show_diagnostic_banner(diag: dict):
             lines.append("│  ⚡ Web       — Add AISA_API_KEY                    │")
 
         lines.append("│                                                     │")
-        lines.append("│  Config: ./.last30days-data/config.env              │")
+        lines.append("│  Config: ./.claude-skill-data/last30days/.env                  │")
         lines.append("└─────────────────────────────────────────────────────┘")
 
     sys.stderr.write("\n".join(lines) + "\n\n")

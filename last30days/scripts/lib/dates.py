@@ -1,6 +1,7 @@
 """Date utilities for last30days skill."""
 
 from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from typing import Optional, Tuple
 
 
@@ -18,7 +19,9 @@ def get_date_range(days: int = 30) -> Tuple[str, str]:
 def parse_date(date_str: Optional[str]) -> Optional[datetime]:
     """Parse a date string in various formats.
 
-    Supports: YYYY-MM-DD, ISO 8601, Unix timestamp
+    Supports: Unix timestamp, ISO 8601, YYYY-MM-DD, and RFC 2822 / HTTP-date
+    (e.g. 'Wed, 15 Apr 2026 19:28:36 GMT') — the format used by Tavily and
+    many news sources via published_date.
     """
     if not date_str:
         return None
@@ -48,7 +51,20 @@ def parse_date(date_str: Optional[str]) -> Optional[datetime]:
         except ValueError:
             continue
 
-    return None
+    # Try RFC 2822 / HTTP-date (e.g. 'Wed, 15 Apr 2026 19:28:36 GMT').
+    # parsedate_to_datetime returns None for unparseable input on 3.10+, but
+    # on some inputs raises TypeError/ValueError — guard both paths.
+    try:
+        dt = parsedate_to_datetime(date_str)
+    except (TypeError, ValueError):
+        return None
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+    return dt
 
 
 def timestamp_to_date(ts: Optional[float]) -> Optional[str]:

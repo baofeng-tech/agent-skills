@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ruff: noqa: E402
-"""last30days v1.0.2 CLI."""
+"""last30days v1.0.3 CLI."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def ensure_supported_python(version_info: tuple[int, int, int] | object | None =
     sys.stderr.write(
         "last30days v1 requires Python 3.12+.\n"
         f"Detected Python {major}.{minor}.{micro}.\n"
-        "Use /usr/local/python3.12/bin/python3.12 or another Python 3.12+ interpreter, then rerun this command.\n"
+        "Use python3.12 if it is available in PATH, or any other Python 3.12+ interpreter, then rerun this command.\n"
     )
     raise SystemExit(1)
 

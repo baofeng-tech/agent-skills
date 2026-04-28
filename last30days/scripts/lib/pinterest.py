@@ -4,6 +4,11 @@ import re
 import sys
 from typing import Any, Dict, List, Optional, Set
 
+try:
+    import requests as _requests
+except ImportError:
+    _requests = None
+
 from . import aisa, dates, http, log
 
 # Depth configurations: how many results to fetch

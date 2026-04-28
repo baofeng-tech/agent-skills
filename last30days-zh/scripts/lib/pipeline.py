@@ -1,4 +1,4 @@
-"""v1.0.2 orchestration pipeline."""
+"""v1.0.3 orchestration pipeline."""
 
 from __future__ import annotations
 
@@ -47,7 +47,6 @@ SEARCH_ALIAS = {
     "hn": "hackernews",
     "web": "grounding",
     "xhs": "xiaohongshu",
-    "xquik": "x",
 }
 
 MAX_SOURCE_FETCHES: dict[str, int] = {"x": 2}

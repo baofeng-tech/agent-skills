@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional
 import re
 
 from . import http, log
-from .query import extract_core_subject
+from .query import NOISE_WORDS, extract_core_subject
 from .relevance import token_overlap_relevance
 
 # Common HN prefixes that can cause false-positive keyword matches
@@ -118,27 +118,32 @@ def search_hackernews(
 
 
 def _title_matches_query(title: str, query: str, author: str = "") -> bool:
-    """Check if the query term appears in the title content, not just an HN prefix or author.
+    """Check whether a meaningful fraction of the query's content words appear
+    in the title (after stripping HN prefixes like 'Show HN:').
 
-    Returns True if the query (or any multi-word token) appears in the title
-    after stripping "Tell HN:", "Show HN:", "Ask HN:", "Launch HN:" prefixes
-    and ignoring the author name.  Returns True when query is empty (no filter).
+    Requires at least ceil(N/2) of the noise-stripped query tokens to appear
+    in the title — this tolerates short, implicit headlines like
+    "The next evolution of the Agents SDK" matching the query
+    "openai agents sdk" (2 of 3 content words present) while still rejecting
+    unrelated stories that only share one stop-word.
     """
     if not query:
         return True
     stripped = _HN_PREFIXES.sub("", title).strip()
-    # Also check that the match isn't solely in the author's username
     check_text = stripped.lower()
-    query_lower = query.lower()
-    # Check each word of the query independently; all must appear somewhere
-    # in the stripped title (not just the prefix).
-    query_words = query_lower.split()
-    for word in query_words:
-        if word in check_text:
-            continue
-        # Word not found in stripped title — reject
-        return False
-    return True
+    # Noise-strip the query with the same set used when composing the
+    # Algolia query, so the post-filter doesn't demand words we already
+    # intentionally dropped upstream.
+    raw_words = query.lower().split()
+    content_words = [w for w in raw_words if w not in NOISE_WORDS]
+    if not content_words:
+        # Query was pure noise — fall back to raw tokens to avoid matching everything.
+        content_words = raw_words
+    if not content_words:
+        return True
+    hits = sum(1 for w in content_words if w in check_text)
+    required = max(1, (len(content_words) + 1) // 2)
+    return hits >= required
 
 
 def parse_hackernews_response(response: Dict[str, Any], query: str = "") -> List[Dict[str, Any]]:

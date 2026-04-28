@@ -1,8 +1,8 @@
 # AIsa Twitter OAuth
 
-**OAuth-based X/Twitter posting for autonomous agents. Powered by AIsa.**
+**OAuth-based X/Twitter posting for autonomous agents through the AIsa relay. Powered by AIsa.**
 
-One API key. Simple authorization. Direct posting.
+One API key. Simple authorization. Relay-backed posting.
 
 ## What Can You Do?
 
@@ -34,6 +34,8 @@ I already authorized Twitter. Post this update now.
 
 ```bash
 export AISA_API_KEY="your-key"
+export TWITTER_RELAY_BASE_URL="https://api.aisa.one/apis/v1/twitter"  # optional
+export TWITTER_RELAY_TIMEOUT="30"  # optional
 ```
 
 ## Python Client
@@ -89,8 +91,8 @@ When the user drops image/video files into the agent harness:
 
 1. The agent harness stores the attachment in the local workspace and provides the workspace file path to the skill.
 2. The skill passes that local path through `--media-file <workspace_path>`.
-3. The Python client reads the local file and sends it to the relay backend as `multipart/form-data`.
-4. The relay backend uploads the media to Twitter/X and then publishes the tweet.
+3. The Python client reads the local file and sends it to the configured AIsa relay backend as `multipart/form-data`.
+4. The configured relay backend uploads the media to Twitter/X and then publishes the tweet.
 5. The skill returns the final publish result, including the tweet link or tweet ID when available.
 6. If the user provides only one image, publish with only that single image. Do not duplicate it, infer extra images, or expand it into a multi-image post.
 7. If the user provides media without any text, send a media-only post request. Do not synthesize, inject, or infer caption text.

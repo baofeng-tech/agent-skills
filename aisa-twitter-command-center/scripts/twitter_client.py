@@ -23,7 +23,7 @@ import unicodedata
 from typing import Any, Dict, List, Optional
 
 
-DEFAULT_RELAY_TIMEOUT = 30
+REQUEST_TIMEOUT = 60
 TWITTER_MAX_WEIGHT = 280
 TWITTER_URL_WEIGHT = 23
 URL_PATTERN = re.compile(r"https?://\S+", re.IGNORECASE)
@@ -39,7 +39,7 @@ class TwitterClient:
         self.api_key = api_key or os.environ.get("AISA_API_KEY")
         if not self.api_key:
             raise ValueError(
-                "AISA_API_KEY is required. Set it via environment variable or pass to constructor."
+                "AISA_API_KEY is required. Set it via environment variable."
             )
 
     def _request(
@@ -71,7 +71,7 @@ class TwitterClient:
         req = urllib.request.Request(url, data=request_data, headers=headers, method=method)
 
         try:
-            with urllib.request.urlopen(req, timeout=60) as response:
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
             error_body = e.read().decode("utf-8")

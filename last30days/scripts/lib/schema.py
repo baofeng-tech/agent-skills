@@ -1,4 +1,4 @@
-"""Core data model for the v1.0.2 last30days pipeline."""
+"""Core data model for the last30days pipeline. Version in lib/__init__.py."""
 
 from __future__ import annotations
 
@@ -36,6 +36,10 @@ class ProviderRuntime:
     planner_model: str
     rerank_model: str
     x_search_backend: Literal["aisa"] | None = None
+    # Dedicated model for the fun/vibes scoring pass. Falls back to
+    # rerank_model at resolve time if unset, so existing configs keep
+    # working without a fun_model pin.
+    fun_model: str = ""
 
 
 @dataclass(frozen=True)
@@ -183,6 +187,7 @@ def provider_runtime_from_dict(payload: dict[str, Any]) -> ProviderRuntime:
         planner_model=payload["planner_model"],
         rerank_model=payload["rerank_model"],
         x_search_backend=payload.get("x_search_backend"),
+        fun_model=payload.get("fun_model", ""),
     )
 
 

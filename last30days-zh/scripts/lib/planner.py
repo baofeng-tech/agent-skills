@@ -183,11 +183,14 @@ def _sanitize_plan(
         source for source in available_sources
         if (not requested or source in requested)
     ]
-    source_weights = {
-        source: float(weight)
-        for source, weight in (raw.get("source_weights") or {}).items()
-        if source in available
-    }
+    source_weights: dict[str, float] = {}
+    for source, weight in (raw.get("source_weights") or {}).items():
+        if source not in available:
+            continue
+        try:
+            source_weights[source] = float(weight)
+        except (TypeError, ValueError):
+            continue
     if requested:
         source_weights = {source: weight for source, weight in source_weights.items() if source in requested}
     if not source_weights:
@@ -216,13 +219,17 @@ def _sanitize_plan(
         ranking_query = str(subquery.get("ranking_query") or "").strip()
         if not search_query or not ranking_query:
             continue
+        try:
+            weight = max(0.05, float(subquery.get("weight") or 1.0))
+        except (TypeError, ValueError):
+            weight = 1.0
         subqueries.append(
             schema.SubQuery(
                 label=str(subquery.get("label") or f"q{index}").strip() or f"q{index}",
                 search_query=search_query,
                 ranking_query=ranking_query,
                 sources=sources,
-                weight=max(0.05, float(subquery.get("weight") or 1.0)),
+                weight=weight,
             )
         )
     if depth == "quick" and subqueries:

@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 """
-Twitter relay client for local OAuth authorization and tweet publishing.
+Twitter OAuth client for local authorization and tweet publishing through AIsa API.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
@@ -26,7 +26,7 @@ from typing import Any, Dict, Optional
 
 
 DEFAULT_TIMEOUT = 30
-DEFAULT_BASE_URL = "https://api.aisa.one/apis/v1/twitter"
+DEFAULT_BASE_URL = "https://api.aisa.one/apis/v1"
 DEFAULT_CHROME_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -46,10 +46,10 @@ def get_env(name: str, default: Optional[str] = None) -> Optional[str]:
 def normalize_base_url(base_url: str) -> str:
     value = base_url.strip().rstrip("/")
     if not value:
-        raise RelayConfigError("Relay base URL is required.")
+        raise RelayConfigError("AIsa API base URL is required.")
     parsed = urllib.parse.urlparse(value)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
-        raise RelayConfigError("Relay base URL must be a valid http(s) URL.")
+        raise RelayConfigError("AIsa API base URL must be a valid http(s) URL.")
     return value
 
 
@@ -390,7 +390,7 @@ def post_single_tweet(
         parent_key = "in_reply_to_tweet_id" if post_type == "reply" else "quote_tweet_id"
         payload[parent_key] = parent_tweet_id
 
-    endpoint = f"{config['base_url']}/post_twitter"
+    endpoint = f"{config['base_url']}/twitter/post_twitter"
     if media_files:
         return send_multipart_request(
             endpoint,
@@ -457,7 +457,7 @@ def command_authorize(args: argparse.Namespace) -> None:
     config = load_config(args)
     payload = {"aisa_api_key": config["aisa_api_key"]}
     result = send_json_request(
-        f"{config['base_url']}/auth_twitter",
+        f"{config['base_url']}/twitter/auth_twitter",
         payload,
         timeout=config["timeout"],
         aisa_api_key=config["aisa_api_key"],
@@ -542,7 +542,7 @@ def command_status(args: argparse.Namespace) -> None:
         "aisa_api_key_present": bool(config["aisa_api_key"]),
         "timeout": config["timeout"],
         "supported_commands": ["authorize", "post", "status"],
-        "supported_endpoints": ["/auth_twitter", "/post_twitter"],
+        "supported_endpoints": ["/twitter/auth_twitter", "/twitter/post_twitter"],
         "media_upload": {
             "field_name": "media_files",
             "transport": "multipart/form-data",
@@ -554,16 +554,16 @@ def command_status(args: argparse.Namespace) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Twitter relay client for local OAuth and posting",
+        description="Twitter OAuth client for local AIsa posting flows",
     )
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    authorize = subparsers.add_parser("authorize", help="Request an authorization URL from the relay service")
+    authorize = subparsers.add_parser("authorize", help="Request an authorization URL from the AIsa service")
     authorize.add_argument("--open-browser", action="store_true", help="Open the authorization URL in the default browser")
     authorize.set_defaults(func=command_authorize)
 
-    post = subparsers.add_parser("post", help="Publish a post through the relay service")
+    post = subparsers.add_parser("post", help="Publish a post through the AIsa service")
     post.add_argument("--text", default="", help="Post content. Optional when media is provided.")
     post.add_argument(
         "--media-id",

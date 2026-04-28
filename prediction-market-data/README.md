@@ -4,6 +4,6 @@ GitHub-ready release package prepared specifically for agentskill.sh import and 
 
 ## Notes
 
-- Cross-platform prediction market data via AIsa API. Query Polymarket and Kalshi markets, prices, orderbooks, candlesticks, positions, and trades. Use when user asks about: prediction market odds, election betting, event probabilities, market sentiment, Polymarket prices, Kalshi prices, sports betting odds, wallet PnL, or cross-platform market comparison.
+- Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
 - This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
 - The same skill can also be submitted by direct `SKILL.md` URL when needed.

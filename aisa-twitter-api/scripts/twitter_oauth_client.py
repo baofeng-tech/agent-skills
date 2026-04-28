@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 """
-Twitter relay client for local OAuth authorization and tweet publishing.
+Twitter OAuth client for local authorization and tweet publishing through AIsa API.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
@@ -46,10 +46,10 @@ def get_env(name: str, default: Optional[str] = None) -> Optional[str]:
 def normalize_base_url(base_url: str) -> str:
     value = base_url.strip().rstrip("/")
     if not value:
-        raise RelayConfigError("Relay base URL is required.")
+        raise RelayConfigError("AIsa API base URL is required.")
     parsed = urllib.parse.urlparse(value)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
-        raise RelayConfigError("Relay base URL must be a valid http(s) URL.")
+        raise RelayConfigError("AIsa API base URL must be a valid http(s) URL.")
     return value
 
 
@@ -554,16 +554,16 @@ def command_status(args: argparse.Namespace) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Twitter relay client for local OAuth and posting",
+        description="Twitter OAuth client for local AIsa posting flows",
     )
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    authorize = subparsers.add_parser("authorize", help="Request an authorization URL from the relay service")
+    authorize = subparsers.add_parser("authorize", help="Request an authorization URL from the AIsa service")
     authorize.add_argument("--open-browser", action="store_true", help="Open the authorization URL in the default browser")
     authorize.set_defaults(func=command_authorize)
 
-    post = subparsers.add_parser("post", help="Publish a post through the relay service")
+    post = subparsers.add_parser("post", help="Publish a post through the AIsa service")
     post.add_argument("--text", default="", help="Post content. Optional when media is provided.")
     post.add_argument(
         "--media-id",

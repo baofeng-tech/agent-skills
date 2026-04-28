@@ -25,19 +25,31 @@ from typing import Any, Dict, List, Optional
 
 
 DEFAULT_RELAY_TIMEOUT = 30
+DEFAULT_BASE_URL = "https://api.aisa.one/apis/v1"
 TWITTER_MAX_WEIGHT = 280
 TWITTER_URL_WEIGHT = 23
 URL_PATTERN = re.compile(r"https?://\S+", re.IGNORECASE)
 
 
+def resolve_api_base_url() -> str:
+    raw = (os.environ.get("TWITTER_RELAY_BASE_URL") or "").strip().rstrip("/")
+    if not raw:
+        return DEFAULT_BASE_URL
+    parsed = urllib.parse.urlparse(raw)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return DEFAULT_BASE_URL
+    if raw.endswith("/twitter"):
+        return raw[: -len("/twitter")]
+    return raw
+
+
 class TwitterClient:
     """AIsa Twitter - Twitter/X API Client."""
-
-    BASE_URL = "https://api.aisa.one/apis/v1"
 
     def __init__(self, api_key: Optional[str] = None):
         """Initialize the client with an API key."""
         self.api_key = api_key or os.environ.get("AISA_API_KEY")
+        self.base_url = resolve_api_base_url()
         if not self.api_key:
             raise ValueError(
                 "AISA_API_KEY is required. Set it via environment variable or pass to constructor."
@@ -51,7 +63,7 @@ class TwitterClient:
         data: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """Make an HTTP request to the AIsa API."""
-        url = f"{self.BASE_URL}{endpoint}"
+        url = f"{self.base_url}{endpoint}"
 
         if params:
             query_string = urllib.parse.urlencode(

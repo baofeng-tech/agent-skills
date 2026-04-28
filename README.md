@@ -28,6 +28,7 @@ GitHub-ready release layer generated from `targetSkills/` for agentskill.sh impo
 - `aisa-youtube-search`
 - `aisa-youtube-serp-scout`
 - `cn-llm`
+- `crypto-market-data`
 - `last30days`
 - `last30days-zh`
 - `llm-router`
@@ -35,6 +36,7 @@ GitHub-ready release layer generated from `targetSkills/` for agentskill.sh impo
 - `marketpulse`
 - `media-gen`
 - `multi-search`
+- `multi-source-search`
 - `openclaw-aisa-youtube-aisa`
 - `openclaw-media-gen`
 - `openclaw-search`
@@ -69,3 +71,4 @@ GitHub-ready release layer generated from `targetSkills/` for agentskill.sh impo
 - `x-intelligence-automation`
 - `youtube`
 - `youtube-search`
+- `youtube-serp`

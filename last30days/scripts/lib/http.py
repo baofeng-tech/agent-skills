@@ -1,6 +1,7 @@
 """HTTP utilities for last30days skill (stdlib only)."""
 
 import json
+import os
 import re
 import sys
 import time
@@ -10,6 +11,7 @@ from typing import Any, Dict, Optional, Union
 from urllib.parse import urlencode
 from urllib.parse import urlparse
 
+from . import __version__
 from . import log as _log
 
 DEFAULT_TIMEOUT = 30
@@ -23,7 +25,7 @@ def log(msg: str):
 MAX_RETRIES = 5
 MAX_429_RETRIES = 2
 RETRY_DELAY = 2.0
-USER_AGENT = "last30days-skill/3.0 (Assistant Skill)"
+USER_AGENT = f"last30days-skill/{__version__} (Assistant Skill)"
 DEBUG = False
 
 
@@ -215,9 +217,12 @@ def _inject_aisa_headers(url: str, headers: Dict[str, str], has_json_body: bool)
     parsed = urlparse(url)
     if parsed.netloc.lower() != "api.aisa.one":
         return
-    api_key = headers.get("Authorization", "").removeprefix("Bearer ").strip()
+    api_key = (
+        headers.get("Authorization", "").removeprefix("Bearer ").strip()
+        or os.environ.get("AISA_API_KEY", "").strip()
+    )
     if not api_key:
-        raise HTTPError("AISA API key is required for requests to api.aisa.one")
+        raise HTTPError("AISA_API_KEY is required for requests to api.aisa.one")
     headers.setdefault("Authorization", f"Bearer {api_key}")
     if has_json_body:
         headers.setdefault("Content-Type", "application/json")

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Twitter relay client for local OAuth authorization and tweet publishing.
+Twitter relay client for AIsa OAuth authorization and tweet publishing.
+
+Defaults to https://api.aisa.one/apis/v1/twitter and can be overridden with
+TWITTER_RELAY_BASE_URL and TWITTER_RELAY_TIMEOUT.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
@@ -554,7 +557,7 @@ def command_status(args: argparse.Namespace) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Twitter relay client for local OAuth and posting",
+        description="Twitter relay client for AIsa OAuth and posting",
     )
     parser.add_argument("--aisa-api-key", help="Override AISA_API_KEY")
     parser.add_argument("--timeout", type=int, help="Override TWITTER_RELAY_TIMEOUT")

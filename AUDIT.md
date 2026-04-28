@@ -1,6 +1,6 @@
 # agentskill.sh Release Audit
 
-- Generated skills: 51
+- Generated skills: 54
 - Frontmatter mode: Agent Skills spec-leaning with flat metadata.
 - Repository mode: one skill directory per repo root entry for GitHub scanning.
 - Repository target: `https://github.com/baofeng-tech/agent-skills`
@@ -28,7 +28,7 @@
 
 - Path: `agentskill-sh-release/aisa-twitter-api`
 - Zip: `agentskill-sh-release/zips/aisa-twitter-api.zip`
-- Description: Search X/Twitter profiles, tweets, trends, lists, communities, and Spaces through the AIsa relay, then support approved posting workflows with OAuth. Use when the user asks for Twitter research, monitoring, or posting without sharing passwords.
+- Description: Twitter/X command center for research, monitoring, watchlists, and approved posting through AIsa. Use when: the user needs one flagship skill for trend tracking, competitor monitoring, or publish-ready Twitter workflows without sharing passwords. Supports search, watchlists, and OAuth-gated posting.
 
 ## aisa-twitter-command-center
 
@@ -66,11 +66,17 @@
 - Zip: `agentskill-sh-release/zips/cn-llm.zip`
 - Description: China LLM Gateway - Unified interface for Chinese LLMs including Qwen, DeepSeek, GLM, Baichuan. OpenAI compatible, one API Key for all models. Use when: the user needs model routing, provider setup, or Chinese LLM access guidance.
 
+## crypto-market-data
+
+- Path: `agentskill-sh-release/crypto-market-data`
+- Zip: `agentskill-sh-release/zips/crypto-market-data.zip`
+- Description: Query real-time and historical cryptocurrency market data via CoinGecko — simple prices, coin details, historical charts, OHLC candles, token prices by contract address, market-cap rankings, exchange data and tickers, categories, trending searches, and crypto news. Use for crypto research, price tracking, on-chain token lookup, portfolio analysis, and market-cap screening. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+
 ## last30days
 
 - Path: `agentskill-sh-release/last30days`
 - Zip: `agentskill-sh-release/zips/last30days.zip`
-- Description: Research the last 30 days across Reddit, X/Twitter, YouTube, TikTok, Instagram, Hacker News, Polymarket, and web search. Use when: the user needs recent multi-source research across the last 30 days.
+- Description: Research the last 30 days across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and grounded web search. Returns a ranked, clustered brief with citations. Use when the task needs recent social evidence, competitor comparisons, launch reactions, trend scans, or person/company profiles.
 
 ## last30days-zh
 
@@ -94,19 +100,25 @@
 
 - Path: `agentskill-sh-release/marketpulse`
 - Zip: `agentskill-sh-release/zips/marketpulse.zip`
-- Description: Query real-time and historical financial data across equities and crypto—prices, market moves, metrics, and trends for analysis, alerts, and reporting. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+- Description: Query real-time and historical financial data for equities—prices, news, financial statements, metrics, analyst estimates, insider and institutional activity, SEC filings, earnings press releases, segmented revenues, stock screening, and macro interest rates. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
 
 ## media-gen
 
 - Path: `agentskill-sh-release/media-gen`
 - Zip: `agentskill-sh-release/zips/media-gen.zip`
-- Description: Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key. Use when: the user needs AI image or video generation workflows.
+- Description: Generate images and videos with AIsa. Four image models (Google Gemini 3 Pro Image, Alibaba Wan 2.7 image + image-pro, ByteDance Seedream) and four Wan video variants (wan2.6/2.7 × t2v/i2v). One API key; the client routes each model to the correct endpoint automatically. Use when: the user needs AI image or video generation workflows.
 
 ## multi-search
 
 - Path: `agentskill-sh-release/multi-search`
 - Zip: `agentskill-sh-release/zips/multi-search.zip`
 - Description: Parallel multi-source search combining Web, Scholar, Smart, and Tavily results with confidence scoring and AI synthesis. Best for comprehensive research requiring cross-source validation. Use when: the user needs web search, research, source discovery, or content extraction.
+
+## multi-source-search
+
+- Path: `agentskill-sh-release/multi-source-search`
+- Zip: `agentskill-sh-release/zips/multi-source-search.zip`
+- Description: Confidence-scored multi-source retrieval across web, scholar, Tavily, and Perplexity-backed research. Use when: the user needs cross-source verification, consensus checks, or one report that compares multiple search surfaces. Supports parallel retrieval, confidence scoring, and synthesis-ready outputs.
 
 ## openclaw-aisa-youtube-aisa
 
@@ -118,7 +130,7 @@
 
 - Path: `agentskill-sh-release/openclaw-media-gen`
 - Zip: `agentskill-sh-release/zips/openclaw-media-gen.zip`
-- Description: Generate images & videos with AIsa. Gemini 3 Pro Image (image) + Qwen Wan 2.6 (video) via one API key. Use when: the user needs AI image or video generation workflows.
+- Description: Generate images and videos with AIsa. Four image models (Google Gemini 3 Pro Image, Alibaba Wan 2.7 image + image-pro, ByteDance Seedream) and four Wan video variants (wan2.6/2.7 × t2v/i2v). One API key; the client routes each model to the correct endpoint automatically. Use when: the user needs AI image or video generation workflows.
 
 ## openclaw-search
 
@@ -184,7 +196,7 @@
 
 - Path: `agentskill-sh-release/prediction-market-data`
 - Zip: `agentskill-sh-release/zips/prediction-market-data.zip`
-- Description: Cross-platform prediction market data via AIsa API. Query Polymarket and Kalshi markets, prices, orderbooks, candlesticks, positions, and trades. Use when user asks about: prediction market odds, election betting, event probabilities, market sentiment, Polymarket prices, Kalshi prices, sports betting odds, wallet PnL, or cross-platform market comparison.
+- Description: Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
 
 ## prediction-market-data-zh
 
@@ -202,7 +214,7 @@
 
 - Path: `agentskill-sh-release/search`
 - Zip: `agentskill-sh-release/zips/search.zip`
-- Description: Intelligent search for agents. Multi-source retrieval across web, scholar, Tavily, and Perplexity Sonar models. Use when: the user needs web search, research, source discovery, or content extraction.
+- Description: Search command center for web, academic, Tavily, and Perplexity-backed research through one AIsa API key. Use when: the user needs one flagship skill for live search, source discovery, or citation-ready research. Supports fast lookup, answer generation, and deep research reports.
 
 ## smart-search
 
@@ -268,7 +280,7 @@
 
 - Path: `agentskill-sh-release/twitter-autopilot`
 - Zip: `agentskill-sh-release/zips/twitter-autopilot.zip`
-- Description: Search and read X (Twitter) data via AIsa API: user profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publish posts, like/unlike tweets, and follow/unfollow users through OAuth relay — no passwords or cookies needed. Use when asked about Twitter/X data, social listening, influencer monitoring, trending topics, competitor intel, posting to X, or engaging with tweets.
+- Description: Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.
 
 ## twitter-command-center-search-post
 
@@ -311,3 +323,9 @@
 - Path: `agentskill-sh-release/youtube-search`
 - Zip: `agentskill-sh-release/zips/youtube-search.zip`
 - Description: YouTube Search API via AIsa unified endpoint. Search YouTube videos, channels, and playlists with a single AIsa API key — no Google API key or OAuth required. Use this skill when users want to search YouTube content. For other AIsa capabilities (LLM, financial data, Twitter, web search), see the aisa-core skill. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.
+
+## youtube-serp
+
+- Path: `agentskill-sh-release/youtube-serp`
+- Zip: `agentskill-sh-release/zips/youtube-serp.zip`
+- Description: YouTube SERP for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.

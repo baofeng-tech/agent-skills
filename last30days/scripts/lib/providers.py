@@ -9,7 +9,14 @@ from typing import Any
 
 from . import aisa, env, schema
 
-AISA_DEFAULT = "gpt-4.1-mini"
+# Model choice is no longer hardcoded. Installers must pick a model during
+# `last30days setup` (writes AISA_MODEL to ~/.config/last30days/.env), or
+# export AISA_MODEL / LAST30DAYS_PLANNER_MODEL / LAST30DAYS_RERANK_MODEL.
+AISA_NO_MODEL_MSG = (
+    "No reasoning model configured for last30days.\n"
+    "Run `last30days setup` to pick one interactively, or set AISA_MODEL "
+    "(or LAST30DAYS_PLANNER_MODEL / LAST30DAYS_RERANK_MODEL) in your environment."
+)
 
 
 class ReasoningClient:
@@ -62,10 +69,6 @@ class AIsaClient(ReasoningClient):
         return extract_openai_text(response)
 
 
-_MODEL_DEFAULTS: dict[str, tuple[str, str]] = {
-    "aisa": (AISA_DEFAULT, AISA_DEFAULT),
-}
-
 def _normalize_provider_name(provider_name: str) -> str:
     return provider_name
 
@@ -83,30 +86,59 @@ def warn_if_legacy_provider_alias(provider_name: str) -> None:
         )
 
 
-def _resolve_model_pins(config: dict[str, Any], depth: str, provider_name: str) -> tuple[str, str]:
-    """Resolve planner and rerank model pins for a provider."""
-    del depth
-    default_planner, default_rerank = _MODEL_DEFAULTS.get(provider_name, (AISA_DEFAULT, AISA_DEFAULT))
-    planner_model = config.get("LAST30DAYS_PLANNER_MODEL") or default_planner
-    rerank_model = config.get("LAST30DAYS_RERANK_MODEL") or default_rerank
-    return planner_model, rerank_model
+def _resolve_model_pins(config: dict[str, Any], depth: str, provider_name: str) -> tuple[str, str, str]:
+    """Resolve planner, rerank, and fun-scorer model pins for a provider.
+
+    Priority per role:
+      planner = LAST30DAYS_PLANNER_MODEL > AISA_MODEL
+      rerank  = LAST30DAYS_RERANK_MODEL  > AISA_MODEL
+      fun     = LAST30DAYS_FUN_MODEL     > LAST30DAYS_RERANK_MODEL > AISA_MODEL
+
+    Fun-scorer silently inherits the rerank pin so existing configs that set
+    only AISA_MODEL (or only the planner/rerank pair) keep working.
+    Raises AISA_NO_MODEL_MSG if any role ends up unset.
+    """
+    del depth, provider_name
+    shared = config.get("AISA_MODEL")
+    planner_model = config.get("LAST30DAYS_PLANNER_MODEL") or shared
+    rerank_model = config.get("LAST30DAYS_RERANK_MODEL") or shared
+    fun_model = config.get("LAST30DAYS_FUN_MODEL") or rerank_model
+    if not planner_model or not rerank_model or not fun_model:
+        raise RuntimeError(AISA_NO_MODEL_MSG)
+    return planner_model, rerank_model, fun_model
 
 
 def mock_runtime(config: dict[str, Any], depth: str) -> schema.ProviderRuntime:
-    """Resolve model pins for mock mode without requiring live credentials."""
+    """Build a ProviderRuntime for mock mode — no live credentials required.
+
+    Mock mode bypasses the model-pin requirement: it exists precisely for
+    running the pipeline offline with deterministic fixtures, so demanding
+    a real model pin would defeat the purpose. Env-var pins are still
+    honored if the installer has them set (useful for tests that want
+    to exercise per-role fallbacks), but their absence is fine.
+    """
+    del depth
     provider_name = (config.get("LAST30DAYS_REASONING_PROVIDER") or "aisa").lower()
     warn_if_legacy_provider_alias(provider_name)
     if provider_name == "auto":
         provider_name = "aisa"
     provider_name = _normalize_provider_name(provider_name)
-    if provider_name not in _MODEL_DEFAULTS:
+    if provider_name != "aisa":
         raise RuntimeError(f"Unsupported reasoning provider: {provider_name}")
-    planner_model, rerank_model = _resolve_model_pins(config, depth, provider_name)
+
+    # Synthesize model names for the mock runtime. Real models aren't
+    # called in mock mode; these strings are only surfaced in the
+    # provider_runtime block of the rendered report.
+    shared = config.get("AISA_MODEL")
+    planner_model = config.get("LAST30DAYS_PLANNER_MODEL") or shared or "mock-planner"
+    rerank_model = config.get("LAST30DAYS_RERANK_MODEL") or shared or "mock-rerank"
+    fun_model = config.get("LAST30DAYS_FUN_MODEL") or rerank_model or "mock-fun"
     return schema.ProviderRuntime(
         reasoning_provider=provider_name,
         planner_model=planner_model,
         rerank_model=rerank_model,
         x_search_backend=_resolve_x_backend(config),
+        fun_model=fun_model,
     )
 
 
@@ -125,10 +157,11 @@ def resolve_runtime(config: dict[str, Any], depth: str) -> tuple[schema.Provider
                 planner_model="deterministic",
                 rerank_model="local-score",
                 x_search_backend=_resolve_x_backend(config),
+                fun_model="local-score",
             ), None
 
     provider_name = _normalize_provider_name(provider_name)
-    planner_model, rerank_model = _resolve_model_pins(config, depth, provider_name)
+    planner_model, rerank_model, fun_model = _resolve_model_pins(config, depth, provider_name)
 
     if provider_name == "aisa":
         if not aisa_key:
@@ -138,6 +171,7 @@ def resolve_runtime(config: dict[str, Any], depth: str) -> tuple[schema.Provider
             planner_model=planner_model,
             rerank_model=rerank_model,
             x_search_backend=_resolve_x_backend(config),
+            fun_model=fun_model,
         )
         return runtime, AIsaClient(aisa_key)
 

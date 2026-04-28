@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Twitter engagement client for local like/unlike/follow/unfollow relay actions.
+Twitter engagement client for local like/unlike/follow/unfollow actions through AIsa API.
 
 Commands:
     python twitter_engagement_client.py list-tweets --user "@elonmusk" --limit 10
@@ -509,7 +509,7 @@ def command_status(args: argparse.Namespace) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Twitter engagement client for local relay like/follow actions",
+        description="Twitter engagement client for local AIsa like/follow actions",
     )
 
     subparsers = parser.add_subparsers(dest="command", required=True)
