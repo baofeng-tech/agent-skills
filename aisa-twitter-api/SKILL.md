@@ -38,7 +38,9 @@ Use one AIsa-backed Twitter/X surface for research, monitoring, watchlists, and 
 - Read client: `scripts/twitter_client.py`
 - OAuth and posting client: `scripts/twitter_oauth_client.py`
 - Posting guide: `references/post_twitter.md`
-- Network target: `https://api.aisa.one`
+- Relay target: `https://api.aisa.one`
+- External writes: posting happens only after explicit OAuth approval
+- Upload behavior: image and video posting sends user-selected media through the relay
 
 ## Setup
 
@@ -91,7 +93,7 @@ python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa"
 
 ## Security Notes
 
-- This is a relay-based workflow that sends Twitter/X API requests to `api.aisa.one`.
+- This is a relay-based workflow that sends Twitter/X API requests to `https://api.aisa.one`.
 - Posting requires explicit OAuth approval through the relay before external writes occur.
 - Approved image and video posting sends user-selected media through the relay for upload.
 - Required secret: `AISA_API_KEY`.

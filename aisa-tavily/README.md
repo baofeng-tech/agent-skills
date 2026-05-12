@@ -4,6 +4,6 @@ GitHub-ready release package prepared specifically for agentskill.sh import and 
 
 ## Notes
 
-- AI-optimized web search via AIsa's Tavily API proxy. Returns concise, relevant results for AI agents through AIsa's unified API gateway. Use when: the user needs web search, research, source discovery, or content extraction.
+- Search the web and extract page content through AIsa's Tavily-backed API relay. Use when: the user needs web search, source discovery, current-news lookup, or content extraction from a URL. Supports concise result sets, deeper research, and news-focused queries.
 - This directory keeps one root-level skill per folder so agentskill.sh can scan the repository cleanly.
 - The same skill can also be submitted by direct `SKILL.md` URL when needed.
