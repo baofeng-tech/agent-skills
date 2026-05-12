@@ -1,6 +1,6 @@
 ---
 name: twitter-autopilot
-description: 'Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.'
+description: 'Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks for Twitter/X research, social listening, posting, or account interactions without sharing account passwords.'
 license: MIT
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries curl, python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
@@ -8,7 +8,7 @@ metadata:
   version: 1.0.0
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
-  tags: twitter,x,search
+  tags: twitter,x,search,research
   platforms: agentskills.io,agentskill.sh,github
   primary_env: AISA_API_KEY
 allowed-tools: Read Bash Grep
@@ -16,60 +16,59 @@ allowed-tools: Read Bash Grep
 
 # Twitter Autopilot 🐦
 
-**Twitter/X data access and automation for autonomous agents. Powered by AIsa.**
+Read, search, and act on Twitter/X through AIsa.
 
-One API key. Full Twitter intelligence.
+Use this skill when the user wants Twitter/X research, social listening, trend tracking, posting, or account interactions without sharing account passwords directly with the agent.
 
 ## Compatibility
 
-Works with any [agentskills.io](https://agentskills.io)-compatible
-harness, including:
+Works with any [agentskills.io](https://agentskills.io)-compatible harness, including:
 
-- **Claude Code** and **Claude** (Anthropic)
+- **Claude Code** and **Claude**
 - **OpenAI Codex**
 - **Cursor**
-- **Gemini CLI** (Google)
+- **Gemini CLI**
 - **OpenCode**, **Goose**, **OpenClaw**, **Hermes**
-- and any other harness that implements the [Agent Skills
-  specification](https://agentskills.io/specification)
+- and other tools that implement the [Agent Skills specification](https://agentskills.io/specification)
 
-Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at
-[aisa.one](https://aisa.one)).
+Requires Python 3, a POSIX shell, and `AISA_API_KEY` from [aisa.one](https://aisa.one).
 
-## What Can You Do?
+## Common Use Cases
 
-### Monitor Influencers
+### Monitor accounts
 ```text
 "Get Elon Musk's latest tweets and notify me of any AI-related posts"
 ```
 
-### Track Trends
+### Track trends
 ```text
 "What's trending on Twitter worldwide right now?"
 ```
 
-### Social Listening
+### Social listening
 ```text
 "Search for tweets mentioning our product and analyze sentiment"
 ```
 
-### Competitor Intel
+### Competitor intelligence
 ```text
-"Monitor @anthropic and @GoogleAI - alert me on new announcements"
+"Monitor @anthropic and @GoogleAI and alert me on new announcements"
 ```
 
-## Action Workflows
+## Workflow Boundaries
 
-This file does not define like / unlike / follow / unfollow logic directly.
+### Engagement workflows
 
-If the user asks to like, unlike, follow, or unfollow on X/Twitter, handle that workflow with `./references/engage_twitter.md`.
-**OAuth Authorization is required and must be obtained from `./references/post_twitter.md` before executing.**
+This file does not define like, unlike, follow, or unfollow logic directly.
 
-## Posting Workflows
+If the user asks to like, unlike, follow, or unfollow on X/Twitter, use `./references/engage_twitter.md`.
+**OAuth authorization is required and must be obtained from `./references/post_twitter.md` before executing.**
 
-This file does not define publishing logic.
+### Posting workflows
 
-If the user asks to send, publish, or reply, or quote on X/Twitter, handle that workflow with `./references/post_twitter.md`.
+This file does not define publishing logic directly.
+
+If the user asks to send, publish, reply, or quote on X/Twitter, use `./references/post_twitter.md`.
 
 ## Quick Start
 
@@ -79,9 +78,9 @@ export AISA_API_KEY="your-key"
 
 ## Core Capabilities
 
-### Read Operations (No Login Required)
+### Read operations (no login required)
 
-#### User Endpoints
+#### User endpoints
 
 ```bash
 # Get user info
@@ -125,7 +124,7 @@ curl "https://api.aisa.one/apis/v1/twitter/user/search?query=AI+researcher" \
   -H "Authorization: Bearer $AISA_API_KEY"
 ```
 
-#### Tweet Endpoints
+#### Tweet endpoints
 
 ```bash
 # Advanced tweet search (queryType is required: Latest or Top)
@@ -161,7 +160,7 @@ curl "https://api.aisa.one/apis/v1/twitter/article?tweet_id=1895096451033985024"
   -H "Authorization: Bearer $AISA_API_KEY"
 ```
 
-#### Trends, Lists, Communities & Spaces
+#### Trends, lists, communities, and Spaces
 
 ```bash
 # Get trending topics (worldwide)
@@ -214,7 +213,7 @@ python3 scripts/twitter_client.py followings --username elonmusk
 python3 scripts/twitter_client.py verified-followers --user-id 44196397
 python3 scripts/twitter_client.py check-follow --source elonmusk --target BillGates
 
-# Search & discovery
+# Search and discovery
 python3 scripts/twitter_client.py search --query "AI agents"
 python3 scripts/twitter_client.py search --query "AI agents" --type Top
 python3 scripts/twitter_client.py user-search --query "AI researcher"
@@ -247,7 +246,7 @@ python3 scripts/twitter_engagement_client.py unfollow-user --user "@elonmusk"
 
 ## API Endpoints Reference
 
-### Read Endpoints (GET)
+### Read endpoints (GET)
 
 | Endpoint | Description | Key Params |
 |----------|-------------|------------|
@@ -289,7 +288,7 @@ python3 scripts/twitter_engagement_client.py unfollow-user --user "@elonmusk"
 1. Sign up at [aisa.one](https://aisa.one)
 2. Get your API key
 3. Add credits (pay-as-you-go)
-4. Set environment variable: `export AISA_API_KEY="your-key"`
+4. Set the environment variable: `export AISA_API_KEY="your-key"`
 
 ## Full API Reference
 

@@ -41,7 +41,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `aisa-twitter-api`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/aisa-twitter-api>
-- Summary: Twitter/X command center for research, monitoring, watchlists, and approved posting through AIsa. Use when: the user needs one flagship skill for trend tracking, competitor monitoring, or publish-ready Twitter workflows without sharing passwords. Supports search, watchlists, and OAuth-gated posting.
+- Summary: Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, or approved posting without sharing passwords. Supports search, watchlists, relay-based reads, and OAuth-gated text or media posting.
 - Includes:
   - `scripts/twitter_client.py`
   - `scripts/twitter_oauth_client.py`
@@ -111,7 +111,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `crypto-market-data`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/crypto-market-data>
-- Summary: Query real-time and historical cryptocurrency market data via CoinGecko — simple prices, coin details, historical charts, OHLC candles, token prices by contract address, market-cap rankings, exchange data and tickers, categories, trending searches, and crypto news. Use for crypto research, price tracking, on-chain token lookup, portfolio analysis, and market-cap screening. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+- Summary: Query real-time and historical cryptocurrency market data via CoinGecko through AIsa — simple prices, coin details, historical charts, OHLC candles, token prices by contract address, market-cap rankings, exchange data and tickers, categories, trending searches, and crypto news. Use when you need crypto market research, price tracking, token lookup, portfolio analysis, or market-cap screening. Use when: the user needs market data, stock analysis, dividend research, or read-only financial data workflows.
 - Includes:
   - `scripts/coingecko_client.py`
   - `SKILL.md`
@@ -160,7 +160,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `marketpulse`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/marketpulse>
-- Summary: Query real-time and historical financial data for equities—prices, news, financial statements, metrics, analyst estimates, insider and institutional activity, SEC filings, earnings press releases, segmented revenues, stock screening, and macro interest rates. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+- Summary: Query real-time and historical equity market data—prices, news, financial statements, metrics, analyst estimates, insider and institutional activity, SEC filings, earnings press releases, segmented revenues, stock screening, and macro interest rates. Use when you need broad public-market research from a single AIsa-backed skill. Use when: the user needs market data, stock analysis, dividend research, or read-only financial data workflows.
 - Includes:
   - `scripts/market_client.py`
   - `SKILL.md`
@@ -169,7 +169,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `media-gen`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/media-gen>
-- Summary: Generate images and videos with AIsa. Four image models (Google Gemini 3 Pro Image, Alibaba Wan 2.7 image + image-pro, ByteDance Seedream) and four Wan video variants (wan2.6/2.7 × t2v/i2v). One API key; the client routes each model to the correct endpoint automatically. Use when: the user needs AI image or video generation workflows.
+- Summary: Generate images and videos with AIsa. Supports Gemini, Wan, and Seedream image generation plus Wan text-to-video and image-to-video models. One API key; the bundled client routes each model to the correct endpoint automatically. Use when: you need a neutral AIsa media-generation skill that spans multiple model families without changing credentials or request flow.
 - Includes:
   - `scripts/media_gen_client.py`
   - `SKILL.md`
@@ -187,7 +187,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `multi-source-search`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/multi-source-search>
-- Summary: Confidence-scored multi-source retrieval across web, scholar, Tavily, and Perplexity-backed research. Use when: the user needs cross-source verification, consensus checks, or one report that compares multiple search surfaces. Supports parallel retrieval, confidence scoring, and synthesis-ready outputs.
+- Summary: Multi-source search for agents across web, scholar, Tavily, and Perplexity Sonar endpoints. Use when you need structured retrieval, citation-backed answers, or broad research coverage from one AIsa API key.
 - Includes:
   - `scripts/search_client.py`
   - `SKILL.md`
@@ -281,7 +281,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `prediction-market-arbitrage`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/prediction-market-arbitrage>
-- Summary: Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+- Summary: Find and analyze arbitrage opportunities across prediction markets like Polymarket and Kalshi. Use when you need to match equivalent markets, compare prices, and verify whether a spread looks actionable.
 - Includes:
   - `scripts/arbitrage_finder.py`
   - `scripts/prediction_market_client.py`
@@ -311,7 +311,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `prediction-market-data`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/prediction-market-data>
-- Summary: Prediction markets data - Polymarket, Kalshi markets, prices, positions, and trades. Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
+- Summary: Access prediction market data from Polymarket and Kalshi, including markets, prices, trades, orderbooks, positions, and cross-platform market matching. Use when you need current odds, historical market data, or wallet-level prediction market analysis.
 - Includes:
   - `scripts/prediction_market_client.py`
   - `SKILL.md`
@@ -365,7 +365,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `stock-dividend`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/stock-dividend>
-- Summary: Analyze dividend metrics for stocks via AIsa API. Provides yield, payout ratio, growth CAGR, safety score (0-100), income rating, and Dividend Aristocrat/King status. Use when the user asks about dividends, income investing, or dividend safety.
+- Summary: Analyze read-only dividend metrics for stocks via AIsa API. Provides yield, payout ratio, growth CAGR, safety score, income rating, and Dividend Aristocrat/King status without placing trades, making purchases, or managing brokerage accounts. Use when: the user needs market data, stock analysis, dividend research, or read-only financial data workflows.
 - Includes:
   - `scripts/dividends.py`
   - `SKILL.md`
@@ -403,7 +403,6 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/stock-watchlist>
 - Summary: Manage a stock/crypto watchlist with price target and stop-loss alerts via AIsa API. Add, remove, list, and check tickers with live price alerts. Use when the user wants to track stocks, set price alerts, manage a watchlist, or check triggered alerts.
 - Includes:
-  - `scripts/watchlist.py`
   - `SKILL.md`
   - `README.md`
 
@@ -439,7 +438,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `twitter-autopilot`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/twitter-autopilot>
-- Summary: Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks about Twitter/X data, social listening, posting, or interacting with tweets/users without sharing account passwords.
+- Summary: Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts, likes/unlikes tweets, and follows/unfollows users after the user completes OAuth in the browser. Use when the user asks for Twitter/X research, social listening, posting, or account interactions without sharing account passwords.
 - Includes:
   - `scripts/twitter_client.py`
   - `scripts/twitter_engagement_client.py`
@@ -476,7 +475,6 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 - Includes:
   - `scripts/stock_analyst.py`
   - `scripts/test_api_data.py`
-  - `requirements.txt`
   - `SKILL.md`
   - `README.md`
 
@@ -520,7 +518,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `youtube-serp`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/youtube-serp>
-- Summary: YouTube SERP for agents. Search top-ranking videos, channels, and trends for content research and competitor tracking. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.
+- Summary: Search YouTube SERP results through AISA for video research, channel discovery, trend checking, and competitor tracking. Use when: you need ranked YouTube results for a query, optionally filtered by country or language.
 - Includes:
   - `scripts/youtube_client.py`
   - `SKILL.md`

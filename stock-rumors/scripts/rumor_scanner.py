@@ -22,6 +22,7 @@ import os
 import re
 import sys
 from datetime import datetime, timezone
+from typing import Any
 from openai import OpenAI
 
 
@@ -165,15 +166,62 @@ def get_client() -> OpenAI:
     return OpenAI(api_key=api_key, base_url=base_url)
 
 
-def extract_json_block(text: str) -> dict:
-    fenced = re.search(r"```json\s*(\{.*?\})\s*```", text, re.DOTALL)
-    candidate = fenced.group(1) if fenced else None
-    if candidate is None:
-        inline = re.search(r"(\{.*\})\s*$", text, re.DOTALL)
-        candidate = inline.group(1) if inline else None
-    if candidate is None:
-        raise ValueError("No JSON block found in model output.")
-    return json.loads(candidate)
+def _extract_balanced_json(text: str) -> str | None:
+    start = text.find("{")
+    if start == -1:
+        return None
+
+    depth = 0
+    in_string = False
+    escape = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if in_string:
+            if escape:
+                escape = False
+            elif char == "\\":
+                escape = True
+            elif char == '"':
+                in_string = False
+            continue
+
+        if char == '"':
+            in_string = True
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start:index + 1]
+    return None
+
+
+def extract_json_block(text: str) -> dict[str, Any]:
+    candidates: list[str] = []
+
+    fenced = re.search(r"```json\s*(\{.*?\})\s*```", text, re.DOTALL | re.IGNORECASE)
+    if fenced:
+        candidates.append(fenced.group(1))
+
+    generic_fenced = re.search(r"```\s*(\{.*?\})\s*```", text, re.DOTALL)
+    if generic_fenced:
+        candidates.append(generic_fenced.group(1))
+
+    balanced = _extract_balanced_json(text)
+    if balanced:
+        candidates.append(balanced)
+
+    stripped = text.strip()
+    if stripped.startswith("{") and stripped.endswith("}"):
+        candidates.append(stripped)
+
+    for candidate in candidates:
+        try:
+            return json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
+
+    raise ValueError("No JSON block found in model output.")
 
 
 def run_rumor_scanner(focus: str = "all", output_format: str = "text") -> str:
@@ -187,15 +235,19 @@ def run_rumor_scanner(focus: str = "all", output_format: str = "text") -> str:
 
     if output_format == "json":
         prompt += (
-            "\n\nAfter the full report, append a compact JSON summary:\n"
-            "```json\n"
+            "\n\nReturn ONLY valid JSON. Do not include markdown fences, tables, commentary, "
+            "or prose outside the JSON object.\n"
+            "Use this exact shape:\n"
             "{\"timestamp\": \"...\", \"signals\": ["
             "{\"ticker\": \"XYZ\", \"type\": \"MA\", \"impact_score\": 7, "
             "\"quality\": \"Moderate\", \"summary\": \"Acquisition rumor from Reuters\"}]}\n"
-            "```"
         )
 
     try:
+        response_kwargs: dict[str, Any] = {}
+        if output_format == "json":
+            response_kwargs["response_format"] = {"type": "json_object"}
+
         response = client.chat.completions.create(
             model=model,
             messages=[
@@ -203,6 +255,7 @@ def run_rumor_scanner(focus: str = "all", output_format: str = "text") -> str:
                 {"role": "user", "content": prompt},
             ],
             temperature=0.2,
+            **response_kwargs,
         )
         content = response.choices[0].message.content or ""
         if output_format == "json":

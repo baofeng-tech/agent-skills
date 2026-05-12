@@ -6,7 +6,7 @@ Twitter relay client for local OAuth authorization and tweet publishing.
 
 Commands:
     python twitter_oauth_client.py authorize [--callback-url <url>] [--open-browser]
-    python twitter_oauth_client.py post [--text "Hello"] [--media-id <id> ...] [--media-file <path> ...] [--type <quote|reply>] [--quote-tweet-url <url>] [--in-reply-to-tweet-id <id>]
+    python twitter_oauth_client.py post [--text "Hello"] [--media-id <id> ...] [--media-file <path> ...] [--type <quote|reply>] [--quote-tweet-url <url>] [--in-reply-to-tweet-id <id>] --confirm-public-write
     python twitter_oauth_client.py status
 """
 
@@ -311,7 +311,7 @@ def publish_chunks(
     media_ids: Optional[list[str]] = None,
     media_files: Optional[list[Dict[str, Any]]] = None,
     initial_parent_tweet_id: Optional[str] = None,
-    post_type: str = "quote",
+    post_type: str = "reply",
 ) -> Dict[str, Any]:
     should_thread = len(chunks) > 1
     previous_tweet_id = initial_parent_tweet_id
@@ -320,26 +320,32 @@ def publish_chunks(
     for index, chunk in enumerate(chunks):
         current_media_ids = media_ids if index == 0 and media_ids else None
         current_media_files = media_files if index == 0 and media_files else None
+        current_parent_tweet_id = previous_tweet_id if previous_tweet_id else None
+        if index == 0:
+            current_post_type = post_type if current_parent_tweet_id else None
+        else:
+            current_post_type = "reply"
         result = post_single_tweet(
             config,
             content=chunk,
             media_ids=current_media_ids,
             media_files=current_media_files,
-            parent_tweet_id=previous_tweet_id,
-            post_type=post_type,
+            parent_tweet_id=current_parent_tweet_id,
+            post_type=current_post_type,
         )
         publish_results.append(
             {
                 "index": index + 1,
                 "content": chunk,
-                "parent_tweet_id": previous_tweet_id,
+                "parent_tweet_id": current_parent_tweet_id,
+                "relationship": current_post_type or "standalone",
                 "result": result,
             }
         )
         if result.get("ok") is False or result.get("code") != 200:
             return {
                 "ok": False,
-                "aisa_api_key": config["aisa_api_key"],
+                "aisa_api_key_present": bool(config["aisa_api_key"]),
                 "is_thread": should_thread,
                 "total_chunks": len(chunks),
                 "failed_at_chunk": index + 1,
@@ -350,7 +356,7 @@ def publish_chunks(
         if not latest_tweet_id:
             return {
                 "ok": False,
-                "aisa_api_key": config["aisa_api_key"],
+                "aisa_api_key_present": bool(config["aisa_api_key"]),
                 "is_thread": should_thread,
                 "total_chunks": len(chunks),
                 "failed_at_chunk": index + 1,
@@ -361,7 +367,7 @@ def publish_chunks(
 
     return {
         "ok": True,
-        "aisa_api_key": config["aisa_api_key"],
+        "aisa_api_key_present": bool(config["aisa_api_key"]),
         "is_thread": should_thread,
         "total_chunks": len(chunks),
         "results": publish_results,
@@ -470,7 +476,7 @@ def command_authorize(args: argparse.Namespace) -> None:
     auth_url = (result.get("data") or {}).get("auth_url")
     output = {
         "ok": result.get("code") == 200 and bool(auth_url),
-        "aisa_api_key": config["aisa_api_key"],
+        "aisa_api_key_present": bool(config["aisa_api_key"]),
         "authorization_url": auth_url,
         "raw_response": result,
     }
@@ -485,6 +491,19 @@ def command_authorize(args: argparse.Namespace) -> None:
 
 def command_post(args: argparse.Namespace) -> None:
     """Split oversized content locally, then publish chunks through the relay."""
+    if not getattr(args, "confirm_public_write", False):
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": "Refusing to publish without --confirm-public-write after the final public content has been confirmed.",
+                },
+                indent=2,
+                ensure_ascii=False,
+            )
+        )
+        sys.exit(1)
+
     config = load_config(args)
     media_ids = getattr(args, "media_id", None) or []
     media_files = load_media_files(getattr(args, "media_file", None))
@@ -503,6 +522,8 @@ def command_post(args: argparse.Namespace) -> None:
         sys.exit(1)
 
     if args.type == "quote":
+        if not quote_tweet_url:
+            raise RelayConfigError("--type quote requires --quote-tweet-url so the quoted tweet is explicit.")
         if args.in_reply_to_tweet_id:
             raise RelayConfigError(
                 "Quote posts that reference another tweet must use --quote-tweet-url. "
@@ -517,16 +538,12 @@ def command_post(args: argparse.Namespace) -> None:
         initial_parent_tweet_id = args.in_reply_to_tweet_id
 
     chunks = split_text_for_twitter(normalized_text) if normalized_text else [""]
-    should_use_post_type = len(chunks) > 1 or bool(initial_parent_tweet_id)
-    effective_post_type = None
-    if should_use_post_type:
-        effective_post_type = args.type
     output = publish_chunks(
         config,
         chunks,
         media_ids=media_ids,
         media_files=media_files,
-        post_type=effective_post_type,
+        post_type=args.type,
         initial_parent_tweet_id=initial_parent_tweet_id,
     )
     print(json.dumps(output, indent=2, ensure_ascii=False))
@@ -548,6 +565,7 @@ def command_status(args: argparse.Namespace) -> None:
             "transport": "multipart/form-data",
             "supported_media_types": ["image/*", "video/*"],
         },
+        "requires_confirm_public_write": True,
     }
     print(json.dumps(response, indent=2, ensure_ascii=False))
 
@@ -578,8 +596,8 @@ def build_parser() -> argparse.ArgumentParser:
     post.add_argument(
         "--type",
         choices=["quote", "reply"],
-        default="quote",
-        help="Relationship used to continue multi-chunk posts. Use quote to publish quote-style chains or reply for reply-style threading.",
+        default="reply",
+        help="Relationship for an explicit parent tweet. Defaults to reply threading; quote requires --quote-tweet-url.",
     )
     post.add_argument(
         "--quote-tweet-url",
@@ -589,6 +607,11 @@ def build_parser() -> argparse.ArgumentParser:
     post.add_argument(
         "--in-reply-to-tweet-id",
         help="Optional external parent tweet ID for reply-style posting. When provided with --type reply, the first chunk starts from that tweet before continuing the thread.",
+    )
+    post.add_argument(
+        "--confirm-public-write",
+        action="store_true",
+        help="Confirm that the final public post content, media, and reply or quote target were approved before publishing.",
     )
 
     post.set_defaults(func=command_post)

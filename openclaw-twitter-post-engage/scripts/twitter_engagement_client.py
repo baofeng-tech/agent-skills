@@ -4,14 +4,14 @@ Twitter engagement client for local like/unlike/follow/unfollow relay actions.
 
 Commands:
     python twitter_engagement_client.py list-tweets --user "@elonmusk" --limit 10
-    python twitter_engagement_client.py like-latest --user "@elonmusk"
-    python twitter_engagement_client.py unlike-latest --user "@elonmusk"
-    python twitter_engagement_client.py like-tweet --tweet-id 123 --label "Tweet #2" --username elonmusk
-    python twitter_engagement_client.py unlike-tweet --tweet-id 123 --label "Tweet #2" --username elonmusk
-    python twitter_engagement_client.py follow-user --user "@elonmusk"
-    python twitter_engagement_client.py unfollow-user --user "@elonmusk"
-    python twitter_engagement_client.py follow-user-id --target-user-id 44196397 --username elonmusk
-    python twitter_engagement_client.py unfollow-user-id --target-user-id 44196397 --username elonmusk
+    python twitter_engagement_client.py like-latest --user "@elonmusk" --confirm-engagement
+    python twitter_engagement_client.py unlike-latest --user "@elonmusk" --confirm-engagement
+    python twitter_engagement_client.py like-tweet --tweet-id 123 --label "Tweet #2" --username elonmusk --confirm-engagement
+    python twitter_engagement_client.py unlike-tweet --tweet-id 123 --label "Tweet #2" --username elonmusk --confirm-engagement
+    python twitter_engagement_client.py follow-user --user "@elonmusk" --confirm-engagement
+    python twitter_engagement_client.py unfollow-user --user "@elonmusk" --confirm-engagement
+    python twitter_engagement_client.py follow-user-id --target-user-id 44196397 --username elonmusk --confirm-engagement
+    python twitter_engagement_client.py unfollow-user-id --target-user-id 44196397 --username elonmusk --confirm-engagement
     python twitter_engagement_client.py status
 """
 
@@ -61,6 +61,15 @@ def fail(message: str, *, action: str, target: Optional[Dict[str, Any]] = None, 
     response.update(extra)
     emit_json(response)
     sys.exit(1)
+
+
+def require_engagement_confirmation(args: argparse.Namespace) -> None:
+    if getattr(args, "confirm_engagement", False):
+        return
+    fail(
+        "Refusing to perform engagement without --confirm-engagement after the target has been confirmed.",
+        action=args.command.replace("-", "_"),
+    )
 
 
 def build_target(kind: str, value: str, **extra: Any) -> Dict[str, Any]:
@@ -402,6 +411,7 @@ def execute_user_action(
 
 
 def command_like_latest(args: argparse.Namespace) -> None:
+    require_engagement_confirmation(args)
     client = TwitterClient()
     user_resolution = resolve_user(client, args.user)
     if not user_resolution["ok"]:
@@ -435,6 +445,7 @@ def command_like_latest(args: argparse.Namespace) -> None:
 
 
 def command_like_tweet(args: argparse.Namespace) -> None:
+    require_engagement_confirmation(args)
     label = (args.label or "that tweet").strip()
     execute_tweet_action(
         args,
@@ -447,6 +458,7 @@ def command_like_tweet(args: argparse.Namespace) -> None:
 
 
 def command_follow_user(args: argparse.Namespace) -> None:
+    require_engagement_confirmation(args)
     client = TwitterClient()
     user_resolution = resolve_user(client, args.user)
     if not user_resolution["ok"]:
@@ -469,6 +481,7 @@ def command_follow_user(args: argparse.Namespace) -> None:
 
 
 def command_follow_user_id(args: argparse.Namespace) -> None:
+    require_engagement_confirmation(args)
     execute_user_action(
         args,
         endpoint="/follow_twitter" if args.command == "follow-user-id" else "/unfollow_twitter",
@@ -503,6 +516,7 @@ def command_status(args: argparse.Namespace) -> None:
             "/follow_twitter",
             "/unfollow_twitter",
         ],
+        "requires_confirm_engagement": True,
     }
     print_json(response)
 
@@ -526,40 +540,48 @@ def build_parser() -> argparse.ArgumentParser:
 
     like_latest = subparsers.add_parser("like-latest", help="Like the user's latest tweet")
     like_latest.add_argument("--user", required=True, help="Twitter username or display name")
+    like_latest.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     like_latest.set_defaults(func=command_like_latest)
 
     unlike_latest = subparsers.add_parser("unlike-latest", help="Unlike the user's latest tweet")
     unlike_latest.add_argument("--user", required=True, help="Twitter username or display name")
+    unlike_latest.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     unlike_latest.set_defaults(func=command_like_latest)
 
     like_tweet = subparsers.add_parser("like-tweet", help="Like a specific tweet ID")
     like_tweet.add_argument("--tweet-id", required=True, help="Tweet ID resolved by OpenClaw context")
     like_tweet.add_argument("--username", help="Optional username for natural-language response")
     like_tweet.add_argument("--label", help='Optional label such as "Tweet #2"')
+    like_tweet.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     like_tweet.set_defaults(func=command_like_tweet)
 
     unlike_tweet = subparsers.add_parser("unlike-tweet", help="Unlike a specific tweet ID")
     unlike_tweet.add_argument("--tweet-id", required=True, help="Tweet ID resolved by OpenClaw context")
     unlike_tweet.add_argument("--username", help="Optional username for natural-language response")
     unlike_tweet.add_argument("--label", help='Optional label such as "Tweet #5"')
+    unlike_tweet.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     unlike_tweet.set_defaults(func=command_like_tweet)
 
     follow_user = subparsers.add_parser("follow-user", help="Follow a user by username or display name")
     follow_user.add_argument("--user", required=True, help="Twitter username or display name")
+    follow_user.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     follow_user.set_defaults(func=command_follow_user)
 
     unfollow_user = subparsers.add_parser("unfollow-user", help="Unfollow a user by username or display name")
     unfollow_user.add_argument("--user", required=True, help="Twitter username or display name")
+    unfollow_user.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     unfollow_user.set_defaults(func=command_follow_user)
 
     follow_user_id = subparsers.add_parser("follow-user-id", help="Follow a user by resolved user ID")
     follow_user_id.add_argument("--target-user-id", required=True, help="User ID resolved by OpenClaw context")
     follow_user_id.add_argument("--username", help="Optional username for natural-language response")
+    follow_user_id.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     follow_user_id.set_defaults(func=command_follow_user_id)
 
     unfollow_user_id = subparsers.add_parser("unfollow-user-id", help="Unfollow a user by resolved user ID")
     unfollow_user_id.add_argument("--target-user-id", required=True, help="User ID resolved by OpenClaw context")
     unfollow_user_id.add_argument("--username", help="Optional username for natural-language response")
+    unfollow_user_id.add_argument("--confirm-engagement", action="store_true", help="Confirm the public engagement target before sending the relay request.")
     unfollow_user_id.set_defaults(func=command_follow_user_id)
 
     status = subparsers.add_parser("status", help="Show current relay engagement configuration")

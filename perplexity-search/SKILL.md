@@ -14,9 +14,9 @@ metadata:
 allowed-tools: Read Bash Grep
 ---
 
-# Perplexity-Search
+# Perplexity Search
 
-Use this skill when the user specifically wants Perplexity-powered search answers instead of structured scholar/web retrieval.
+Use this skill when the user specifically wants Perplexity-powered search and answer generation through AIsa, especially for citation-backed web answers, analytical reasoning, or long-form research reports.
 
 This skill covers four AIsa endpoints:
 - `/perplexity/sonar`
@@ -26,19 +26,16 @@ This skill covers four AIsa endpoints:
 
 ## Compatibility
 
-Works with any [agentskills.io](https://agentskills.io)-compatible
-harness, including:
+Works with any [agentskills.io](https://agentskills.io)-compatible harness, including:
 
-- **Claude Code** and **Claude** (Anthropic)
+- **Claude Code** and **Claude**
 - **OpenAI Codex**
 - **Cursor**
-- **Gemini CLI** (Google)
+- **Gemini CLI**
 - **OpenCode**, **Goose**, **OpenClaw**, **Hermes**
-- and any other harness that implements the [Agent Skills
-  specification](https://agentskills.io/specification)
+- and other harnesses that implement the [Agent Skills specification](https://agentskills.io/specification)
 
-Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at
-[aisa.one](https://aisa.one)).
+Requires Python 3, a POSIX shell, and `AISA_API_KEY` (available from [aisa.one](https://aisa.one)).
 
 ## Requirements
 

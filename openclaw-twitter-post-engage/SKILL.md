@@ -4,7 +4,7 @@ description: 'Search X/Twitter profiles, tweets, trends, and approved engagement
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 2.0.4
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
   tags: twitter,x,search,research,aisa
@@ -15,7 +15,7 @@ allowed-tools: Read Bash Grep
 
 # Twitter Post Engage
 
-Runtime-focused release bundle for Twitter/X search, posting, and engagement through the AISA relay.
+Runtime-focused skill package for Twitter/X search, posting, and engagement through the AISA relay.
 
 ## When to use
 
@@ -49,7 +49,7 @@ All network calls go to `https://api.aisa.one/apis/v1/...`.
 
 - Read user, tweet, trend, list, community, and Spaces data.
 - Publish text, image, and video posts after explicit OAuth approval.
-- Like, unlike, follow, and unfollow through the engagement client once authorization exists.
+- Like, unlike, follow, and unfollow through the engagement client once authorization exists and `--confirm-engagement` is present.
 - Reuse the current conversation context instead of local file-based conversation persistence.
 
 ## Common Commands
@@ -57,9 +57,9 @@ All network calls go to `https://api.aisa.one/apis/v1/...`.
 ```bash
 python3 scripts/twitter_client.py search --query "AI agents" --type Latest
 python3 scripts/twitter_oauth_client.py authorize
-python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa"
-python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
-python3 scripts/twitter_engagement_client.py follow-user --user "@elonmusk"
+python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa" --confirm-public-write
+python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk" --confirm-engagement
+python3 scripts/twitter_engagement_client.py follow-user --user "@elonmusk" --confirm-engagement
 ```
 
 ## Posting and Engagement Workflow
@@ -67,20 +67,12 @@ python3 scripts/twitter_engagement_client.py follow-user --user "@elonmusk"
 - Use `./references/post_twitter.md` for post, reply, quote, and media-upload actions.
 - Use `./references/engage_twitter.md` for likes, unlikes, follows, and unfollows.
 - Obtain OAuth authorization before any write action.
+- Treat plain posts, reply threads, and quote posts as separate modes: quote mode requires an explicit `--quote-tweet-url`, while multi-part text continues as a reply thread.
 
-## ClawHub Suspicious Review Notes
-
-These points summarize the common reasons similar skills are marked `Suspicious` and how this release addresses them:
+## Runtime Boundary
 
 - The package is relay-based: read calls, OAuth requests, engagement actions, and approved media uploads go to `api.aisa.one`.
 - The package is API-key-first: it requires `AISA_API_KEY` and does not ask for passwords, cookies, `CT0`, or other legacy secrets.
-- The release bundle is runtime-only: it keeps `SKILL.md`, `scripts/`, and the required references, while omitting non-runtime files such as `README.md` and `_meta.json`.
+- CLI status and publish results report whether `AISA_API_KEY` is present, but do not print the key value.
 - The package does not include cache sync, self-install logic, home-directory persistence, browser-cookie extraction, or external agent CLI wrappers.
 - Browser opening is optional and not the default workflow; returning the authorization link is the preferred path for this release.
-
-## Release Bundle Notes
-
-- `scripts/twitter_client.py` preserves the read API surface from the original bundle.
-- `scripts/twitter_oauth_client.py` preserves OAuth and posting behavior from the original bundle.
-- `scripts/twitter_engagement_client.py` preserves like, unlike, follow, and unfollow behavior from the original bundle.
-- This package is optimized for publication metadata and upload safety, not for changing runtime logic.

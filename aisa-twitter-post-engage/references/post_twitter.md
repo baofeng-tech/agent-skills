@@ -90,7 +90,7 @@ When the user asks to publish content to X/Twitter:
 - If the user provides a single image attachment, do not duplicate it or turn it into a multi-image post.
 - If the user did not provide tweet text, do not generate or attach any caption text.
 
-## ClawHub Suspicious Review Notes
+## Runtime Boundary
 
 - Posting, OAuth, and approved media uploads are relay-based and go to `api.aisa.one`.
 - Required secret: `AISA_API_KEY`.

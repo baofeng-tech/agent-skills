@@ -15,7 +15,7 @@ allowed-tools: Read Bash Grep
 
 # Twitter
 
-Runtime-focused release bundle for Twitter/X search and posting through the AISA relay.
+Runtime-focused skill package for Twitter/X search and posting through the AISA relay.
 
 ## When to use
 
@@ -69,18 +69,9 @@ When the user asks to send, publish, reply, or quote on X/Twitter, follow `./ref
 - Use `--media-file` only for user-provided workspace files.
 - Do not invent captions, remote URLs, or extra media attachments.
 
-## ClawHub Suspicious Review Notes
-
-These points summarize the common reasons similar skills are marked `Suspicious` and how this release addresses them:
+## Runtime Boundary
 
 - The package is relay-based: read calls, OAuth requests, and approved media uploads go to `api.aisa.one`.
 - The package is API-key-first: it requires `AISA_API_KEY` and does not ask for passwords, cookies, `CT0`, or other legacy secrets.
-- The release bundle is runtime-only: it keeps `SKILL.md`, `scripts/`, and the posting reference, while omitting non-runtime files such as `README.md` and `_meta.json`.
 - The package does not include cache sync, self-install logic, home-directory persistence, browser-cookie extraction, or external agent CLI wrappers.
 - Browser opening is optional and not the default workflow; returning the authorization link is the preferred path for this release.
-
-## Release Bundle Notes
-
-- `scripts/twitter_client.py` preserves the read API surface from the original bundle.
-- `scripts/twitter_oauth_client.py` preserves OAuth and posting behavior from the original bundle.
-- This package is optimized for publication metadata and upload safety, not for changing runtime logic.

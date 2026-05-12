@@ -37,7 +37,7 @@ When the user asks to like, unlike, follow, or unfollow on X/Twitter:
 - Do not rely on custom local memory files for this workflow; rely on the active agent context.
 - Relay endpoints for this workflow are `/like_twitter`, `/unlike_twitter`, `/follow_twitter`, and `/unfollow_twitter`.
 
-## ClawHub Suspicious Review Notes
+## Runtime Boundary
 
 - Engagement actions are relay-based and go to `api.aisa.one`.
 - Required secret: `AISA_API_KEY`.

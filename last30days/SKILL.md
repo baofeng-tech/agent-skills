@@ -18,25 +18,22 @@ allowed-tools: Read Bash Grep
 
 **30-day multi-source research brief for autonomous agents. Powered by AIsa.**
 
-One API key. Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and grounded web — merged into a single ranked brief.
+One API key. Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and grounded web search — merged into a single ranked brief.
 
 ## Compatibility
 
-Works with any [agentskills.io](https://agentskills.io)-compatible
-harness, including:
+Works with any [agentskills.io](https://agentskills.io)-compatible harness, including:
 
-- **Claude Code** and **Claude** (Anthropic)
+- **Claude Code** and **Claude**
 - **OpenAI Codex**
 - **Cursor**
-- **Gemini CLI** (Google)
+- **Gemini CLI**
 - **OpenCode**, **Goose**, **OpenClaw**, **Hermes**
-- and any other harness that implements the [Agent Skills
-  specification](https://agentskills.io/specification)
+- and other harnesses that implement the [Agent Skills specification](https://agentskills.io/specification)
 
-Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at
-[aisa.one](https://aisa.one)).
+Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at [aisa.one](https://aisa.one)).
 
-## What Can You Do?
+## Example requests
 
 ### Trend scan
 ```text
@@ -48,7 +45,7 @@ Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at
 "last30days Claude Code vs Codex"
 ```
 
-### Person / company profile
+### Person or company profile
 ```text
 "last30days Peter Steinberger"
 ```
@@ -63,7 +60,7 @@ Requires Python 3, a POSIX shell, and `AISA_API_KEY` (get one at
 "last30days bitcoin price"
 ```
 
-## Quick Start
+## Quick start
 
 ```bash
 # 1. Export your AIsa key
@@ -76,7 +73,7 @@ bash scripts/run-last30days.sh setup
 bash scripts/run-last30days.sh "OpenAI Agents SDK"
 ```
 
-## Common Flags
+## Common flags
 
 ```bash
 # Low-latency profile (fewer candidates per source)
@@ -95,47 +92,40 @@ bash scripts/run-last30days.sh "$ARGUMENTS" --search=reddit,x,grounding
 bash scripts/run-last30days.sh --diagnose
 ```
 
-## Inputs and Outputs
+## Inputs and outputs
 
-**Input.** A topic, person, company, product, or comparison — e.g.
-`OpenAI Agents SDK`, `OpenClaw vs Codex`, `Peter Steinberger`.
+**Input.** A topic, person, company, product, or comparison — for example: `OpenAI Agents SDK`, `OpenClaw vs Codex`, or `Peter Steinberger`.
 
-**Output.** A markdown brief (default) or JSON with:
+**Output.** A markdown brief by default, or JSON with:
 
 - `query_plan` — planner-generated subqueries and source weights
 - `ranked_candidates` — reranked candidate pool with scores
 - `clusters` — semantically grouped findings
-- `items_by_source` — per-source item lists with dates, engagement, URLs
-- `provider_runtime` — which models + retrieval backends ran
+- `items_by_source` — per-source item lists with dates, engagement, and URLs
+- `provider_runtime` — which models and retrieval backends ran
 - `errors_by_source` — any source-level failures (fail-soft)
 
 ## When to use
 
-- You need last-30-days evidence on a person, company, product, market, tool, or trend.
-- You want a ranked competitor comparison, launch-reaction summary, creator/community sentiment scan, or shipping update.
+- You need recent evidence from the last 30 days about a person, company, product, market, tool, or trend.
+- You want a ranked competitor comparison, launch-reaction summary, creator or community sentiment scan, or shipping update.
 - You want a structured JSON brief to feed into another agent.
 
-## When NOT to use
+## When not to use
 
 - Timeless reference questions with no recent-evidence requirement.
-- When you only want one official source and don't want social/community signals.
+- Tasks where you only want one official source and do not want social or community signals.
 
 ## Capabilities
 
-- **AISA-powered**: planner (structured JSON query plan), reranker
-  (relevance ordering), fun-scorer (meme/quirk signal), and hosted
-  retrieval for X, YouTube, TikTok, Instagram, Polymarket, and grounded
-  Tavily web search.
-- **Public paths (no extra credentials)**: Reddit, Hacker News.
-- **GitHub** via the official API when `GH_TOKEN` or `GITHUB_TOKEN` is
-  set — optional.
-- **Fail-soft**: if one source errors or times out, the brief still
-  renders with the others and notes the gap.
+- **AISA-powered**: planner (structured JSON query plan), reranker (relevance ordering), fun-scorer (meme or quirk signal), and hosted retrieval for X, YouTube, TikTok, Instagram, Polymarket, and grounded Tavily web search.
+- **Public paths (no extra credentials)**: Reddit and Hacker News.
+- **GitHub** via the official API when `GH_TOKEN` or `GITHUB_TOKEN` is set — optional.
+- **Fail-soft**: if one source errors or times out, the brief still renders with the others and notes the gap.
 
-## Model Configuration
+## Model configuration
 
-The skill makes three LLM calls per run. Each role is independently
-pinnable via `~/.config/last30days/.env`:
+The skill makes three LLM calls per run. Each role is independently pinnable via `~/.config/last30days/.env`:
 
 ```bash
 LAST30DAYS_PLANNER_MODEL=qwen-flash           # fast + reliable JSON
@@ -143,15 +133,11 @@ LAST30DAYS_RERANK_MODEL=qwen-plus-2025-12-01  # quality ranking
 LAST30DAYS_FUN_MODEL=qwen-flash               # cheap vibes
 ```
 
-Or set `AISA_MODEL=...` for a single model across all three roles. Run
-`last30days setup` to pick interactively — the picker fetches the live
-catalog from [aisa.one/docs/guides/models](https://aisa.one/docs/guides/models).
+Or set `AISA_MODEL=...` for a single model across all three roles. Run `last30days setup` to pick interactively — the picker fetches the live catalog from [aisa.one/docs/guides/models](https://aisa.one/docs/guides/models).
 
-## API Reference
+## API reference
 
-last30days calls the following AIsa endpoints directly. See the
-[full API Reference](https://aisa.one/docs/api-reference) for the
-complete catalog.
+last30days calls the following AIsa endpoints directly. See the [full API Reference](https://aisa.one/docs/api-reference) for the complete catalog.
 
 - [OpenAI Chat / `createChatCompletion`](https://aisa.one/docs/api-reference/chat/createchatcompletion) — planner, reranker, fun-scorer
 - [Twitter Advanced Search](https://aisa.one/docs/api-reference/twitter/get_twitter-tweet-advanced-search) — X retrieval
@@ -159,8 +145,7 @@ complete catalog.
 - [Tavily Search](https://aisa.one/docs/api-reference/search/post_tavily-search) — grounded web
 - [Polymarket Markets](https://aisa.one/docs/api-reference/prediction-market/get_polymarket-markets) — prediction-market retrieval
 
-Reddit and Hacker News use their respective public APIs directly (no
-AISA proxy required).
+Reddit and Hacker News use their respective public APIs directly (no AISA proxy required).
 
 ## Requirements
 

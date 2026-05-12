@@ -188,19 +188,19 @@ def get_instagram_token(config: dict[str, Any]) -> str:
 
 
 def get_xiaohongshu_api_base(config: dict[str, Any]) -> str:
-    """Get Xiaohongshu HTTP API base URL.
-
-    Defaults to host.docker.internal so OpenClaw Docker can reach host service.
-    """
-    return (config.get('XIAOHONGSHU_API_BASE') or "http://host.docker.internal:18060").rstrip("/")
+    """Get the explicitly configured Xiaohongshu HTTP API base URL."""
+    return (config.get('XIAOHONGSHU_API_BASE') or "").rstrip("/")
 
 
 def is_xiaohongshu_available(config: dict[str, Any]) -> bool:
     """Check whether Xiaohongshu HTTP API is reachable and logged in."""
+    base = get_xiaohongshu_api_base(config)
+    if not base:
+        return False
+
     # Import here to avoid heavy imports at module load.
     from . import http
 
-    base = get_xiaohongshu_api_base(config)
     try:
         # Keep health probe snappy, but allow one retry for transient hiccups.
         health = http.get(f"{base}/health", timeout=3, retries=2)
@@ -261,4 +261,3 @@ def is_pinterest_available(config: dict[str, Any]) -> bool:
 def get_pinterest_token(config: dict[str, Any]) -> str:
     """Get the AISA token for Pinterest discovery."""
     return config.get('AISA_API_KEY') or ''
-

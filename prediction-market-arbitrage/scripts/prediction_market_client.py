@@ -45,6 +45,36 @@ import urllib.parse
 import urllib.error
 from typing import Any, Dict, List, Optional
 
+def api_result_ok(result: Any) -> bool:
+    """Return whether an AIsa API payload should produce a successful CLI exit."""
+    if not isinstance(result, dict):
+        return True
+    if result.get("success") is False:
+        return False
+    if result.get("ok") is False:
+        return False
+    if result.get("error"):
+        return False
+    return True
+
+
+def decode_json_body(body: bytes) -> Dict[str, Any]:
+    """Decode upstream JSON while preserving successful non-dict payloads."""
+    text = body.decode("utf-8", errors="replace")
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        preview = " ".join(text.strip().split())[:500]
+        return {
+            "success": False,
+            "error": {
+                "code": "UPSTREAM_NON_JSON",
+                "message": f"Upstream returned a non-JSON response: {preview}",
+            },
+        }
+    return payload if isinstance(payload, dict) else {"success": True, "data": payload}
+
+
 
 class PredictionMarketClient:
     """Cross-Platform Prediction Market Data - AIsa API Client."""
@@ -81,7 +111,7 @@ class PredictionMarketClient:
 
         try:
             with urllib.request.urlopen(req, timeout=60) as response:
-                return json.loads(response.read().decode("utf-8"))
+                return decode_json_body(response.read())
         except urllib.error.HTTPError as e:
             error_body = e.read().decode("utf-8")
             try:
@@ -90,6 +120,10 @@ class PredictionMarketClient:
                 return {"success": False, "error": {"code": str(e.code), "message": error_body}}
         except urllib.error.URLError as e:
             return {"success": False, "error": {"code": "NETWORK_ERROR", "message": str(e.reason)}}
+        except TimeoutError as e:
+            return {"success": False, "error": {"code": "NETWORK_ERROR", "message": str(e)}}
+        except OSError as e:
+            return {"success": False, "error": {"code": "NETWORK_ERROR", "message": str(e)}}
 
     # ==================== Polymarket ====================
 
@@ -305,7 +339,7 @@ class PredictionMarketClient:
         req = urllib.request.Request(url, headers=headers, method="GET")
         try:
             with urllib.request.urlopen(req, timeout=60) as response:
-                return json.loads(response.read().decode("utf-8"))
+                return decode_json_body(response.read())
         except urllib.error.HTTPError as e:
             error_body = e.read().decode("utf-8")
             try:
@@ -314,6 +348,10 @@ class PredictionMarketClient:
                 return {"success": False, "error": {"code": str(e.code), "message": error_body}}
         except urllib.error.URLError as e:
             return {"success": False, "error": {"code": "NETWORK_ERROR", "message": str(e.reason)}}
+        except TimeoutError as e:
+            return {"success": False, "error": {"code": "NETWORK_ERROR", "message": str(e)}}
+        except OSError as e:
+            return {"success": False, "error": {"code": "NETWORK_ERROR", "message": str(e)}}
 
 
 def main():
@@ -567,7 +605,7 @@ Examples:
             print(output)
         except UnicodeEncodeError:
             print(json.dumps(result, indent=2, ensure_ascii=True))
-        sys.exit(0 if result.get("success", True) else 1)
+        sys.exit(0 if api_result_ok(result) else 1)
 
 
 if __name__ == "__main__":

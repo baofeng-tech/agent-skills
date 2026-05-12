@@ -1,13 +1,13 @@
 ---
 name: stock-dividend
-description: Analyze dividend metrics for stocks via AIsa API. Provides yield, payout ratio, growth CAGR, safety score (0-100), income rating, and Dividend Aristocrat/King status. Use when the user asks about dividends, income investing, or dividend safety.
+description: 'Analyze read-only dividend metrics for stocks via AIsa API. Provides yield, payout ratio, growth CAGR, safety score, income rating, and Dividend Aristocrat/King status without placing trades, making purchases, or managing brokerage accounts. Use when: the user needs market data, stock analysis, dividend research, or read-only financial data workflows.'
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
-  version: 1.0.0
+  version: 1.0.2
   homepage: https://aisa.one
   repository: https://github.com/baofeng-tech/agent-skills
-  tags: stock,aisa
+  tags: search,research,market,stock,aisa
   platforms: agentskills.io,agentskill.sh,github
   primary_env: AISA_API_KEY
 allowed-tools: Read Bash Grep
@@ -15,7 +15,7 @@ allowed-tools: Read Bash Grep
 
 # Dividend Analysis — AIsa Edition
 
-Analyze dividend metrics for one or more tickers using the AIsa API.
+Analyze dividend metrics for one or more tickers using the AIsa API. This is a read-only research helper: it does not connect to brokerage accounts, place orders, make purchases, or manage portfolios.
 
 ## Usage
 
@@ -27,8 +27,15 @@ python3 scripts/dividends.py JNJ PG KO --output json
 
 ### Arguments
 
-- **Tickers**: One or more dividend-paying stock symbols
+- **Tickers**: One or more dividend-paying stock symbols. Inputs are validated before they are sent to the model.
 - `--output json`: Append structured JSON summary
+
+## Permission Boundary
+
+- The only required secret is `AISA_API_KEY`.
+- Requests go to `https://api.aisa.one/v1` by default.
+- `AISA_BASE_URL` is optional and should only point to a trusted AIsa-compatible HTTPS endpoint.
+- Do not provide brokerage credentials, trading passwords, cookies, or payment details. This skill has no purchase or order-placement workflow.
 
 ## Analysis Output
 

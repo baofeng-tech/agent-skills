@@ -10,4 +10,4 @@
 
 - agentskill.sh accepts either a GitHub repo URL or a direct `SKILL.md` URL.
 - This release layer keeps one skill per root directory so repo scanning stays predictable.
-- It removes plugin wrapper files such as `package.json` and `index.ts` when they are not part of the shipped standard skill surface.
+- It removes plugin wrapper files such as `package.json`, `index.js`, and `index.ts` when they are not part of the shipped standard skill surface.
