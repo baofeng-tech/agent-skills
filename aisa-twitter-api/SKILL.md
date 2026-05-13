@@ -28,7 +28,7 @@ Use one AIsa-backed Twitter/X surface for research, monitoring, watchlists, and 
 ## When NOT to use
 
 - The user needs password-based login, cookie extraction, or browser credential scraping.
-- The workflow must avoid relay-based calls to `api.aisa.one`.
+- The workflow must avoid relay-based calls to `https://api.aisa.one`.
 - The request centers on likes, follows, replies, or growth actions better handled by `aisa-twitter-engagement-suite`.
 
 ## Quick Reference
