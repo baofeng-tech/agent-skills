@@ -1,6 +1,6 @@
 ---
 name: aisa-tavily
-description: 'Search the web and extract page content through AIsa''s Tavily-backed API relay. Use when: the user needs web search, source discovery, current-news lookup, or content extraction from a URL. Supports concise result sets, deeper research, and news-focused queries.'
+description: 'Search the web and extract public page content through AIsa''s Tavily-backed API relay. Use when: the user needs web search, source discovery, current news lookup, or URL content extraction. Supports concise result sets, deeper research, and news-focused queries.'
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries node, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:
   author: AIsa
@@ -15,19 +15,19 @@ allowed-tools: Read Bash Grep
 
 # AIsa Tavily Search
 
-Search the web and extract page content through AIsa's Tavily API relay. This skill is suited to research, source discovery, current-events lookup, and fetching readable content from a specific URL.
+Search the web and extract public page content through AIsa's Tavily-backed API relay. Use this skill for open-web research, source discovery, current-news lookup, and readable extraction from a specific public URL.
 
 ## When to use
 
 - When the user needs web search results for a topic, question, company, product, or event
-- When the user wants source discovery before summarizing or comparing information
+- When the user wants source discovery before summarizing, comparing, or validating information
 - When the user needs current-news lookup with recent-day filtering
-- When the user provides a URL and wants the page content extracted for downstream analysis
+- When the user provides a public URL and wants the page content extracted for downstream analysis
 
 ## When NOT to use
 
-- Do not use this skill for sites that require login, browser interaction, or private account access
-- Do not use this skill as a direct social-posting, upload, or OAuth workflow; it performs search and URL extraction only
+- Do not use this skill for sites that require login, browser interaction, cookies, or private account access
+- Do not use this skill for posting, social engagement, media upload, or OAuth-based workflows; it performs search and public-URL extraction only
 - Do not use this skill when there is no network access to `api.aisa.one`
 
 ## Quick Reference
@@ -44,11 +44,11 @@ Search the web and extract page content through AIsa's Tavily API relay. This sk
 ## Capabilities
 
 - Search the web through AIsa's Tavily-backed relay
-- Return concise, relevant result sets for AI-agent workflows
+- Return concise, relevant result sets for research and agent workflows
 - Run deeper research with `--deep` for broader coverage
 - Focus on news search with `--topic news`
 - Limit news lookback windows with `--days <n>`
-- Extract readable page content from a public URL
+- Extract readable content from a public URL
 
 ## Search
 
@@ -79,9 +79,9 @@ Requirements:
 - `AISA_API_KEY`
 - Internet access with outbound requests to `api.aisa.one`
 
-Auth and network notes:
+Auth, relay, and side-effect notes:
 - This skill requires `AISA_API_KEY` from https://marketplace.aisa.one
-- Requests are relayed through AIsa's unified API gateway at `https://aisa.one` and `api.aisa.one`
+- Requests are sent through AIsa's remote relay at `https://aisa.one` and `https://api.aisa.one`
 - This skill does not use OAuth
 - This skill does not upload media or files
 - This skill may send user search queries and public target URLs to the remote AIsa relay in order to return search results or extracted content
@@ -96,6 +96,7 @@ Auth and network notes:
 ## Notes
 
 - Needs `AISA_API_KEY` from https://marketplace.aisa.one
-- Powered by AIsa's unified API gateway (https://aisa.one)
+- Powered by AIsa's unified API gateway (`https://aisa.one` / `https://api.aisa.one`)
 - Use `--deep` for complex research questions
 - Use `--topic news` for current events
+- Search and extraction operate on remote relay requests, not local browser automation
