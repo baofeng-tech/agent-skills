@@ -15,7 +15,7 @@ allowed-tools: Read Bash Grep
 
 # AIsa Tavily Search
 
-Search the web and extract public page content through AIsa's Tavily-backed API relay. Use this skill for open-web research, source discovery, current-news lookup, and readable extraction from a specific public URL.
+Search the web and extract public page content through AIsa's Tavily-backed API relay. Use this skill when the user needs open-web research, source discovery, current-news lookup, or readable extraction from a specific public URL.
 
 ## When to use
 
@@ -28,7 +28,7 @@ Search the web and extract public page content through AIsa's Tavily-backed API 
 
 - Do not use this skill for sites that require login, browser interaction, cookies, or private account access
 - Do not use this skill for posting, social engagement, media upload, or OAuth-based workflows; it performs search and public-URL extraction only
-- Do not use this skill when there is no network access to `api.aisa.one`
+- Do not use this skill when there is no network access to `https://aisa.one` or `https://api.aisa.one`
 
 ## Quick Reference
 
@@ -77,7 +77,7 @@ node scripts/extract.mjs "https://example.com/article"
 Requirements:
 - `node`
 - `AISA_API_KEY`
-- Internet access with outbound requests to `api.aisa.one`
+- Internet access with outbound requests to `https://aisa.one` and `https://api.aisa.one`
 
 Auth, relay, and side-effect notes:
 - This skill requires `AISA_API_KEY` from https://marketplace.aisa.one
@@ -99,4 +99,4 @@ Auth, relay, and side-effect notes:
 - Powered by AIsa's unified API gateway (`https://aisa.one` / `https://api.aisa.one`)
 - Use `--deep` for complex research questions
 - Use `--topic news` for current events
-- Search and extraction operate on remote relay requests, not local browser automation
+- Search and extraction operate through remote relay requests, not local browser automation

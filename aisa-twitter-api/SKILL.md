@@ -20,7 +20,7 @@ Flagship Twitter/X skill for research, monitoring, watchlists, and OAuth-approve
 
 ## When to use
 
-- When the user wants one primary Twitter/X skill for research, monitoring, trend discovery, or content discovery.
+- When the user wants one primary Twitter/X skill for research, monitoring, trend discovery, timeline review, or content discovery.
 - When the user needs to inspect profiles, timelines, mentions, trends, replies, quotes, lists, communities, or Spaces.
 - When the user wants to draft or publish posts after explicit OAuth approval without sharing passwords or browser cookies.
 - When the workflow should use `AISA_API_KEY` and relay-based access to `https://api.aisa.one` instead of local credential extraction.
@@ -65,7 +65,7 @@ Requirements:
 
 ## High-Intent Workflows
 
-- Research a creator, competitor, or narrative before writing.
+- Research a creator, competitor, brand, or narrative before writing.
 - Monitor a keyword, launch, or watchlist and pull representative tweets quickly.
 - Review timelines, mentions, replies, and trend movement from one command surface.
 - Draft and publish a post only after the user explicitly approves OAuth.
