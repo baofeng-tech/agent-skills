@@ -43,7 +43,7 @@ Search the web and extract public page content through AIsa's Tavily-backed API 
 
 ## Capabilities
 
-- Search the web through AIsa's Tavily-backed relay
+- Search the open web through AIsa's Tavily-backed relay
 - Return concise, relevant result sets for research and agent workflows
 - Run deeper research with `--deep` for broader coverage
 - Focus on news search with `--topic news`
@@ -79,12 +79,13 @@ Requirements:
 - `AISA_API_KEY`
 - Internet access with outbound requests to `https://aisa.one` and `https://api.aisa.one`
 
-Auth, relay, and side-effect notes:
+Auth, relay, upload, and side-effect notes:
 - This skill requires `AISA_API_KEY` from https://marketplace.aisa.one
 - Requests are sent through AIsa's remote relay at `https://aisa.one` and `https://api.aisa.one`
 - This skill does not use OAuth
 - This skill does not upload media or files
 - This skill may send user search queries and public target URLs to the remote AIsa relay in order to return search results or extracted content
+- This skill works against public web content and public URLs; it is not a local browser, cookie, or account-access workflow
 
 ## Example Requests
 
@@ -97,6 +98,8 @@ Auth, relay, and side-effect notes:
 
 - Needs `AISA_API_KEY` from https://marketplace.aisa.one
 - Powered by AIsa's unified API gateway (`https://aisa.one` / `https://api.aisa.one`)
-- Use `--deep` for complex research questions
-- Use `--topic news` for current events
+- Use `--deep` for more comprehensive research queries
+- Use `--topic news` for current-events lookup
 - Search and extraction operate through remote relay requests, not local browser automation
+- No OAuth approval flow is involved
+- No media or file upload flow is involved
