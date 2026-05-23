@@ -1,6 +1,6 @@
 # agentskill.sh Release Audit
 
-- Generated skills: 54
+- Generated skills: 58
 - Frontmatter mode: Agent Skills spec-leaning with flat metadata.
 - Repository mode: one skill directory per repo root entry for GitHub scanning.
 - Repository target: `https://github.com/baofeng-tech/agent-skills`
@@ -72,6 +72,12 @@
 - Zip: `agentskill-sh-release/zips/crypto-market-data.zip`
 - Description: Query real-time and historical cryptocurrency market data via CoinGecko through AIsa — simple prices, coin details, historical charts, OHLC candles, token prices by contract address, market-cap rankings, exchange data and tickers, categories, trending searches, and crypto news. Use when you need crypto market research, price tracking, token lookup, portfolio analysis, or market-cap screening. Use when: the user needs market data, stock analysis, dividend research, or read-only financial data workflows.
 
+## gmail-lead-desk
+
+- Path: `agentskill-sh-release/gmail-lead-desk`
+- Zip: `agentskill-sh-release/zips/gmail-lead-desk.zip`
+- Description: Gmail Lead Desk — standalone sales/CS Gmail skill via the AISA gateway: OAuth connect, scan unread leads, summarize threads, draft template replies (default draft-only), archive with labels. Keywords: Gmail Lead Desk, Gmail, lead desk, sales, customer support, follow-up, unread, inquiry summary, draft reply, archive, OAuth, AISA, connected account, thread_id. Use when: the user needs this workflow's domain-specific automation or guidance.
+
 ## last30days
 
 - Path: `agentskill-sh-release/last30days`
@@ -119,6 +125,12 @@
 - Path: `agentskill-sh-release/multi-source-search`
 - Zip: `agentskill-sh-release/zips/multi-source-search.zip`
 - Description: Multi-source search for agents across web, scholar, Tavily, and Perplexity Sonar endpoints. Use when you need structured retrieval, citation-backed answers, or broad research coverage from one AIsa API key.
+
+## notion-workspace
+
+- Path: `agentskill-sh-release/notion-workspace`
+- Zip: `agentskill-sh-release/zips/notion-workspace.zip`
+- Description: Manage Notion workspace: search pages and databases, read markdown, create pages, insert rows, triggers, MCP. Powered by AISA gateway (Notion toolkit). Requires AISA_API_KEY and curl. Keywords: notion, workspace, page, database, block, markdown, wiki, task board, insert row, OAuth. Use when: the user needs web search, research, source discovery, or content extraction.
 
 ## openclaw-aisa-youtube-aisa
 
@@ -204,6 +216,12 @@
 - Zip: `agentskill-sh-release/zips/prediction-market-data-zh.zip`
 - Description: 通过 AIsa API 查询跨平台预测市场数据。支持 Polymarket 和 Kalshi 的市场行情、价格、订单簿、K线、持仓和交易记录。适用场景：查询预测市场赔率、选举博彩、事件概率、市场情绪、Polymarket 价格、Kalshi 价格、体育博彩赔率、钱包盈亏、跨平台市场对比。 Use when: the user needs market data, stock analysis, watchlists, or portfolio workflows.
 
+## saas-gateway
+
+- Path: `agentskill-sh-release/saas-gateway`
+- Zip: `agentskill-sh-release/zips/saas-gateway.zip`
+- Description: Unified SaaS integration gateway via api.aisa.one (AISA gateway, v3.1): manage OAuth auth for third-party SaaS apps (Gmail/Slack/GitHub/Notion etc.), tool execution, tool-router sessions, triggers, webhooks, MCP servers, and usage stats. Use when connecting third-party SaaS accounts, running cross-SaaS tools, managing MCP servers, setting up triggers, or checking usage. Keywords: SaaS gateway, connect app, OAuth link, run tool, auth config, tool router, MCP server, trigger, webhook, connected account, usage stats
+
 ## scholar-search
 
 - Path: `agentskill-sh-release/scholar-search`
@@ -269,6 +287,12 @@
 - Path: `agentskill-sh-release/tavily-search`
 - Zip: `agentskill-sh-release/zips/tavily-search.zip`
 - Description: Advanced web search via Tavily through AIsa API. Supports search depth, topic filtering (general/news/finance), time ranges, domain inclusion/exclusion, and LLM-generated answers. Use when: the user needs web search, research, source discovery, or content extraction.
+
+## trend-forecast
+
+- Path: `agentskill-sh-release/trend-forecast`
+- Zip: `agentskill-sh-release/zips/trend-forecast.zip`
+- Description: Multi-signal trend forecasting for autonomous agents. Combines prediction market odds, Twitter/X social sentiment, news velocity, and stock market data into a unified trend analysis with confidence scoring. Powered by AIsa — one API key, five data streams. Use when: the user needs X/Twitter research, monitoring, posting, or engagement workflows.
 
 ## twitter
 

@@ -117,6 +117,17 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
   - `SKILL.md`
   - `README.md`
 
+### `gmail-lead-desk`
+
+- GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/gmail-lead-desk>
+- Summary: Gmail Lead Desk — standalone sales/CS Gmail skill via the AISA gateway: OAuth connect, scan unread leads, summarize threads, draft template replies (default draft-only), archive with labels. Keywords: Gmail Lead Desk, Gmail, lead desk, sales, customer support, follow-up, unread, inquiry summary, draft reply, archive, OAuth, AISA, connected account, thread_id. Use when: the user needs this workflow's domain-specific automation or guidance.
+- Includes:
+  - `references/connect_and_execute.md`
+  - `references/gmail_gotchas.md`
+  - `references/tool_whitelist.md`
+  - `references/workflows.md`
+  - `SKILL.md`
+
 ### `last30days`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/last30days>
@@ -192,6 +203,17 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
   - `scripts/search_client.py`
   - `SKILL.md`
   - `README.md`
+
+### `notion-workspace`
+
+- GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/notion-workspace>
+- Summary: Manage Notion workspace: search pages and databases, read markdown, create pages, insert rows, triggers, MCP. Powered by AISA gateway (Notion toolkit). Requires AISA_API_KEY and curl. Keywords: notion, workspace, page, database, block, markdown, wiki, task board, insert row, OAuth. Use when: the user needs web search, research, source discovery, or content extraction.
+- Includes:
+  - `references/api_basics.md`
+  - `references/notion_gotchas.md`
+  - `references/notion_intent_to_tool.md`
+  - `references/notion_triggers.md`
+  - `references/workflow_connect.md`
 
 ### `openclaw-aisa-youtube-aisa`
 
@@ -326,6 +348,17 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
   - `SKILL.md`
   - `README.md`
 
+### `saas-gateway`
+
+- GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/saas-gateway>
+- Summary: Unified SaaS integration gateway via api.aisa.one (AISA gateway, v3.1): manage OAuth auth for third-party SaaS apps (Gmail/Slack/GitHub/Notion etc.), tool execution, tool-router sessions, triggers, webhooks, MCP servers, and usage stats. Use when connecting third-party SaaS accounts, running cross-SaaS tools, managing MCP servers, setting up triggers, or checking usage. Keywords: SaaS gateway, connect app, OAuth link, run tool, auth config, tool router, MCP server, trigger, webhook, connected account, usage stats
+- Includes:
+  - `references/auth_and_session.md`
+  - `references/connect_account.md`
+  - `references/endpoint_catalog.md`
+  - `references/execute_tools.md`
+  - `references/mcp_projects_usage.md`
+
 ### `scholar-search`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/scholar-search>
@@ -421,6 +454,17 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 - Summary: Advanced web search via Tavily through AIsa API. Supports search depth, topic filtering (general/news/finance), time ranges, domain inclusion/exclusion, and LLM-generated answers. Use when: the user needs web search, research, source discovery, or content extraction.
 - Includes:
   - `scripts/search_client.py`
+  - `SKILL.md`
+  - `README.md`
+
+### `trend-forecast`
+
+- GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/trend-forecast>
+- Summary: Multi-signal trend forecasting for autonomous agents. Combines prediction market odds, Twitter/X social sentiment, news velocity, and stock market data into a unified trend analysis with confidence scoring. Powered by AIsa — one API key, five data streams. Use when: the user needs X/Twitter research, monitoring, posting, or engagement workflows.
+- Includes:
+  - `scripts/aisa_client.py`
+  - `scripts/trend_forecast.py`
+  - `references/api_endpoints.md`
   - `SKILL.md`
   - `README.md`
 
