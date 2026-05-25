@@ -31,7 +31,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `aisa-tavily`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/aisa-tavily>
-- Summary: Search the web and extract public page content through AIsa's Tavily-backed API relay. Use when: the user needs web search, source discovery, current news lookup, or URL content extraction. Supports concise result sets, deeper research, and news-focused queries.
+- Summary: Search the web and extract public page content through AIsa's Tavily-backed API relay. Use when: the user needs web search, source discovery, current news lookup, or public URL content extraction. Supports concise result sets, deeper research, and news-focused queries.
 - Includes:
   - `scripts/extract.mjs`
   - `scripts/search.mjs`

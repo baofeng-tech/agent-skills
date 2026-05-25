@@ -94,7 +94,7 @@ python3 scripts/twitter_oauth_client.py post --text "Hello from AIsa"
 
 ## Security Notes
 
-- This is a relay-based workflow that sends Twitter/X API requests to `https://api.aisa.one`.
+- This skill uses a relay-based workflow that sends Twitter/X API requests to `https://api.aisa.one`.
 - Posting requires explicit OAuth approval through the relay before external writes occur.
 - Approved image and video posting sends user-selected media through the relay for upload.
 - Required secret: `AISA_API_KEY`.
