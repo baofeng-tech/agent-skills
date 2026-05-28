@@ -198,6 +198,11 @@
       "location": "https://github.com/baofeng-tech/agent-skills/tree/main/search"
     },
     {
+      "name": "seo-keyword-research",
+      "description": "Use this skill when a user asks for SEO keyword research, keyword discovery, search volume analysis, keyword difficulty, search intent mapping, topic clusters, content opportunities, competitor keyword gaps, or a keyword strategy for a domain, URL, product, market, or seed topic. When a website is provided, crawl and interpret the site first, then use AIsa API access to DataForSEO keyword, SERP, trend, Labs, and OnPage endpoints plus AIsa LLM reasoning to find non-brand keyword opportunities. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "location": "https://github.com/baofeng-tech/agent-skills/tree/main/seo-keyword-research"
+    },
+    {
       "name": "smart-search",
       "description": "Intelligent hybrid search combining web and academic sources via AIsa Smart Search endpoint. Best when you need both web and scholarly results. Use when: the user needs web search, research, source discovery, or content extraction.",
       "location": "https://github.com/baofeng-tech/agent-skills/tree/main/smart-search"

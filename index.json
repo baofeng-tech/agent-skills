@@ -438,6 +438,17 @@
       "residual_risks": []
     },
     {
+      "name": "seo-keyword-research",
+      "path": "agentskill-sh-release/seo-keyword-research",
+      "description": "Use this skill when a user asks for SEO keyword research, keyword discovery, search volume analysis, keyword difficulty, search intent mapping, topic clusters, content opportunities, competitor keyword gaps, or a keyword strategy for a domain, URL, product, market, or seed topic. When a website is provided, crawl and interpret the site first, then use AIsa API access to DataForSEO keyword, SERP, trend, Labs, and OnPage endpoints plus AIsa LLM reasoning to find non-brand keyword opportunities. Use when: the user needs web search, research, source discovery, or content extraction.",
+      "zip": "agentskill-sh-release/zips/seo-keyword-research.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
       "name": "smart-search",
       "path": "agentskill-sh-release/smart-search",
       "description": "Intelligent hybrid search combining web and academic sources via AIsa Smart Search endpoint. Best when you need both web and scholarly results. Use when: the user needs web search, research, source discovery, or content extraction.",

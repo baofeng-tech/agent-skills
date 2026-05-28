@@ -56,6 +56,7 @@ GitHub-ready release layer generated from `targetSkills/` for agentskill.sh impo
 - `saas-gateway`
 - `scholar-search`
 - `search`
+- `seo-keyword-research`
 - `smart-search`
 - `stock-analysis`
 - `stock-dividend`

@@ -1,6 +1,6 @@
 # agentskill.sh Release Audit
 
-- Generated skills: 58
+- Generated skills: 59
 - Frontmatter mode: Agent Skills spec-leaning with flat metadata.
 - Repository mode: one skill directory per repo root entry for GitHub scanning.
 - Repository target: `https://github.com/baofeng-tech/agent-skills`
@@ -233,6 +233,12 @@
 - Path: `agentskill-sh-release/search`
 - Zip: `agentskill-sh-release/zips/search.zip`
 - Description: Search command center for web, academic, Tavily, and Perplexity-backed research through one AIsa API key. Use when: the user needs one flagship skill for live search, source discovery, or citation-ready research. Supports fast lookup, answer generation, and deep research reports.
+
+## seo-keyword-research
+
+- Path: `agentskill-sh-release/seo-keyword-research`
+- Zip: `agentskill-sh-release/zips/seo-keyword-research.zip`
+- Description: Use this skill when a user asks for SEO keyword research, keyword discovery, search volume analysis, keyword difficulty, search intent mapping, topic clusters, content opportunities, competitor keyword gaps, or a keyword strategy for a domain, URL, product, market, or seed topic. When a website is provided, crawl and interpret the site first, then use AIsa API access to DataForSEO keyword, SERP, trend, Labs, and OnPage endpoints plus AIsa LLM reasoning to find non-brand keyword opportunities. Use when: the user needs web search, research, source discovery, or content extraction.
 
 ## smart-search
 
