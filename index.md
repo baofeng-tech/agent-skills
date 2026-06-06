@@ -63,7 +63,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `aisa-twitter-engagement-suite`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/aisa-twitter-engagement-suite>
-- Summary: Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user asks for Twitter/X research, posting, likes, follows, or related workflows without sharing passwords.
+- Summary: Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user needs Twitter/X research plus posting, likes, follows, or related follow-through without sharing passwords.
 - Includes:
   - `scripts/twitter_client.py`
   - `scripts/twitter_engagement_client.py`
