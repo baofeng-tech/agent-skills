@@ -39,7 +39,7 @@
     {
       "name": "aisa-twitter-api",
       "path": "agentskill-sh-release/aisa-twitter-api",
-      "description": "Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, or approved posting without sharing passwords. Supports search, watchlists, relay-based reads, and OAuth-gated text or media posting.",
+      "description": "Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, or approved posting without sharing passwords. Supports relay-based reads, watchlists, search, and OAuth-gated text or media posting.",
       "zip": "agentskill-sh-release/zips/aisa-twitter-api.zip",
       "changes": [
         "disabled browser auto-open in scripts/twitter_oauth_client.py",
