@@ -40,7 +40,7 @@
 
 - Path: `agentskill-sh-release/aisa-twitter-engagement-suite`
 - Zip: `agentskill-sh-release/zips/aisa-twitter-engagement-suite.zip`
-- Description: Search X/Twitter profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when the user needs Twitter/X research plus posting, likes, follows, or related follow-through without sharing passwords.
+- Description: Research Twitter/X profiles, tweets, trends, and approved engagement actions through the AIsa relay. Use when: the user needs Twitter/X research plus posting, likes, follows, or post-action follow-through without sharing passwords. Supports relay-based reads, OAuth-approved writes, and media-capable posting flows.
 
 ## aisa-twitter-post-engage
 
