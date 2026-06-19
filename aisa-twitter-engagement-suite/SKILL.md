@@ -22,7 +22,7 @@ Research Twitter/X profiles, tweets, and trends, then take approved posting and 
 
 - When the user needs Twitter/X research plus action-oriented follow-through such as posting, liking, unliking, following, or unfollowing.
 - When the workflow should keep read and write steps in one package while using only `AISA_API_KEY` for the shipped runtime.
-- When the task can use a Python client with network access to `api.aisa.one`.
+- When the task can use the bundled Python clients with network access to `api.aisa.one`.
 - When the user can complete explicit OAuth approval before write actions or media posting.
 - When relay-based Twitter/X writes are acceptable and the user should not share passwords.
 
@@ -72,7 +72,7 @@ python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
 - Research Twitter/X accounts, tweets, trends, lists, communities, and Spaces.
 - Publish text, image, and video posts after explicit OAuth approval.
 - Like, unlike, follow, and unfollow after authorization exists.
-- Keep read and write workflows in one package while making relay, approval, upload, and env requirements explicit.
+- Keep research and engagement follow-through in one package while making relay, approval, upload, and env requirements explicit.
 
 ## Trust and Side Effects
 
