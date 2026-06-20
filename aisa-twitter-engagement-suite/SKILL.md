@@ -74,6 +74,13 @@ python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
 - Like, unlike, follow, and unfollow after authorization exists.
 - Keep research and engagement follow-through in one package while making relay, approval, upload, and env requirements explicit.
 
+## High-Intent Workflows
+
+- Research a topic or account, then take an approved engagement action from the same runtime surface.
+- Review recent Twitter/X activity before deciding whether to like, follow, unfollow, or post.
+- Prepare a post, complete OAuth approval, and publish through the relay-backed write path.
+- Run engagement follow-through where remote reads, remote writes, and relay-based media upload are acceptable.
+
 ## Trust and Side Effects
 
 - All networked operations go through the AIsa relay at `api.aisa.one`.
