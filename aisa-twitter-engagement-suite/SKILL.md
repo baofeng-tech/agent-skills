@@ -24,7 +24,7 @@ Research Twitter/X profiles, tweets, and trends, then take approved posting and 
 - When the workflow should keep read and write steps in one package while using only `AISA_API_KEY` for the shipped runtime.
 - When the task can use the bundled Python clients with network access to `api.aisa.one`.
 - When the user can complete explicit OAuth approval before write actions or media posting.
-- When relay-based Twitter/X writes are acceptable and the user should not share passwords.
+- When relay-based Twitter/X writes and relay-based media upload are acceptable and the user should not share passwords.
 
 ## When NOT to use
 
@@ -79,11 +79,12 @@ python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
 - Research a topic or account, then take an approved engagement action from the same runtime surface.
 - Review recent Twitter/X activity before deciding whether to like, follow, unfollow, or post.
 - Prepare a post, complete OAuth approval, and publish through the relay-backed write path.
-- Run engagement follow-through where remote reads, remote writes, and relay-based media upload are acceptable.
+- Run post-research engagement follow-through where remote reads, remote writes, and relay-based media upload are acceptable.
 
 ## Trust and Side Effects
 
 - All networked operations go through the AIsa relay at `api.aisa.one`.
+- The shipped runtime requires `AISA_API_KEY`; do not imply password-based or cookie-based auth.
 - Write actions require explicit OAuth approval before they can succeed.
 - Posting with media uses relay-based upload paths supported by the runtime.
 - Reads, writes, and uploads are remote API operations, not local-only actions.
