@@ -1,6 +1,6 @@
 ---
 name: aisa-twitter-engagement-suite
-description: 'Research Twitter/X profiles, tweets, and trends, then run approved engagement actions through the AIsa relay. Use when: the user needs Twitter/X research plus posting, likes, follows, unfollows, or post-action follow-through without sharing passwords. Supports relay-based reads, OAuth-approved writes, and media-capable posting flows.'
+description: 'Research Twitter/X profiles, tweets, and trends, then run approved engagement and posting actions through the AIsa relay. Use when: the user needs Twitter/X research plus likes, follows, unfollows, posting, or post-action follow-through without sharing passwords. Supports relay-based reads, OAuth-approved writes, and media-capable posting flows.'
 license: MIT-0
 compatibility: Designed for Agent Skills compatible clients such as OpenClaw, Claude Code, Hermes, and GitHub-backed skill catalogs. Requires system binaries python3, environment variables AISA_API_KEY and internet access to api.aisa.one.
 metadata:

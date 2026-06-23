@@ -63,7 +63,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `aisa-twitter-engagement-suite`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/aisa-twitter-engagement-suite>
-- Summary: Research Twitter/X profiles, tweets, and trends, then run approved engagement actions through the AIsa relay. Use when: the user needs Twitter/X research plus posting, likes, follows, unfollows, or post-action follow-through without sharing passwords. Supports relay-based reads, OAuth-approved writes, and media-capable posting flows.
+- Summary: Research Twitter/X profiles, tweets, and trends, then run approved engagement and posting actions through the AIsa relay. Use when: the user needs Twitter/X research plus likes, follows, unfollows, posting, or post-action follow-through without sharing passwords. Supports relay-based reads, OAuth-approved writes, and media-capable posting flows.
 - Includes:
   - `scripts/twitter_client.py`
   - `scripts/twitter_engagement_client.py`
