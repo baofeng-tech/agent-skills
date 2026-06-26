@@ -81,6 +81,13 @@ python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
 - Prepare a post, complete OAuth approval, and publish through the relay-backed write path.
 - Run post-research engagement follow-through where remote reads, remote writes, and relay-based media upload are acceptable.
 
+## Example Requests
+
+- "Research this Twitter/X account, then like the latest post if it matches our topic."
+- "Search Twitter/X for AI agents, review the results, then prepare an approved engagement action."
+- "Authorize posting, then publish a Twitter/X update with media through the relay flow."
+- "Check recent activity from this account and decide whether to follow or unfollow."
+
 ## Trust and Side Effects
 
 - All networked operations go through the AIsa relay at `api.aisa.one`.
