@@ -16,7 +16,7 @@ allowed-tools: Read Bash Grep
 
 # AIsa Twitter Engagement Suite
 
-Research Twitter/X profiles, tweets, and trends, then take approved posting and engagement actions through the AIsa relay.
+Research Twitter/X profiles, tweets, and trends, then take approved engagement and posting actions through the AIsa relay.
 
 ## When to use
 

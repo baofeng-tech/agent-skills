@@ -22,7 +22,7 @@
 
 - Path: `agentskill-sh-release/aisa-tavily`
 - Zip: `agentskill-sh-release/zips/aisa-tavily.zip`
-- Description: Search the web and extract public page content through AIsa's Tavily-backed API relay. Use when: the user needs web search, source discovery, current news lookup, or public URL content extraction. Supports concise result sets, deeper research, and news-focused queries.
+- Description: Search the web and extract public page content through AIsa's Tavily-backed API relay. Use when: the user needs open-web research, source discovery, current news lookup, or public URL content extraction. Supports concise result sets, deeper research, and news-focused queries.
 
 ## aisa-twitter-api
 
