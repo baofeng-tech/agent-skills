@@ -24,7 +24,7 @@ Research Twitter/X profiles, tweets, and trends, then take approved engagement a
 - When the workflow should keep read and write steps in one package while using only `AISA_API_KEY` for the shipped runtime.
 - When the task can use the bundled Python clients with network access to `api.aisa.one`.
 - When the user can complete explicit OAuth approval before write actions or media posting.
-- When relay-based Twitter/X writes and relay-based media upload are acceptable and the user should not share passwords.
+- When relay-based Twitter/X reads, writes, and media upload are acceptable and the user should not share passwords.
 
 ## When NOT to use
 
