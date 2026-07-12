@@ -30,6 +30,7 @@ GitHub-ready release layer generated from `targetSkills/` for agentskill.sh impo
 - `cn-llm`
 - `crypto-market-data`
 - `gmail-lead-desk`
+- `kol-creator-discovery`
 - `last30days`
 - `last30days-zh`
 - `llm-router`

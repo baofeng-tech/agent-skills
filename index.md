@@ -128,6 +128,17 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
   - `references/workflows.md`
   - `SKILL.md`
 
+### `kol-creator-discovery`
+
+- GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/kol-creator-discovery>
+- Summary: Use this skill when a user needs KOL or influencer research, creator email lookup, similar-creator discovery, outreach-list building, influencer prospecting, or a contact table from TikTok, Instagram, or YouTube profile URLs. It uses AIsa's WaveInflu APIs to find verified creator emails, match similar YouTube or TikTok creators, enrich each recommended profile with contact emails, and return an outreach-ready Markdown table without inventing missing data. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.
+- Includes:
+  - `scripts/kol_creator_discovery.py`
+  - `references/api-reference.md`
+  - `references/report-template.md`
+  - `SKILL.md`
+  - `README.md`
+
 ### `last30days`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/last30days>

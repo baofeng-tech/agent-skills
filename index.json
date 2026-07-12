@@ -144,6 +144,17 @@
       "residual_risks": []
     },
     {
+      "name": "kol-creator-discovery",
+      "path": "agentskill-sh-release/kol-creator-discovery",
+      "description": "Use this skill when a user needs KOL or influencer research, creator email lookup, similar-creator discovery, outreach-list building, influencer prospecting, or a contact table from TikTok, Instagram, or YouTube profile URLs. It uses AIsa's WaveInflu APIs to find verified creator emails, match similar YouTube or TikTok creators, enrich each recommended profile with contact emails, and return an outreach-ready Markdown table without inventing missing data. Use when: the user needs YouTube search, trend discovery, channel research, or SERP analysis.",
+      "zip": "agentskill-sh-release/zips/kol-creator-discovery.zip",
+      "changes": [
+        "flattened metadata for agentskill.sh-friendly GitHub import",
+        "preserved root-level skill folder layout for repository scanning"
+      ],
+      "residual_risks": []
+    },
+    {
       "name": "last30days",
       "path": "agentskill-sh-release/last30days",
       "description": "Research the last 30 days across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, GitHub, and grounded web search. Returns a ranked, clustered brief with citations. Use when the task needs recent social evidence, competitor comparisons, launch reactions, trend scans, or person/company profiles.",
