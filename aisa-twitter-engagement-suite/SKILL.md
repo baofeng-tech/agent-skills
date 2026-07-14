@@ -31,7 +31,7 @@ Research Twitter/X profiles, tweets, and trends, then take approved engagement a
 - Do not use this for cookie extraction, password login, or a fully local Twitter client.
 - Do not use this when the workflow must avoid relay-based network calls, remote writes, or relay-based media upload through `api.aisa.one`.
 - Do not use this for undocumented secrets, browser-derived auth values, or hidden credential flows.
-- Do not use this when the user only needs the broader flagship Twitter lane; use `aisa-twitter-api` for that surface.
+- Do not use this when the user needs the broader flagship Twitter lane; use `aisa-twitter-api` for that surface.
 
 ## Quick Reference
 
