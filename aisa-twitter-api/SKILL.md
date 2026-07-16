@@ -39,6 +39,7 @@ Flagship Twitter/X skill for research, monitoring, watchlists, and OAuth-approve
 - OAuth and posting client: `scripts/twitter_oauth_client.py`
 - Posting guide: `references/post_twitter.md`
 - Relay target: `https://api.aisa.one`
+- Read behavior: Twitter/X reads are sent through the relay
 - External writes: posting happens only after explicit OAuth approval
 - Upload behavior: image and video posting sends user-selected media through the relay
 
