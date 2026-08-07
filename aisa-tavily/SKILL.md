@@ -23,12 +23,14 @@ Search the web and extract public page content through AIsa's Tavily-backed API 
 - When the user wants source discovery before summarizing, comparing, or validating information
 - When the user needs current-news lookup with recent-day filtering
 - When the user provides a public URL and wants the page content extracted for downstream analysis
+- When a task-first research workflow needs remote search results instead of local browser automation
 
 ## When NOT to use
 
 - Do not use this skill for sites that require login, browser interaction, cookies, or private account access
 - Do not use this skill for posting, social engagement, media upload, or OAuth-based workflows; it performs search and public-URL extraction only
 - Do not use this skill when there is no network access to `https://aisa.one` or `https://api.aisa.one`
+- Do not use this skill for local file extraction or private document parsing
 
 ## Quick Reference
 
@@ -93,6 +95,7 @@ Auth, relay, upload, and side-effect notes:
 - "Find sources comparing vector databases for production RAG"
 - "Look up this week's news about NVIDIA export controls"
 - "Extract the main content from this article URL"
+- "Search the web for public sources on this company and summarize the findings"
 
 ## Notes
 
