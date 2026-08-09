@@ -84,8 +84,8 @@ Requirements:
 Auth, relay, upload, and side-effect notes:
 - This skill requires `AISA_API_KEY` from https://marketplace.aisa.one
 - Requests are sent through AIsa's remote relay at `https://aisa.one` and `https://api.aisa.one`
-- Search queries and public target URLs are sent to the remote AIsa relay in order to return search results or extracted content
-- This skill does not use OAuth
+- Search queries and public target URLs are sent to the remote AIsa relay so it can return search results or extracted page content
+- This skill does not use OAuth and does not require an approval flow
 - This skill does not upload media or files
 - This skill works against public web content and public URLs; it is not a local browser, cookie, account-access, or browser-automation workflow
 
@@ -103,6 +103,6 @@ Auth, relay, upload, and side-effect notes:
 - Powered by AIsa's unified API gateway (`https://aisa.one` / `https://api.aisa.one`)
 - Use `--deep` for more comprehensive research queries
 - Use `--topic news` for current-events lookup
-- Search and extraction operate through remote relay requests, not local browser automation
+- Search and extraction run through remote relay requests, not local browser automation
 - No OAuth approval flow is involved
 - No media or file upload flow is involved
