@@ -72,7 +72,7 @@ python3 scripts/twitter_engagement_client.py like-latest --user "@elonmusk"
 - Research Twitter/X accounts, tweets, trends, lists, communities, and Spaces.
 - Publish text, image, and video posts after explicit OAuth approval.
 - Like, unlike, follow, and unfollow after authorization exists.
-- Keep research and engagement follow-through in one package while making relay, approval, upload, and env requirements explicit.
+- Keep research and engagement follow-through in one package while making relay target, OAuth approval, upload behavior, and env requirements explicit.
 
 ## High-Intent Workflows
 
