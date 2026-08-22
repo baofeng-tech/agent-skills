@@ -32,6 +32,7 @@ Research Twitter/X profiles, tweets, and trends, then take approved engagement a
 - Do not use this when the workflow must avoid relay-based network calls, remote writes, or relay-based media upload through `api.aisa.one`.
 - Do not use this for undocumented secrets, browser-derived auth values, or hidden credential flows.
 - Do not use this when the user needs the broader flagship Twitter lane; use `aisa-twitter-api` for that surface.
+- Do not use this for watchlists, trend desks, or recurring monitoring-first workflows better matched to `aisa-twitter-command-center`.
 
 ## Quick Reference
 
