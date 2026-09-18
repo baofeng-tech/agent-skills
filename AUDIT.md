@@ -28,7 +28,7 @@
 
 - Path: `agentskill-sh-release/aisa-twitter-api`
 - Zip: `agentskill-sh-release/zips/aisa-twitter-api.zip`
-- Description: Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, or approved posting without sharing passwords. Supports relay-based reads, watchlists, search, and OAuth-gated text or media posting.
+- Description: Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, or approved posting without sharing passwords. Supports relay-based reads, watchlists, search, and OAuth-gated text or media posting through https://api.aisa.one.
 
 ## aisa-twitter-command-center
 
