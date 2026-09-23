@@ -16,7 +16,7 @@ allowed-tools: Read Bash Grep
 
 # AIsa Twitter API Command Center
 
-Flagship Twitter/X skill for research, monitoring, watchlists, and OAuth-approved posting through the AIsa relay.
+Flagship Twitter/X skill for research, monitoring, watchlists, and OAuth-approved posting through the AIsa relay at `https://api.aisa.one`.
 
 ## When to use
 
