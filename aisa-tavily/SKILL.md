@@ -52,13 +52,33 @@ Search the web and extract public page content through AIsa's Tavily-backed API 
 - Limit news lookback windows with `--days <n>`
 - Extract readable content from a public URL
 
-## Search
+## High-Intent Workflows
+
+### Open-web research
+
+Use search to gather public sources before summarizing, comparing claims, or building a research brief.
 
 ```bash
 node scripts/search.mjs "query"
 node scripts/search.mjs "query" -n 10
 node scripts/search.mjs "query" --deep
+```
+
+### Current-news lookup
+
+Use news mode when the task is about recent coverage, current events, or time-bounded reporting.
+
+```bash
 node scripts/search.mjs "query" --topic news
+node scripts/search.mjs "query" --topic news --days 7
+```
+
+### Public URL extraction
+
+Use extraction when the user already has a public page URL and needs readable page content for downstream analysis.
+
+```bash
+node scripts/extract.mjs "https://example.com/article"
 ```
 
 ## Options
@@ -67,12 +87,6 @@ node scripts/search.mjs "query" --topic news
 - `--deep`: Use advanced search for deeper research (slower, more comprehensive)
 - `--topic <topic>`: Search topic - `general` (default) or `news`
 - `--days <n>`: For news topic, limit to last n days
-
-## Extract content from URL
-
-```bash
-node scripts/extract.mjs "https://example.com/article"
-```
 
 ## Setup
 
