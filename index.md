@@ -41,7 +41,7 @@ This index is prepared for the public Agent Skills repository used by AgentSkill
 ### `aisa-twitter-api`
 
 - GitHub: <https://github.com/baofeng-tech/agent-skills/tree/main/aisa-twitter-api>
-- Summary: Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, or approved posting through the relay without sharing passwords. Supports relay-based reads, watchlists, search, and OAuth-gated text or media posting through https://api.aisa.one.
+- Summary: Twitter/X research, monitoring, watchlists, and OAuth-approved posting through AIsa. Use when: the user needs one flagship Twitter skill for trend tracking, competitor monitoring, timeline analysis, watchlist review, or approved posting through the relay without sharing passwords. Supports relay-based reads, search, watchlists, and OAuth-gated text or media posting through https://api.aisa.one.
 - Includes:
   - `scripts/twitter_client.py`
   - `scripts/twitter_oauth_client.py`
