@@ -103,6 +103,23 @@ Auth, relay, upload, and side-effect notes:
 - This skill does not upload media or files
 - This skill works against public web content and public URLs; it is not a local browser, cookie, account-access, or browser-automation workflow
 
+## Inputs and Outputs
+
+### Inputs
+
+- Search query text
+- Optional result count via `-n <count>`
+- Optional deeper-research mode via `--deep`
+- Optional topic selection via `--topic general|news`
+- Optional recent-news window via `--days <n>`
+- Public URL for extraction via `node scripts/extract.mjs "https://example.com/article"`
+
+### Outputs
+
+- Search results returned from AIsa's Tavily-backed relay
+- News-focused result sets when `--topic news` is used
+- Extracted readable page content for a public URL
+
 ## Example Requests
 
 - "Search for recent coverage of OpenAI enterprise pricing"
